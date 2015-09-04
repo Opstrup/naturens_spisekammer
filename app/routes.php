@@ -28,3 +28,9 @@ Route::get('/plant-detail/{plantId}', 'PlantController@showPlantDetail');
 Route::get('/add-new-recipe', 'RecipeController@showAddNewRecipe');
 Route::post('/add-new-recipe', 'RecipeController@addNewRecipeToDb');
 Route::get('/recipe-detail/{recipeId}', 'RecipeController@showRecipeDetail');
+
+/**
+ * Ingredient routs
+ */
+Route::get('/add-new-ingredient', 'IngredientController@showAddNewIngredient');
+Route::post('/add-new-ingredient', 'IngredientController@AddNewIngredientToDb');

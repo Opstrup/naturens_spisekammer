@@ -56,6 +56,7 @@
                 <a href="/">Forside</a>
                 <a href="/add-new-recipe">Tilføj ny opskrift</a>
                 <a href="/add-new-plant">Tilføj ny plante</a>
+                <a href="/add-new-ingredient">Tilføj ny ingridients</a>
                 <a href="/about">Om</a>
         </div>
         <hr>
