@@ -60,7 +60,8 @@ class RecipeController extends BaseController
     }
 
     /**
-     * @param $newRecipe
+     * Sets up the recipe with all the basic data needed
+     * for a recipe
      */
     public function recipeSetup($newRecipe)
     {
