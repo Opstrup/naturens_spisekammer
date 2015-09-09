@@ -31,11 +31,35 @@
                     <th>Tilføj</th>
                 </tr>
 
-                @foreach($plants as $plant)
+                @foreach($data['plants'] as $plant)
                     <tr>
                         <td>{{ $plant->id }}</td>
                         <td>{{ $plant->name }}</td>
                         <td>{{ Form::checkbox('plantId_' . $plant->id, 'yes') }}</td>
+                    </tr>
+                @endforeach
+
+            </table>
+        </div>
+        <br>
+        <div id="otherIngredientPickerTable">
+            <table>
+                <caption>Indgrientser</caption>
+                <tr>
+                    <th>ID</th>
+                    <th>Navn</th>
+                    <th>Mængde</th>
+                    <th>Måleenhed</th>
+                    <th>Tilføj</th>
+                </tr>
+
+                @foreach($data['otherIngredients'] as $otherIngredient)
+                    <tr>
+                        <td>{{ $otherIngredient->id }}</td>
+                        <td>{{ $otherIngredient->name }}</td>
+                        <td>{{ Form::text('amount') }}</td>
+                        <td>{{ Form::select('measure', array('kg' => 'kg', 'teaspoon' => 'theske', 'ml' => 'ml', 'spoon' => 'spiseske', 'l' => 'l')) }}</td>
+                        <td>{{ Form::checkbox('otherIngredientId_' . $otherIngredient->id, 'yes') }}</td>
                     </tr>
                 @endforeach
 

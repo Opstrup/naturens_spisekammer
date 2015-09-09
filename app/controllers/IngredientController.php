@@ -4,12 +4,28 @@ class IngredientController extends BaseController {
 
 	public function showAddNewIngredient()
 	{
-		return View::make('addOtheringredientView');
+		$otherIngredients = Otheringredients::all();
+
+		$data = array(
+			'otherIngredients' => $otherIngredients,
+		);
+
+		return View::make('addOtheringredientView')->with('data', $data);
 	}
 
 	public function AddNewIngredientToDb()
 	{
-		return View::make('addOtheringredientView');
+		$ingredient = new Otheringredients;
+		$ingredient->name = Input::get('name');
+		$ingredient->save();
+
+		$otherIngredients = Otheringredients::all();
+
+		$data = array(
+			'otherIngredients' => $otherIngredients,
+		);
+
+		return View::make('addOtheringredientView')->with('data', $data);
 	}
 
 }

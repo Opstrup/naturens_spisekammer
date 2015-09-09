@@ -17,4 +17,18 @@
 
     {{ Form::close() }}
 
+    <table>
+        <caption>Ingridientser i systemet</caption>
+        <tr>
+            <th>Navn</th>
+        </tr>
+
+        @foreach($data['otherIngredients'] as $recipe)
+            <tr>
+                <td>{{ $recipe->id }}</td>
+                <td>{{ $recipe->name }}</td>
+            </tr>
+        @endforeach
+    </table>
+
 @stop

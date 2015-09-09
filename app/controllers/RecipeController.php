@@ -11,8 +11,14 @@ class RecipeController extends BaseController
     public function showAddNewRecipe()
     {
         $plants = Plants::all();
+        $otherIngredients = Otheringredients::all();
 
-        return View::make('addRecipeView')->with('plants', $plants);
+        $data = array(
+            'plants' => $plants,
+            'otherIngredients' => $otherIngredients
+        );
+
+        return View::make('addRecipeView')->with('data', $data);
     }
 
     public function addNewRecipeToDb()
@@ -21,6 +27,7 @@ class RecipeController extends BaseController
         $plantRecipe = new PlantRecipe;
         $recipeId = sizeof(Recipes::all())+1;
         $plants = Plants::all();
+        //$otherIngredieents = Otheringredients::all();
         $plantsAddedToRecipeArray = array();
 
         $this->recipeSetup($newRecipe);

@@ -15,6 +15,10 @@ class HomeController extends BaseController {
 	|
 	*/
 
+	/**
+	 * Shows the welcome view with a list with all plants in system
+	 * and a list with all recipes in system
+     */
 	public function showWelcome()
 	{
 		$plants = Plants::all();
@@ -28,6 +32,9 @@ class HomeController extends BaseController {
 		return View::make('welcomeView')->with('data', $data);
 	}
 
+	/**
+	 * Shows the about view
+     */
 	public function showAbout()
 	{
 		return View::make('aboutView');
