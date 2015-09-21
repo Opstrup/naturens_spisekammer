@@ -9,4 +9,15 @@
 class OtheringredientRecipe extends Eloquent
 {
     public $timestamps = false;
+
+    public function saveOtheringredientRecipeConnectionToDb($recipeId, $otheringredientsArray)
+    {
+        // @todo implement this function!
+    }
+
+    public function findOtheringredientForRecipe($recipeId)
+    {
+        // @todo implement this function!
+    }
 }
+

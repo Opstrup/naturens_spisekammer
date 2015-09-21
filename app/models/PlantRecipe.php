@@ -10,6 +10,12 @@ class PlantRecipe extends Eloquent
 {
     public $timestamps = false;
 
+    /**
+     * Saves the connection between the plant and the recipe to the helper table
+     * called plant_recipes
+     * @param $recipeId
+     * @param $plantArray
+     */
     public function savePlantRecipeConnectionToDb($recipeId, $plantArray)
     {
         foreach ($plantArray as $plant)
@@ -23,6 +29,11 @@ class PlantRecipe extends Eloquent
         }
     }
 
+    /**
+     * Finds all the plant associated with the given recipe
+     * @param $recipeId
+     * @return array
+     */
     public function findPlantsForRecipe($recipeId)
     {
         $plants = PlantRecipe::where('recipe_id', '=', $recipeId)->get();

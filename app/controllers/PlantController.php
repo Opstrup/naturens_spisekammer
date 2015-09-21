@@ -55,7 +55,6 @@ class PlantController extends BaseController
 
         $plantSeason->saveSeasonsToDb($newPlantId, $seasonArray);
 
-
         $newPlant->save();
 
         return View::make('addPlantView');

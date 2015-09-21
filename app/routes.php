@@ -34,3 +34,10 @@ Route::get('/recipe-detail/{recipeId}', 'RecipeController@showRecipeDetail');
  */
 Route::get('/add-new-ingredient', 'IngredientController@showAddNewIngredient');
 Route::post('/add-new-ingredient', 'IngredientController@AddNewIngredientToDb');
+
+
+/**
+ * RESTful API
+ */
+
+Route::resource('apiPlant', 'apiPlantController');
