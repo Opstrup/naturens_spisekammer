@@ -12,7 +12,11 @@ class CreateSizes extends Migration {
 	 */
 	public function up()
 	{
-		//
+		Schema::create('sizes', function($newTable)
+		{
+			$newTable->increments('id');
+			$newTable->integer('size');
+		});
 	}
 
 	/**
@@ -22,7 +26,7 @@ class CreateSizes extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('sizes');
 	}
 
 }

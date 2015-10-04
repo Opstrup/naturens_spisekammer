@@ -12,7 +12,11 @@ class CreateColors extends Migration {
 	 */
 	public function up()
 	{
-		//
+		Schema::create('colors', function($newTable)
+		{
+			$newTable->increments('id');
+			$newTable->string('color');
+		});
 	}
 
 	/**
@@ -22,7 +26,7 @@ class CreateColors extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('colors');
 	}
 
 }

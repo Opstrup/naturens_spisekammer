@@ -12,7 +12,12 @@ class CreatePlantSizes extends Migration {
 	 */
 	public function up()
 	{
-		//
+		Schema::create('plant_sizes', function($newTable)
+		{
+			$newTable->increments('id');
+			$newTable->integer('plant_id');
+			$newTable->integer('size_id');
+		});
 	}
 
 	/**
@@ -22,7 +27,7 @@ class CreatePlantSizes extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('plant_sizes');
 	}
 
 }

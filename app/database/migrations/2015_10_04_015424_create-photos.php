@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFotos extends Migration {
+class CreatePhotos extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,12 @@ class CreateFotos extends Migration {
 	 */
 	public function up()
 	{
-		//
+		Schema::create('photos', function($newTable)
+		{
+			$newTable->increments('id');
+			$newTable->integer('plant_id');
+			$newTable->string('photo_url');
+		});
 	}
 
 	/**
@@ -22,7 +27,7 @@ class CreateFotos extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('photos');
 	}
 
 }

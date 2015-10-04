@@ -12,7 +12,12 @@ class CreatePlantHabitats extends Migration {
 	 */
 	public function up()
 	{
-		//
+		Schema::create('plant_habitats', function($newTable)
+		{
+			$newTable->increments('id');
+			$newTable->integer('plant_id');
+			$newTable->integer('habitat_id');
+		});
 	}
 
 	/**
@@ -22,7 +27,7 @@ class CreatePlantHabitats extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('plant_habitats');
 	}
 
 }

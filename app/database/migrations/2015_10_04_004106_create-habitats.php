@@ -12,7 +12,11 @@ class CreateHabitats extends Migration {
 	 */
 	public function up()
 	{
-		//
+		Schema::create('habitats', function($newTable)
+		{
+			$newTable->increments('id');
+			$newTable->string('habitat');
+		});
 	}
 
 	/**
@@ -22,7 +26,7 @@ class CreateHabitats extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('habitats');
 	}
 
 }

@@ -12,7 +12,12 @@ class CreatePlantColors extends Migration {
 	 */
 	public function up()
 	{
-		//
+		Schema::create('plant_colors', function($newTable)
+		{
+			$newTable->increments('id');
+			$newTable->integer('plant_id');
+			$newTable->integer('color_id');
+		});
 	}
 
 	/**
@@ -22,7 +27,7 @@ class CreatePlantColors extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('plant_colors');
 	}
 
 }
