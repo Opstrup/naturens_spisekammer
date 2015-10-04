@@ -5,14 +5,9 @@
         <title>@yield('title')</title>
 
         @section('head')
-            <style>
-                @import url(//fonts.googleapis.com/css?family=Lato:700);
 
-                body {
-                    margin:0;
-                    font-family:'Lato', sans-serif;
-                    color: #999;
-                }
+            {{ HTML::style('bootstrap/dist/css/bootstrap.min.css') }}
+            <style>
 
                 a, a:visited {
                     text-decoration:none;
@@ -62,6 +57,8 @@
         <hr>
 
         @yield('body')
+
+        {{ HTML::script('bootstrap/dist/js/bootstrap.min.js') }}
 
     </body>
 </html>

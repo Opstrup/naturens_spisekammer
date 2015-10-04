@@ -8,10 +8,10 @@
 
     <h2>Velkommen til Naturens Spisekammer - Backend</h2>
 
-    <div id="plantTable">
+    <div id="plantTable" class="col-md-5">
         <p>Antal planter i systemet: <?php echo sizeof($data['plants']) ?></p>
 
-        <table>
+        <table class="table table-hover">
             <caption>List af planter</caption>
             <tr>
                 <th>ID</th>
@@ -50,10 +50,12 @@
         </table>
     </div>
 
-    <div id="recipeTable">
+    <div class="col-md-1"></div>
+
+    <div id="recipeTable" class="col-md-6">
         <p>Antal opskrifter i systemet: <?php echo sizeof($data['recipes']) ?></p>
 
-        <table>
+        <table class="table table-hover">
             <caption>Liste af opskrifter</caption>
             <tr>
                 <th>ID</th>
