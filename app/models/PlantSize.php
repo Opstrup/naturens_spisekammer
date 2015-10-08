@@ -27,7 +27,7 @@ class PlantSize extends Eloquent
         {
             if ($size)
             {
-                $newSize = new PlantHabitat;
+                $newSize = new PlantSize;
                 $newSize->plant_id = $plantId;
 
                 switch($key)
@@ -58,5 +58,41 @@ class PlantSize extends Eloquent
                 $newSize->save();
             }
         }
+    }
+
+    public function findSizesForPlant($plantId)
+    {
+        $sizes = PlantSize::where('plant_id', '=', $plantId)->get();
+        $sizeArray = array();
+
+        foreach ($sizes as $size)
+        {
+            switch($size)
+            {
+                case $size['size_id'] == strval($this->TEN_ID):
+                    $sizeArray[] = '10';
+                    break;
+                case $size['size_id'] == strval($this->TEN_TWENTYFIVE_ID):
+                    $sizeArray[] = '10-25';
+                    break;
+                case $size['size_id'] == strval($this->TWENTYFIVE_FORTY_ID):
+                    $sizeArray[] = '25-40';
+                    break;
+                case $size['size_id'] == strval($this->FORTY_FIFTY_ID):
+                    $sizeArray[] = '40-50';
+                    break;
+                case $size['size_id'] == strval($this->FIFTY_SEVENTYFIVE_ID):
+                    $sizeArray[] = '50-75';
+                    break;
+                case $size['size_id'] == strval($this->SEVENTYFIVE_HUNDRED_ID):
+                    $sizeArray[] = '75-100';
+                    break;
+                case $size['size_id'] == strval($this->HUNDRED_ID):
+                    $sizeArray[] = '100';
+                    break;
+            }
+        }
+
+        return $sizeArray;
     }
 }

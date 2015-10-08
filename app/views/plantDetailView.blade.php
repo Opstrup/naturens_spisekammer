@@ -33,4 +33,25 @@
     @foreach($data['seasons'] as $season)
         {{ $season }} <br>
     @endforeach
+
+    <h4>Farver:</h4>
+    @foreach($data['colors'] as $color)
+        {{ $color }} <br>
+    @endforeach
+
+    <h4>Højder:</h4>
+    @foreach($data['sizes'] as $size)
+        {{ $size }} <br>
+    @endforeach
+
+    <h4>Levesteder:</h4>
+    @foreach($data['habitats'] as $habitat)
+        {{ $habitat }} <br>
+    @endforeach
+
+    <h4>Billeder:</h4>
+    @foreach($data['photos'] as $photo)
+        <img src="{{ url($photo) }}"> <br>
+    @endforeach
+
 @stop

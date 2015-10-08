@@ -69,7 +69,7 @@ class PlantSeason extends Eloquent
         {
             switch($season)
             {
-                case $season['season_id'] == $this->SPRING_ID:
+                case $season['season_id'] == strval($this->SPRING_ID):
                     $seasonArray[] = 'spring';
                     break;
                 case $season['season_id'] == strval($this->SUMMER_ID):

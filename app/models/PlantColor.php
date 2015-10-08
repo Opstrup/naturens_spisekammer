@@ -25,7 +25,7 @@ class PlantColor extends Eloquent
         {
             if ($color)
             {
-                $newColor = new PlantSeason;
+                $newColor = new PlantColor;
                 $newColor->plant_id = $plantId;
 
                 switch($key)
@@ -50,5 +50,35 @@ class PlantColor extends Eloquent
                 $newColor->save();
             }
         }
+    }
+
+    public function findColorsForPlant($plantId)
+    {
+        $colors = PlantColor::where('plant_id', '=', $plantId)->get();
+        $colorArray = array();
+
+        foreach ($colors as $color)
+        {
+            switch($color)
+            {
+                case $color['color_id'] == strval($this->RED_ID):
+                    $colorArray[] = 'red';
+                    break;
+                case $color['color_id'] == strval($this->YELLOW_ID):
+                    $colorArray[] = 'yellow';
+                    break;
+                case $color['color_id'] == strval($this->BLUE_ID):
+                    $colorArray[] = 'blue';
+                    break;
+                case $color['color_id'] == strval($this->GREEN_ID):
+                    $colorArray[] = 'green';
+                    break;
+                case $color['color_id'] == strval($this->BROWN_ID):
+                    $colorArray[] = 'brown';
+                    break;
+            }
+        }
+
+        return $colorArray;
     }
 }

@@ -11,6 +11,7 @@
     <div class="col-md-5">
 
         {{ Form::open(array('url' => 'add-new-plant', 'method' => 'post', 'files' => true)) }}
+
         <div class="form-group">
 
             {{ Form::label('name', 'Navn:') }}
@@ -106,7 +107,6 @@
             {{Form::file('photo')}}
 
         </div>
-
 
         {{ Form::submit('Tilføj') }}
 

@@ -51,4 +51,34 @@ class PlantHabitat extends Eloquent
             }
         }
     }
+
+    public function findHabitatsForPlant($plantId)
+    {
+        $habitats = PlantHabitat::where('plant_id', '=', $plantId)->get();
+        $habitatArray = array();
+
+        foreach ($habitats as $habitat)
+        {
+            switch($habitat)
+             {
+                case $habitat['habitat_id'] == strval($this->FARMLAND_ID):
+                    $habitatArray[] = 'farmland';
+                    break;
+                case $habitat['habitat_id'] == strval($this->WETLAND_ID):
+                    $habitatArray[] = 'wetland';
+                    break;
+                case $habitat['habitat_id'] == strval($this->FOREST_ID):
+                    $habitatArray[] = 'forest';
+                    break;
+                case $habitat['habitat_id'] == strval($this->MOOR_ID):
+                    $habitatArray[] = 'moor';
+                    break;
+                case $habitat['habitat_id'] == strval($this->COAST_ID):
+                    $habitatArray[] = 'coast';
+                    break;
+            }
+        }
+
+        return $habitatArray;
+    }
 }

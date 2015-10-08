@@ -9,4 +9,17 @@
 class Photos extends Eloquent
 {
     public $timestamps = false;
+
+    public function findPhotosForPlant($plantId)
+    {
+        $photos = Photos::where('plant_id', '=', $plantId)->get();
+        $photoArray = array();
+
+        foreach ($photos as $photo)
+        {
+            $photoArray[] = $photo->photo_url;
+        }
+
+        return $photoArray;
+    }
 }

@@ -15,7 +15,7 @@ class CreateSizes extends Migration {
 		Schema::create('sizes', function($newTable)
 		{
 			$newTable->increments('id');
-			$newTable->integer('size');
+			$newTable->string('size');
 		});
 	}
 

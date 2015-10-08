@@ -26,11 +26,24 @@ class PlantController extends BaseController
     {
         $thePlant = Plants::find($plantId);
         $plantSeason = new PlantSeason;
+        $plantColor = new PlantColor;
+        $plantHabitat = new PlantHabitat;
+        $plantSize = new PlantSize;
+        $plantPhoto = new Photos;
+
         $seasonArray = $plantSeason->findSeasonsForPlant($plantId);
+        $colorArray = $plantColor->findColorsForPlant($plantId);
+        $habitatArray = $plantHabitat->findHabitatsForPlant($plantId);
+        $sizeArray = $plantSize->findSizesForPlant($plantId);
+        $photoArray = $plantPhoto->findPhotosForPlant($plantId);
 
         $data = array(
             'plant' => $thePlant,
             'seasons' => $seasonArray,
+            'colors' => $colorArray,
+            'habitats' => $habitatArray,
+            'sizes' => $sizeArray,
+            'photos' => $photoArray,
         );
 
         return View::make('plantDetailView')->with('data', $data);
@@ -43,12 +56,13 @@ class PlantController extends BaseController
     public function addNewPlantToDb()
     {
         $plants = Plants::all();
+
+        $newPlantId = sizeof($plants)+1;
         $plantSeason = new PlantSeason;
         $plantSize = new PlantSize;
         $plantHabitat = new PlantHabitat;
         $plantColor = new PlantColor;
 
-        $newPlantId = sizeof($plants)+1;
         $newPlant = new Plants;
 
         $this->setupPlantInformation($newPlant);
@@ -68,11 +82,20 @@ class PlantController extends BaseController
 
         $photo = Input::file('photo');
 
+        // @todo Save the path to the photo to the photo table
+
         if($this->savePhoto($photo, $newPlantId))
         {
             $plantSeason->saveSeasonsToDb($newPlantId, $seasonArray);
+            $plantSize->saveSizesToDb($newPlantId, $sizeArray);
+            $plantHabitat->saveHabitatsToDb($newPlantId, $habitatArray);
+            $plantColor->saveColorsToDb($newPlantId, $colorArray);
 
             $newPlant->save();
+        }
+        else
+        {
+            return View::make('error');
         }
 
         return View::make('addPlantView');
@@ -91,10 +114,26 @@ class PlantController extends BaseController
         $newPlant->eatable = Input::get('eatable');
     }
 
+    /**
+     * @param $photo = uploaded photo
+     * @param $plantID = ID for the newly created plant
+     * @return bool = true if successful / false if error
+     *
+     * Moves the uploaded photo to the uploaded folder and creates a new folder for it
+     * if no folder exists.
+     */
     public function savePhoto($photo, $plantID)
     {
+        $fileName = time() . "-plant-" . $plantID . ".jpeg";
+        $photoURL = "PlantPictures" . "/" . $plantID . "/";
+
+        $plantPhoto = new Photos;
+        $plantPhoto->plant_id = $plantID;
+        $plantPhoto->photo_url = $photoURL . $fileName;
+        $plantPhoto->save();
+
         if($photo) {
-            $photo->move(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/", "plant-" . $plantID);
+            $photo->move(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
             return true;
         } else {
             return false;
