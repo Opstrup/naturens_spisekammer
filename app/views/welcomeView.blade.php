@@ -52,7 +52,7 @@
 
     <div class="col-md-1"></div>
 
-    <div id="recipeTable" class="col-md-6">
+    <div id="recipeTable" class="col-md-5">
         <p>Antal opskrifter i systemet: <?php echo sizeof($data['recipes']) ?></p>
 
         <table class="table table-hover">

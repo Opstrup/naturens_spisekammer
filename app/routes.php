@@ -18,8 +18,8 @@ Route::get('/about', 'HomeController@showAbout');
 /**
  * Plant routs
  */
-Route::get('/add-new-plant', 'PlantController@showAddNewPlant');
-Route::post('/add-new-plant', 'PlantController@addNewPlantToDb');
+Route::resource('add-new-plant', 'PlantController@showAddNewPlant');
+Route::resource('add-new-plant', 'PlantController@addNewPlantToDb');
 Route::get('/plant-detail/{plantId}', 'PlantController@showPlantDetail');
 
 /**

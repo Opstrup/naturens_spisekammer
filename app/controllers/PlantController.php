@@ -44,6 +44,9 @@ class PlantController extends BaseController
     {
         $plants = Plants::all();
         $plantSeason = new PlantSeason;
+        $plantSize = new PlantSize;
+        $plantHabitat = new PlantHabitat;
+        $plantColor = new PlantColor;
 
         $newPlantId = sizeof($plants)+1;
         $newPlant = new Plants;
@@ -53,9 +56,24 @@ class PlantController extends BaseController
         $seasonArray = array('spring' => Input::get('spring'), 'summer' => Input::get('summer'),
                              'autumn' => Input::get('autumn'), 'winter' => Input::get('winter'));
 
-        $plantSeason->saveSeasonsToDb($newPlantId, $seasonArray);
+        $sizeArray = array('10' => Input::get('10'), '10-25' => Input::get('10-25'), '25-40' => Input::get('25-40'),
+                           '40-50' => Input::get('40-50'), '50-75' => Input::get('50-75'), '75-100' => Input::get('75-100'),
+                           '100' => Input::get('100'));
 
-        $newPlant->save();
+        $habitatArray = array('farmland' => Input::get('farmland'), 'wetland' => Input::get('wetland'),
+                              'forest' => Input::get('forest'), 'moor' => Input::get('moor'), 'coast' => Input::get('coast'));
+
+        $colorArray = array('red' => Input::get('red'), 'yellow' => Input::get('yellow'), 'blue' => Input::get('blue'),
+                            'green' => Input::get('green'), 'brown' => Input::get('brown'));
+
+        $photo = Input::file('photo');
+
+        if($this->savePhoto($photo, $newPlantId))
+        {
+            $plantSeason->saveSeasonsToDb($newPlantId, $seasonArray);
+
+            $newPlant->save();
+        }
 
         return View::make('addPlantView');
     }
@@ -71,6 +89,16 @@ class PlantController extends BaseController
         $newPlant->history = Input::get('history');
         $newPlant->herb = Input::get('herb');
         $newPlant->eatable = Input::get('eatable');
+    }
+
+    public function savePhoto($photo, $plantID)
+    {
+        if($photo) {
+            $photo->move(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/", "plant-" . $plantID);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
