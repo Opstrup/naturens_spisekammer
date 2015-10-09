@@ -108,7 +108,7 @@
 
         </div>
 
-        {{ Form::submit('Tilføj') }}
+        {{ Form::submit('Tilføj', array('class' => 'btn btn-default')) }}
 
         {{ Form::close() }}
     </div>

@@ -56,6 +56,7 @@ class PlantController extends BaseController
     public function addNewPlantToDb()
     {
         $plants = Plants::all();
+        $errorMessage = "Could not complete the create new plant request";
 
         $newPlantId = sizeof($plants)+1;
         $plantSeason = new PlantSeason;
@@ -95,7 +96,7 @@ class PlantController extends BaseController
         }
         else
         {
-            return View::make('error');
+            return View::make('error')->with('errorMessage', $errorMessage);
         }
 
         return View::make('addPlantView');
@@ -138,6 +139,19 @@ class PlantController extends BaseController
         } else {
             return false;
         }
+    }
+
+    public function deletePlant()
+    {
+        $plantId = (Input::get('plantId'));
+
+        File::deleteDirectory(public_path() . '/PlantPictures/' . $plantId);
+        PlantColor::where('plant_id', '=', $plantId)->delete();
+        PlantHabitat::where('plant_id', '=', $plantId)->delete();
+        PlantSeason::where('plant_id', '=', $plantId)->delete();
+        PlantSize::where('plant_id', '=', $plantId)->delete();
+        Plants::where('id', '=', $plantId)->delete();
+        return View::make('addPlantView');
     }
 
 

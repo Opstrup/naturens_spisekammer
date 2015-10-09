@@ -6,52 +6,64 @@
 
 @section('body')
 
-    <h2>Plante navn: {{ $data['plant']->name }}</h2><hr>
-    <h4>Plante navn latin: {{ $data['plant']->name_latin }}</h4>
+    <div class="col-md-1"></div>
 
-    <h4>Beskrivelse:</h4>
-    <p> {{ $data['plant']->description }}</p>
+    <div class="col-md-6">
+        <div class="page-header">
+            <h1>{{ $data['plant']->name }} <small>{{ $data['plant']->name_latin }}</small></h1>
+        </div>
 
-    <h4>Historie:</h4>
-    <p> {{ $data['plant']->history }}</p>
+        {{ Form::open(array('url' => 'delete-plant', 'method' => 'post')) }}
+            {{ Form::hidden('plantId', $data['plant']->id) }}
+            {{ Form::button('<i class="glyphicon glyphicon-trash"></i>', array('type' => 'submit', 'class' => '', 'style' => 'float: right'))  }}
+        {{ Form::close() }}
+        <br>
 
-    <h4>Krydderi:</h4>
-    @if($data['plant']->herb)
-        <p>Ja</p>
-    @else
-        <p>Nej</p>
-    @endif
+        <strong>Beskrivelse:</strong>
+        <p> {{ $data['plant']->description }}</p>
 
-    <h4>Spiselig:</h4>
-    @if($data['plant']->eatable)
-        <p>Ja</p>
-    @else
-        <p>Nej</p>
-    @endif
+        <strong>Historie:</strong>
+        <p> {{ $data['plant']->history }}</p>
 
-    <h4>Sæson:</h4>
-    @foreach($data['seasons'] as $season)
-        {{ $season }} <br>
-    @endforeach
+        <strong>Krydderi:</strong>
+        @if($data['plant']->herb)
+            <p>Ja</p>
+        @else
+            <p>Nej</p>
+        @endif
 
-    <h4>Farver:</h4>
-    @foreach($data['colors'] as $color)
-        {{ $color }} <br>
-    @endforeach
+        <strong>Spiselig:</strong>
+        @if($data['plant']->eatable)
+            <p>Ja</p>
+        @else
+            <p>Nej</p>
+        @endif
 
-    <h4>Højder:</h4>
-    @foreach($data['sizes'] as $size)
-        {{ $size }} <br>
-    @endforeach
+        <strong>Sæson:</strong>
+        @foreach($data['seasons'] as $season)
+            {{ $season }} <br>
+        @endforeach
 
-    <h4>Levesteder:</h4>
-    @foreach($data['habitats'] as $habitat)
-        {{ $habitat }} <br>
-    @endforeach
+        <strong>Farver:</strong>
+        @foreach($data['colors'] as $color)
+            {{ $color }} <br>
+        @endforeach
 
-    <h4>Billeder:</h4>
-    @foreach($data['photos'] as $photo)
-        <img src="{{ url($photo) }}"> <br>
-    @endforeach
+        <strong>Højder:</strong>
+        @foreach($data['sizes'] as $size)
+            {{ $size }} cm<br>
+        @endforeach
+
+        <strong>Levesteder:</strong>
+        @foreach($data['habitats'] as $habitat)
+            {{ $habitat }} <br>
+        @endforeach
+
+    </div>
+    <div class="col-md-4">
+        @foreach($data['photos'] as $photo)
+            <img src="{{ url($photo) }}" class="img-rounded" style="width: 266px; height: 400px"> <br>
+        @endforeach
+    </div>
 
 @stop
