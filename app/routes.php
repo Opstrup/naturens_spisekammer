@@ -21,7 +21,10 @@ Route::get('/about', 'HomeController@showAbout');
 Route::get('add-new-plant', 'PlantController@showAddNewPlant');
 Route::post('add-new-plant', 'PlantController@addNewPlantToDb');
 Route::post('delete-plant', 'PlantController@deletePlant');
-Route::get('/plant-detail/{plantId}', 'PlantController@showPlantDetail');
+Route::post('show-edit-plant', 'PlantController@showEditPlant');
+Route::post('edit-plant', 'PlantController@editPlant');
+Route::get('plant-detail/{plantId}', 'PlantController@showPlantDetail');
+Route::post('plant-detail/{plantId}', 'PlantController@showPlantDetail');
 
 /**
  * Recipe routs

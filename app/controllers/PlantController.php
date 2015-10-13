@@ -55,35 +55,17 @@ class PlantController extends BaseController
      */
     public function addNewPlantToDb()
     {
-        $plants = Plants::all();
         $errorMessage = "Could not complete the create new plant request";
 
-        $newPlantId = sizeof($plants)+1;
+        $newPlantId = $this->savePlantDataToDb();;
         $plantSeason = new PlantSeason;
         $plantSize = new PlantSize;
         $plantHabitat = new PlantHabitat;
         $plantColor = new PlantColor;
 
-        $newPlant = new Plants;
-
-        $this->setupPlantInformation($newPlant);
-
-        $seasonArray = array('spring' => Input::get('spring'), 'summer' => Input::get('summer'),
-                             'autumn' => Input::get('autumn'), 'winter' => Input::get('winter'));
-
-        $sizeArray = array('10' => Input::get('10'), '10-25' => Input::get('10-25'), '25-40' => Input::get('25-40'),
-                           '40-50' => Input::get('40-50'), '50-75' => Input::get('50-75'), '75-100' => Input::get('75-100'),
-                           '100' => Input::get('100'));
-
-        $habitatArray = array('farmland' => Input::get('farmland'), 'wetland' => Input::get('wetland'),
-                              'forest' => Input::get('forest'), 'moor' => Input::get('moor'), 'coast' => Input::get('coast'));
-
-        $colorArray = array('red' => Input::get('red'), 'yellow' => Input::get('yellow'), 'blue' => Input::get('blue'),
-                            'green' => Input::get('green'), 'brown' => Input::get('brown'));
+        list($seasonArray, $sizeArray, $habitatArray, $colorArray) = $this->savePlantAttributes();
 
         $photo = Input::file('photo');
-
-        // @todo Save the path to the photo to the photo table
 
         if($this->savePhoto($photo, $newPlantId))
         {
@@ -91,8 +73,6 @@ class PlantController extends BaseController
             $plantSize->saveSizesToDb($newPlantId, $sizeArray);
             $plantHabitat->saveHabitatsToDb($newPlantId, $habitatArray);
             $plantColor->saveColorsToDb($newPlantId, $colorArray);
-
-            $newPlant->save();
         }
         else
         {
@@ -103,16 +83,24 @@ class PlantController extends BaseController
     }
 
     /**
-     * @param $newPlant = Plant that is being created for the database
+     * Gets all the plant information for a plant and
+     * saves it to the database.
+     * Returns the newly created plants id for further use
      */
-    public function setupPlantInformation($newPlant)
+    public function savePlantDataToDb()
     {
-        $newPlant->name = Input::get('name');
-        $newPlant->name_latin = Input::get('name_latin');
-        $newPlant->description = Input::get('description');
-        $newPlant->history = Input::get('history');
-        $newPlant->herb = Input::get('herb');
-        $newPlant->eatable = Input::get('eatable');
+        $name = Input::get('name');
+        $name_latin = Input::get('name_latin');
+        $description = Input::get('description');
+        $history = Input::get('history');
+        $herb = Input::get('herb');
+        $eatable = Input::get('eatable');
+
+        $plantID = DB::table('plants')->insertGetId(
+            array('name' => $name, 'name_latin' => $name_latin, 'description' => $description, 'history' => $history,
+                  'herb' => $herb, 'eatable' => $eatable)
+        );
+        return $plantID;
     }
 
     /**
@@ -141,18 +129,119 @@ class PlantController extends BaseController
         }
     }
 
+    /**
+     * Finds the given plant from the id in the database
+     * and deletes all the relationships to the plant, the folder in
+     * PlantPictures which contains all pictures for the plant and the plant
+     * it self.
+     * @return empty add plant view
+     */
     public function deletePlant()
     {
         $plantId = (Input::get('plantId'));
 
         File::deleteDirectory(public_path() . '/PlantPictures/' . $plantId);
+        $this->deletePlantAttributes($plantId);
+        Plants::where('id', '=', $plantId)->delete();
+
+        return View::make('addPlantView');
+    }
+
+    /**
+     * Finds the plant from the id and all its relationships in the database
+     * and passes it to the view, so the user can edit the data.
+     * @return edit plant view with all the data as default from the plant
+     */
+    public function showEditPlant()
+    {
+        $plantId = (Input::get('plantId'));
+
+        $thePlant = Plants::find($plantId);
+        $plantSeason = new PlantSeason;
+        $plantColor = new PlantColor;
+        $plantHabitat = new PlantHabitat;
+        $plantSize = new PlantSize;
+        $plantPhoto = new Photos;
+
+        $seasonArray = $plantSeason->findSeasonsForPlant($plantId);
+        $colorArray = $plantColor->findColorsForPlant($plantId);
+        $habitatArray = $plantHabitat->findHabitatsForPlant($plantId);
+        $sizeArray = $plantSize->findSizesForPlant($plantId);
+        $photoArray = $plantPhoto->findPhotosForPlant($plantId);
+
+        $data = array(
+            'plant' => $thePlant,
+            'seasons' => $seasonArray,
+            'colors' => $colorArray,
+            'habitats' => $habitatArray,
+            'sizes' => $sizeArray,
+            'photos' => $photoArray,
+        );
+
+        return View::make('editPlantView')->with('data', $data);
+    }
+
+    public function editPlant()
+    {
+        $plantId = Input::get('plantId');
+        $thePlant = Plants::find($plantId);
+
+        $plantSeason = new PlantSeason;
+        $plantSize = new PlantSize;
+        $plantHabitat = new PlantHabitat;
+        $plantColor = new PlantColor;
+//        $plantPhoto = new Photos;
+
+        $thePlant->name = Input::get('name');
+        $thePlant->name_latin = Input::get('name_latin');
+        $thePlant->description = Input::get('description');
+        $thePlant->history = Input::get('history');
+        $thePlant->herb = Input::get('herb');
+        $thePlant->eatable = Input::get('eatable');
+
+        $this->deletePlantAttributes($plantId);
+
+        $thePlant->save();
+
+        list($seasonArray, $sizeArray, $habitatArray, $colorArray) = $this->savePlantAttributes();
+//        $photoArray = $plantPhoto->findPhotosForPlant($plantId);
+
+        $plantSeason->saveSeasonsToDb($plantId, $seasonArray);
+        $plantSize->saveSizesToDb($plantId, $sizeArray);
+        $plantHabitat->saveHabitatsToDb($plantId, $habitatArray);
+        $plantColor->saveColorsToDb($plantId, $colorArray);
+
+        return Redirect::to('plant-detail/' . $plantId);
+    }
+
+    /**
+     * @param $plantId
+     */
+    public function deletePlantAttributes($plantId)
+    {
         PlantColor::where('plant_id', '=', $plantId)->delete();
         PlantHabitat::where('plant_id', '=', $plantId)->delete();
         PlantSeason::where('plant_id', '=', $plantId)->delete();
         PlantSize::where('plant_id', '=', $plantId)->delete();
-        Plants::where('id', '=', $plantId)->delete();
-        return View::make('addPlantView');
     }
 
+    /**
+     * @return array
+     */
+    public function savePlantAttributes()
+    {
+        $seasonArray = array('spring' => Input::get('spring'), 'summer' => Input::get('summer'),
+            'autumn' => Input::get('autumn'), 'winter' => Input::get('winter'));
 
+        $sizeArray = array('10' => Input::get('10'), '10-25' => Input::get('10-25'), '25-40' => Input::get('25-40'),
+            '40-50' => Input::get('40-50'), '50-75' => Input::get('50-75'), '75-100' => Input::get('75-100'),
+            '100' => Input::get('100'));
+
+        $habitatArray = array('farmland' => Input::get('farmland'), 'wetland' => Input::get('wetland'),
+            'forest' => Input::get('forest'), 'moor' => Input::get('moor'), 'coast' => Input::get('coast'));
+
+        $colorArray = array('red' => Input::get('red'), 'yellow' => Input::get('yellow'), 'blue' => Input::get('blue'),
+            'green' => Input::get('green'), 'brown' => Input::get('brown'));
+        return array($seasonArray, $sizeArray, $habitatArray, $colorArray);
+    }
 }
