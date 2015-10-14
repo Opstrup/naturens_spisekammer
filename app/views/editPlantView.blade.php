@@ -104,13 +104,26 @@
             {{ Form::checkbox('brown', null, in_array('brown', $data['colors'])) }} <br>
 
             <h4>Billede:</h4>
-            {{Form::file('photo')}}
+
+            @foreach($data['photos'] as $photo)
+                @if($photo != 'null')
+                    <img src="{{ url($photo) }}" class="img-rounded" style="width: 266px; height: 400px; margin: 80px">
+                    {{ Form::label('delete', 'Slet billede:') }}
+                    {{ Form::checkbox('delete') }} <br>
+                @endif
+            @endforeach
+
+            @for($i = 0; $i < 4; $i++)
+                @if($data['photos'][$i] == 'null')
+                    {{ Form::file('photo_' . $i) }}
+                @endif
+            @endfor
 
         </div>
 
             {{ Form::hidden('plantId', $data['plant']->id) }}
 
-        {{ Form::submit('Rediger', array('class' => 'btn btn-default')) }}
+        {{ Form::submit('Gem', array('class' => 'btn btn-default')) }}
 
         {{ Form::close() }}
     </div>

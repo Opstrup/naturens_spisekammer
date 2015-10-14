@@ -58,6 +58,7 @@
 
         @yield('body')
 
+        {{ HTML::script('jquery/dist/jquery.js') }}
         {{ HTML::script('bootstrap/dist/js/bootstrap.min.js') }}
 
     </body>

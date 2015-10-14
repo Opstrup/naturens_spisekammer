@@ -103,8 +103,11 @@
             {{ Form::label('brown', 'Brun:') }}
             {{ Form::checkbox('brown') }} <br>
 
-            <h4>Billede:</h4>
-            {{Form::file('photo')}}
+            <h4>Billeder:</h4>
+            {{Form::file('photo_0')}}
+            {{Form::file('photo_1')}}
+            {{Form::file('photo_2')}}
+            {{Form::file('photo_3')}}
 
         </div>
 

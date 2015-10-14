@@ -77,9 +77,14 @@
         </ul>
 
     </div>
+
     <div class="col-md-4">
         @foreach($data['photos'] as $photo)
-            <img src="{{ url($photo) }}" class="img-rounded" style="width: 266px; height: 400px; margin: 80px"> <br>
+            @if($photo == 'null')
+                <img src="http://placehold.it/266x400" class="img-rounded" style="width: 266px; height: 400px; margin: 80px"> <br>
+            @else
+                <img src="{{ url($photo) }}" class="img-rounded" style="width: 266px; height: 400px; margin: 80px"> <br>
+            @endif
         @endforeach
     </div>
 
