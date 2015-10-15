@@ -233,6 +233,9 @@ class PlantController extends BaseController
                 $photo = Input::file('photo_' . $index);
                 $this->editPhoto($photo, $plantId, $index);
             }
+
+            if(Input::get($index))
+                $this->deletePhoto($plantId, $index);
         }
 
         $plantSeason->saveSeasonsToDb($plantId, $seasonArray);
@@ -252,6 +255,7 @@ class PlantController extends BaseController
         PlantHabitat::where('plant_id', '=', $plantId)->delete();
         PlantSeason::where('plant_id', '=', $plantId)->delete();
         PlantSize::where('plant_id', '=', $plantId)->delete();
+        Photos::where('plant_id', '=', $plantId)->delete();
     }
 
     /**
@@ -283,9 +287,11 @@ class PlantController extends BaseController
     public function deletePhoto($plantID, $photoID)
     {
         $fileName = $photoID . '-plant-' . $plantID . '.jpeg';
-        $deleteRow = '/PlantPictures/' . $plantID . '/' . $fileName;
+        $deleteRow = 'PlantPictures/' . $plantID . '/' . $fileName;
 
         File::delete(public_path() . '/PlantPictures/' . $plantID . '/' . $fileName);
-        Photos::where('photo_url', '=', $deleteRow)->delete();
+        $photosRow = Photos::where('photo_url', '=', $deleteRow)->first();
+        $photosRow->photo_url = 'null';
+        $photosRow->save();
     }
 }

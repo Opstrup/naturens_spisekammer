@@ -105,13 +105,14 @@
 
             <h4>Billede:</h4>
 
-            @foreach($data['photos'] as $photo)
-                @if($photo != 'null')
-                    <img src="{{ url($photo) }}" class="img-rounded" style="width: 266px; height: 400px; margin: 80px">
+            @for($i = 0; $i < 4; $i++)
+                @if($data['photos'][$i] != 'null')
+                    <img src="{{ url($data['photos'][$i]) }}" class="img-rounded" style="width: 266px; height: 400px; margin: 80px">
                     {{ Form::label('delete', 'Slet billede:') }}
-                    {{ Form::checkbox('delete') }} <br>
+                    {{ $data['photos'][$i] }}
+                    {{ Form::checkbox($i) }} <br>
                 @endif
-            @endforeach
+            @endfor
 
             @for($i = 0; $i < 4; $i++)
                 @if($data['photos'][$i] == 'null')
