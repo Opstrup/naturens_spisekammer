@@ -165,6 +165,7 @@ class PlantController extends BaseController
         File::deleteDirectory(public_path() . '/PlantPictures/' . $plantId);
         $this->deletePlantAttributes($plantId);
         Plants::where('id', '=', $plantId)->delete();
+        Photos::where('plant_id', '=', $plantId)->delete();
 
         return View::make('addPlantView');
     }
@@ -255,7 +256,6 @@ class PlantController extends BaseController
         PlantHabitat::where('plant_id', '=', $plantId)->delete();
         PlantSeason::where('plant_id', '=', $plantId)->delete();
         PlantSize::where('plant_id', '=', $plantId)->delete();
-        Photos::where('plant_id', '=', $plantId)->delete();
     }
 
     /**

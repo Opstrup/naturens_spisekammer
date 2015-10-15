@@ -6,8 +6,6 @@
 
 @section('body')
 
-    <div class="col-md-1"></div>
-
     <div class="col-md-6">
         <div class="page-header">
             <h1>{{ $data['plant']->name }} <small>{{ $data['plant']->name_latin }}</small></h1>
@@ -48,44 +46,64 @@
             <p>Nej</p>
         @endif
 
-        <strong>Sæson:</strong> <br>
-        <ul>
-        @foreach($data['seasons'] as $season)
-            <li>{{ $season }}</li>
-        @endforeach
-        </ul>
+        <fieldset>
+            <legend>Sæson:</legend>
+            <ul>
+                @foreach($data['seasons'] as $season)
+                    <li>{{ $season }}</li>
+                @endforeach
+            </ul>
+        </fieldset>
+        <br>
 
-        <strong>Farver:</strong> <br>
-        <ul>
-        @foreach($data['colors'] as $color)
-            <li>{{ $color }}</li>
-        @endforeach
-        </ul>
+        <fieldset>
+            <legend>Farver:</legend>
+            <ul>
+                @foreach($data['colors'] as $color)
+                    <li>{{ $color }}</li>
+                @endforeach
+            </ul>
+        </fieldset>
+        <br>
 
-        <strong>Højder:</strong> <br>
-        <ul>
-        @foreach($data['sizes'] as $size)
-            <li>{{ $size }} cm</li>
-        @endforeach
-        </ul>
+        <fieldset>
+            <legend>Højder:</legend>
+            <ul>
+                @foreach($data['sizes'] as $size)
+                    <li>{{ $size }} cm</li>
+                @endforeach
+            </ul>
+        </fieldset>
+        <br>
 
-        <strong>Levesteder:</strong> <br>
-        <ul>
-        @foreach($data['habitats'] as $habitat)
-            <li>{{ $habitat }}</li>
-        @endforeach
-        </ul>
+        <fieldset>
+            <legend>Levesteder:</legend>
+            <ul>
+                @foreach($data['habitats'] as $habitat)
+                    <li>{{ $habitat }}</li>
+                @endforeach
+            </ul>
+        </fieldset>
 
     </div>
 
-    <div class="col-md-4">
+    <div style="margin-top: 110px">
         @foreach($data['photos'] as $photo)
             @if($photo == 'null')
-                <img src="http://placehold.it/266x400" class="img-rounded" style="width: 266px; height: 400px; margin: 80px"> <br>
+                <div class="col-md-2">
+                <a href="http://placehold.it/266x400" class="thumbnail" style="width: 133px; height: 200px;">
+                    <img src="http://placehold.it/266x400" class="img-rounded">
+                </a>
+                </div>
             @else
-                <img src="{{ url($photo) }}" class="img-rounded" style="width: 266px; height: 400px; margin: 80px"> <br>
+                <div class="col-md-2">
+                <a href="{{ url($photo) }}" class="thumbnail" style="width: 133px; height: 200px;">
+                    <img src="{{ url($photo) }}" class="img-rounded">
+                </a>
+                </div>
             @endif
         @endforeach
     </div>
+
 
 @stop

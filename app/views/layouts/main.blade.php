@@ -41,9 +41,7 @@
     <body>
 
         <div class="headerText">
-            <a href="/">
-                <h1>Naturens Spisekammer - Backend</h1> <br>
-            </a>
+            <h1>Naturens Spisekammer - Backend</h1> <br>
         </div>
 
         <hr>
