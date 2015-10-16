@@ -35,7 +35,6 @@
 
             </style>
         @show
-
     </head>
 
     <body>

@@ -157,7 +157,7 @@
             </div>
 
             <div class="col-md-1 col-md-offset-5">
-                {{ Form::submit('Tilføj', array('class' => 'btn btn-default')) }}
+                {{ Form::submit('Tilføj', array('class' => 'btn btn-default', 'name' => 'addNewPlant')) }}
             </div>
         {{ Form::close() }}
     </div>

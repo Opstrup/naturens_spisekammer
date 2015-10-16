@@ -9,6 +9,9 @@
 class PlantController extends BaseController
 {
 
+    // @todo Split everything up in models with interfaces!
+    // @todo Make photo handling for local filesystem and live filesystem
+
     /**
      * Displays the addPlantView at url /add-new-plant
      */
