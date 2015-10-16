@@ -6,7 +6,7 @@
 
 @section('body')
 
-    <h2>Velkommen til Naturens Spisekammer - Backend</h2>
+    <h1>Velkommen til Naturens Spisekammer - Backend</h1>
 
     <div id="plantTable" class="col-md-5">
         <p>Antal planter i systemet: <?php echo sizeof($data['plants']) ?></p>
