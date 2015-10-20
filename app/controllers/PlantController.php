@@ -31,6 +31,8 @@ class PlantController extends BaseController
      * Displays the plantDetailView at url /plant-detail/#
      * The method finds the plant in the database and returns the
      * plantDetailView with all the details about the specific plant
+     * @param $plantId
+     * @return
      */
     public function showPlantDetail($plantId)
     {
@@ -39,13 +41,12 @@ class PlantController extends BaseController
         $plantColor = new PlantColor;
         $plantHabitat = new PlantHabitat;
         $plantSize = new PlantSize;
-        $plantPhoto = new Photos;
 
         $seasonArray = $plantSeason->findSeasonsForPlant($plantId);
         $colorArray = $plantColor->findColorsForPlant($plantId);
         $habitatArray = $plantHabitat->findHabitatsForPlant($plantId);
         $sizeArray = $plantSize->findSizesForPlant($plantId);
-        $photoArray = $plantPhoto->findPhotosForPlant($plantId);
+        $photoArray = $this->photoHandler->get($plantId);
 
         $data = array(
             'plant' => $thePlant,
@@ -228,8 +229,18 @@ class PlantController extends BaseController
         $thePlant->name_latin = Input::get('name_latin');
         $thePlant->description = Input::get('description');
         $thePlant->history = Input::get('history');
-        $thePlant->herb = Input::get('herb');
-        $thePlant->eatable = Input::get('eatable');
+
+
+        // @TODO please refactor this ugly code!
+        if(Input::get('herb'))
+            $thePlant->herb = 1;
+        else
+            $thePlant->herb = Input::get('herb');
+
+        if(Input::get('eatable'))
+            $thePlant->eatable = 1;
+        else
+            $thePlant->eatable = Input::get('eatable');
 
         $this->deletePlantAttributes($plantId);
 
