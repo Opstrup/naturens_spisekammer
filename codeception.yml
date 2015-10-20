@@ -18,7 +18,7 @@ modules:
             dsn: 'mysql:host=localhost;dbname=naturens-spisekammer'
             user: 'root'
             password: ''
-            dump: tests/_data/dump.sql
+#            dump: tests/_data/dump.sql
             populate: true
             cleanup: true
             reconnect: true

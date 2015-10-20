@@ -11,6 +11,8 @@
 |
 */
 
+require __DIR__.'/services.php';
+
 Route::get('/', 'HomeController@showWelcome');
 
 Route::get('about', 'HomeController@showAbout');

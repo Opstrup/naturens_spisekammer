@@ -159,9 +159,6 @@
                             {{ Form::label('delete', 'Slet billede:') }}
                             {{ Form::checkbox($i) }} <br>
                         </div>
-                        {{--<img src="{{ url($data['photos'][$i]) }}" class="img-rounded" style="width: 266px; height: 400px"> <br>
-                        {{ Form::label('delete', 'Slet billede:') }}
-                        {{ Form::checkbox($i) }} <br>--}}
                     @endif
                 @endfor
                 <br>
@@ -176,7 +173,7 @@
             {{ Form::hidden('plantId', $data['plant']->id) }}
 
         <div class="col-md-1 col-md-offset-5">
-            {{ Form::submit('Gem', array('class' => 'btn btn-default')) }}
+            {{ Form::submit('Gem', array('class' => 'btn btn-default', 'name' => 'save')) }}
         </div>
 
         {{ Form::close() }}

@@ -13,12 +13,12 @@
 
         {{ Form::open(array('url' => 'delete-plant', 'method' => 'post')) }}
             {{ Form::hidden('plantId', $data['plant']->id) }}
-            {{ Form::button('<i class="glyphicon glyphicon-trash"></i>', array('type' => 'submit', 'class' => '', 'style' => 'float: right', 'title' => 'slet plante'))  }}
+            {{ Form::button('<i class="glyphicon glyphicon-trash"></i>', array('type' => 'submit', 'name' => 'delete plant', 'style' => 'float: right', 'title' => 'slet plante'))  }}
         {{ Form::close() }}
 
         {{ Form::open(array('url' => 'show-edit-plant', 'method' => 'post')) }}
             {{ Form::hidden('plantId', $data['plant']->id) }}
-            {{ Form::button('<i class="glyphicon glyphicon-edit"></i>', array('type' => 'submit', 'class' => '', 'style' => 'float: right', 'title' => 'rediger plante'))  }}
+            {{ Form::button('<i class="glyphicon glyphicon-edit"></i>', array('type' => 'submit', 'name' => 'edit plant', 'style' => 'float: right', 'title' => 'rediger plante'))  }}
         {{ Form::close() }}
         <br>
 

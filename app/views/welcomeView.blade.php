@@ -23,7 +23,7 @@
             </tr>
 
             @foreach($data['plants'] as $plant)
-                <tr>
+                <tr id="{{ $plant->id }}">
                     <td>{{ $plant->id }}</td>
                     <td>{{ $plant->name }}</td>
                     <td>{{ $plant->name_latin }}</td>
