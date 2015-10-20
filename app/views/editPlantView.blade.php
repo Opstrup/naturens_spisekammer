@@ -6,14 +6,17 @@
 
 @section('body')
 
-    <h2>Rediger {{$data['plant']->name}}</h2>
 
     <div class="form-group">
 
+        <div class="col-md-6">
+
+            <div class="page-header">
+                <h1>Rediger <small>{{ $data['plant']->name }}</small></h1>
+            </div>
 
         {{ Form::open(array('url' => 'edit-plant', 'method' => 'post', 'files' => true)) }}
 
-        <div class="col-md-6">
 
             {{ Form::label('name', 'Navn:') }}
             {{ Form::text('name', $data['plant']->name, ['class' => 'form-control']) }} <br>
@@ -34,7 +37,7 @@
             {{ Form::checkbox('eatable', null, $data['plant']->eatable) }} <br>
             <br>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5" style="margin-top: 80px;">
             <fieldset>
                 <legend>Sæson:</legend>
                 <ul>

@@ -40,7 +40,7 @@
     <body>
 
         <div class="headerText">
-            <h1>Naturens Spisekammer - Backend</h1> <br>
+            <h1>Spis-Danmark</h1><br>
         </div>
 
         <hr>

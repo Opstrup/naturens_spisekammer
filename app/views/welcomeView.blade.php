@@ -1,13 +1,16 @@
 @extends('layouts.main')
 
 @section('title')
-    Welcome to Naturens Spisekammer - Backend
+    Welcome to Spis-Danmark - Backend
 @stop
 
 @section('body')
 
-    <h1>Velkommen til Naturens Spisekammer - Backend</h1>
+    <div class="col-md-12 col-md-offset-1">
+        <h1>Velkommen til Spis-Danmark - Backend</h1>
+    </div>
 
+    <div class="col-md-12"><hr></div>
     <div id="plantTable" class="col-md-5">
         <p>Antal planter i systemet: <?php echo sizeof($data['plants']) ?></p>
 
