@@ -6,6 +6,17 @@
  * Date: 19/10/2015
  * Time: 16.06
  */
+
+/*
+|--------------------------------------------------------------------------
+| LocalDevPhotoHandler Notes
+|--------------------------------------------------------------------------
+|
+| The public_path() for the LocalDevPhotoHandler is
+| changed to match the file system on godaddy.
+|
+*/
+
 class LocalDevPhotoHandler implements IPhotoHandler
 {
 
