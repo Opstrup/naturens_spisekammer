@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'app' => __DIR__.'/../../naturens-spisekammer-base/app',
+	'app' => __DIR__.'/../../naturens_spisekammer/app',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'base' => __DIR__.'/../../naturens-spisekammer-base',
+	'base' => __DIR__.'/../../naturens_spisekammer',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,6 +52,6 @@ return array(
 	|
 	*/
 
-	'storage' => __DIR__.'/../../naturens-spisekammer-base/app/storage',
+	'storage' => __DIR__.'/../../naturens_spisekammer/app/storage',
 
 );
