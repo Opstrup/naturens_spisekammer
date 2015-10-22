@@ -1,5 +1,4 @@
 /bootstrap/compiled.php
-/bootstrap/paths.php
 /vendor
 composer.phar
 composer.lock
