@@ -8,7 +8,6 @@
 
     <div class="col-md-12 col-md-offset-1">
         <h1>Velkommen til Spis-Danmark - Backend</h1>
-        <h2>Test med github 15:24</h2>
     </div>
 
     <div class="col-md-12"><hr></div>
