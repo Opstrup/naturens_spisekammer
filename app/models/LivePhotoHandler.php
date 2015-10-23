@@ -46,29 +46,37 @@ class LivePhotoHandler implements IPhotoHandler
         $photo->move(public_path() . "/../../public_html/naturens-spisekammer-app" . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
     }
 
-    public function delete($plantID, $photoID)
+    public function delete($plantID)
     {
-        $fileName = $photoID . '-plant-' . $plantID . '.jpeg';
-        $deleteRow = 'PlantPictures/' . $plantID . '/' . $fileName;
-
-        File::delete(public_path() . "/../../public_html/naturens-spisekammer-app" . "/PlantPictures/" . $plantID . "/" . $fileName);
-        $photosRow = Photos::where('photo_url', '=', $deleteRow)->first();
-        $photosRow->photo_url = 'null';
-        $photosRow->save();
+        File::deleteDirectory(public_path() . '/PlantPictures/' . $plantID);
+        Plants::where('id', '=', $plantID)->delete();
     }
 
     public function edit($plantID, $photoID, $photo)
     {
-        $fileName = $photoID . "-plant-" . $plantID . ".jpeg";
-        $photoURL = "PlantPictures" . "/" . $plantID . "/";
+        if($photo == null)
+        {
+            $fileName = $photoID . '-plant-' . $plantID . '.jpeg';
+            $deleteRow = 'PlantPictures/' . $plantID . '/' . $fileName;
 
-        $editPhoto = Photos::where('plant_id', '=', $plantID)
-            ->where('photo_url', '=', 'null')
-            ->first();
+            File::delete(public_path() . "/../../public_html/naturens-spisekammer-app" . "/PlantPictures/" . $plantID . "/" . $fileName);
+            $photosRow = Photos::where('photo_url', '=', $deleteRow)->first();
+            $photosRow->photo_url = 'null';
+            $photosRow->save();
+        }
+        else
+        {
+            $fileName = $photoID . "-plant-" . $plantID . ".jpeg";
+            $photoURL = "PlantPictures" . "/" . $plantID . "/";
 
-        $editPhoto->photo_url = $photoURL . $fileName;
-        $editPhoto->save();
+            $editPhoto = Photos::where('plant_id', '=', $plantID)
+                ->where('photo_url', '=', 'null')
+                ->first();
 
-        $photo->move(public_path() . "/../../public_html/naturens-spisekammer-app" . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
+            $editPhoto->photo_url = $photoURL . $fileName;
+            $editPhoto->save();
+
+            $photo->move(public_path() . "/../../public_html/naturens-spisekammer-app" . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
+        }
     }
 }

@@ -38,9 +38,11 @@ class EditPlantPageCest
         $I->canSeeCurrentUrlEquals('/plant-detail/' . $plantID->id);
 
         $I->click('edit plant');
+        $I->canSeeCurrentUrlEquals('/show-edit-plant');
         $I->see('Rediger Test plant');
         $I->canSeeCheckboxIsChecked('#eatable');
         $I->uncheckOption('#eatable');
+        $I->seeRecord('plants', ['name' => 'Test plant']);
         $I->click('save');
 
         $I->canSeeCurrentUrlEquals('/plant-detail/' . $plantID->id);
@@ -49,7 +51,7 @@ class EditPlantPageCest
         $I->cantSeeCheckboxIsChecked('#eatable');
     }
 
-    public function changeNewlyCreatedPlantFromNoteatableToEatable(AcceptanceTester $I)
+    /*public function changeNewlyCreatedPlantFromNoteatableToEatable(AcceptanceTester $I)
     {
         $I->wantTo('verify I can edit a new created plant from not eatable to eatable');
 
@@ -119,5 +121,5 @@ class EditPlantPageCest
         $I->click('edit plant');
         $I->see('Rediger Test plant');
         $I->seeCheckboxIsChecked('#herb');
-    }
+    }*/
 }

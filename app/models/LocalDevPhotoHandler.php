@@ -13,7 +13,8 @@
 |--------------------------------------------------------------------------
 |
 | The public_path() for the LocalDevPhotoHandler is
-| changed to match the file system on godaddy.
+| changed to match the file system on the local
+| dev machine.
 |
 */
 
@@ -35,40 +36,58 @@ class LocalDevPhotoHandler implements IPhotoHandler
 
     public function set($plantID, $photoID, $photo)
     {
-        $fileName = $photoID . "-plant-" . $plantID . ".jpeg";
-        $photoURL = "PlantPictures" . "/" . $plantID . "/";
+        if($photo == null)
+        {
+            $plantPhoto = new Photos;
+            $plantPhoto->plant_id = $plantID;
+            $plantPhoto->photo_url = 'null';
+            $plantPhoto->save();
+        }
+        else
+        {
+            $fileName = $photoID . "-plant-" . $plantID . ".jpeg";
+            $photoURL = "PlantPictures" . "/" . $plantID . "/";
 
-        $plantPhoto = new Photos;
-        $plantPhoto->plant_id = $plantID;
-        $plantPhoto->photo_url = $photoURL . $fileName;
-        $plantPhoto->save();
+            $plantPhoto = new Photos;
+            $plantPhoto->plant_id = $plantID;
+            $plantPhoto->photo_url = $photoURL . $fileName;
+            $plantPhoto->save();
 
-        $photo->move(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
+            $photo->move(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
+        }
     }
 
-    public function delete($plantID, $photoID)
+    public function delete($plantID)
     {
-        $fileName = $photoID . '-plant-' . $plantID . '.jpeg';
-        $deleteRow = 'PlantPictures/' . $plantID . '/' . $fileName;
-
-        File::delete(public_path() . '/PlantPictures/' . $plantID . '/' . $fileName);
-        $photosRow = Photos::where('photo_url', '=', $deleteRow)->first();
-        $photosRow->photo_url = 'null';
-        $photosRow->save();
+        File::deleteDirectory(public_path() . '/PlantPictures/' . $plantID);
+        Plants::where('id', '=', $plantID)->delete();
     }
 
     public function edit($plantID, $photoID, $photo)
     {
-        $fileName = $photoID . "-plant-" . $plantID . ".jpeg";
-        $photoURL = "PlantPictures" . "/" . $plantID . "/";
+        if($photo == null)
+        {
+            $fileName = $photoID . '-plant-' . $plantID . '.jpeg';
+            $deleteRow = 'PlantPictures/' . $plantID . '/' . $fileName;
 
-        $editPhoto = Photos::where('plant_id', '=', $plantID)
-            ->where('photo_url', '=', 'null')
-            ->first();
+            File::delete(public_path() . '/PlantPictures/' . $plantID . '/' . $fileName);
+            $photosRow = Photos::where('photo_url', '=', $deleteRow)->first();
+            $photosRow->photo_url = 'null';
+            $photosRow->save();
+        }
+        else
+        {
+            $fileName = $photoID . "-plant-" . $plantID . ".jpeg";
+            $photoURL = "PlantPictures" . "/" . $plantID . "/";
 
-        $editPhoto->photo_url = $photoURL . $fileName;
-        $editPhoto->save();
+            $editPhoto = Photos::where('plant_id', '=', $plantID)
+                ->where('photo_url', '=', 'null')
+                ->first();
 
-        $photo->move(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
+            $editPhoto->photo_url = $photoURL . $fileName;
+            $editPhoto->save();
+
+            $photo->move(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
+        }
     }
 }
