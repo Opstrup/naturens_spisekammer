@@ -79,15 +79,12 @@ class PlantController extends BaseController
             if(Input::hasFile('photo_' . $index))
             {
                 $photo = Input::file('photo_' . $index);
-                $this->savePhoto($photo, $newPlantId, $index);
+                $this->photoHandler->set($newPlantId, $index, $photo);
             }
             // @todo refactor this !
             else
             {
-                $plantPhoto = new Photos;
-                $plantPhoto->plant_id = $newPlantId;
-                $plantPhoto->photo_url = 'null';
-                $plantPhoto->save();
+                $this->photoHandler->set($newPlantId, $index, null);
             }
         }
 
@@ -173,10 +170,11 @@ class PlantController extends BaseController
     {
         $plantId = (Input::get('plantId'));
 
-        File::deleteDirectory(public_path() . '/PlantPictures/' . $plantId);
+        $this->photoHandler->delete($plantId);
+//        File::deleteDirectory(public_path() . '/PlantPictures/' . $plantId);
+//        Photos::where('plant_id', '=', $plantId)->delete();
         $this->deletePlantAttributes($plantId);
         Plants::where('id', '=', $plantId)->delete();
-        Photos::where('plant_id', '=', $plantId)->delete();
 
         return View::make('addPlantView');
     }
@@ -230,7 +228,6 @@ class PlantController extends BaseController
         $thePlant->description = Input::get('description');
         $thePlant->history = Input::get('history');
 
-
         // @TODO please refactor this ugly code!
         if(Input::get('herb'))
             $thePlant->herb = 1;
@@ -253,11 +250,11 @@ class PlantController extends BaseController
             if(Input::hasFile('photo_' . $index))
             {
                 $photo = Input::file('photo_' . $index);
-                $this->editPhoto($photo, $plantId, $index);
+                $this->photoHandler->edit($plantId, $index, $photo);
             }
 
             if(Input::get($index))
-                $this->deletePhoto($plantId, $index);
+                $this->photoHandler->edit($plantId, $index, null);
         }
 
         $plantSeason->saveSeasonsToDb($plantId, $seasonArray);

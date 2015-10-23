@@ -10,6 +10,6 @@ interface IPhotoHandler
 {
     public function get($plantID);
     public function set($plantID, $photoID, $photo);
-    public function delete($plantID, $photoID);
+    public function delete($plantID);
     public function edit($plantID, $photoID, $photo);
 }
