@@ -42,7 +42,8 @@ class EditPlantPageCest
         $I->see('Rediger Test plant');
         $I->canSeeCheckboxIsChecked('#eatable');
         $I->uncheckOption('#eatable');
-        $I->seeRecord('plants', ['name' => 'Test plant']);
+        $I->seeRecord('plants', ['id' => $plantID->id]);
+
         $I->click('save');
 
         $I->canSeeCurrentUrlEquals('/plant-detail/' . $plantID->id);

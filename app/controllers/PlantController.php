@@ -228,7 +228,6 @@ class PlantController extends BaseController
         $thePlant->description = Input::get('description');
         $thePlant->history = Input::get('history');
 
-
         // @TODO please refactor this ugly code!
         if(Input::get('herb'))
             $thePlant->herb = 1;
@@ -252,12 +251,10 @@ class PlantController extends BaseController
             {
                 $photo = Input::file('photo_' . $index);
                 $this->photoHandler->edit($plantId, $index, $photo);
-//                $this->editPhoto($photo, $plantId, $index);
             }
 
             if(Input::get($index))
                 $this->photoHandler->edit($plantId, $index, null);
-//                $this->deletePhoto($plantId, $index);
         }
 
         $plantSeason->saveSeasonsToDb($plantId, $seasonArray);

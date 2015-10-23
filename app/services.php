@@ -6,7 +6,7 @@
  * Time: 17.15
  */
 
-if (App::environment('local'))
+if (App::environment('local') || App::environment('testing'))
 {
     $app->bind('IPhotoHandler', 'LocalDevPhotoHandler');
 }
