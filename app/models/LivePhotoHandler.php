@@ -35,15 +35,25 @@ class LivePhotoHandler implements IPhotoHandler
 
     public function set($plantID, $photoID, $photo)
     {
-        $fileName = $photoID . "-plant-" . $plantID . ".jpeg";
-        $photoURL = "PlantPictures" . "/" . $plantID . "/";
+        if($photo == null)
+        {
+            $plantPhoto = new Photos;
+            $plantPhoto->plant_id = $plantID;
+            $plantPhoto->photo_url = 'null';
+            $plantPhoto->save();
+        }
+        else
+        {
+            $fileName = $photoID . "-plant-" . $plantID . ".jpeg";
+            $photoURL = "PlantPictures" . "/" . $plantID . "/";
 
-        $plantPhoto = new Photos;
-        $plantPhoto->plant_id = $plantID;
-        $plantPhoto->photo_url = $photoURL . $fileName;
-        $plantPhoto->save();
+            $plantPhoto = new Photos;
+            $plantPhoto->plant_id = $plantID;
+            $plantPhoto->photo_url = $photoURL . $fileName;
+            $plantPhoto->save();
 
-        $photo->move(public_path() . "/../../public_html/naturens-spisekammer-app" . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
+            $photo->move(public_path() . "/../../public_html/naturens-spisekammer-app" . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
+        }
     }
 
     public function delete($plantID)
