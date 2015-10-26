@@ -6,6 +6,7 @@
  * Date: 19/10/2015
  * Time: 12.27
  */
+
 interface IPhotoHandler
 {
     public function get($plantID);

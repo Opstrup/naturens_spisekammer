@@ -13,10 +13,12 @@ class PlantController extends BaseController
     // @todo Make photo handling for local filesystem and live filesystem
 
     protected $photoHandler;
+    protected $colorHandler;
 
-    public function __construct(IPhotoHandler $photoHandler)
+    public function __construct(IPhotoHandler $photoHandler, IColorHandler $colorHandler)
     {
         $this->photoHandler = $photoHandler;
+        $this->colorHandler = $colorHandler;
     }
 
     /**
@@ -38,15 +40,14 @@ class PlantController extends BaseController
     {
         $thePlant = Plants::find($plantId);
         $plantSeason = new PlantSeason;
-        $plantColor = new PlantColor;
         $plantHabitat = new PlantHabitat;
         $plantSize = new PlantSize;
 
         $seasonArray = $plantSeason->findSeasonsForPlant($plantId);
-        $colorArray = $plantColor->findColorsForPlant($plantId);
         $habitatArray = $plantHabitat->findHabitatsForPlant($plantId);
         $sizeArray = $plantSize->findSizesForPlant($plantId);
         $photoArray = $this->photoHandler->get($plantId);
+        $colorArray = $this->colorHandler->get($plantId);
 
         $data = array(
             'plant' => $thePlant,
@@ -171,8 +172,6 @@ class PlantController extends BaseController
         $plantId = (Input::get('plantId'));
 
         $this->photoHandler->delete($plantId);
-//        File::deleteDirectory(public_path() . '/PlantPictures/' . $plantId);
-//        Photos::where('plant_id', '=', $plantId)->delete();
         $this->deletePlantAttributes($plantId);
         Plants::where('id', '=', $plantId)->delete();
 

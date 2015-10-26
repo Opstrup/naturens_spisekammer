@@ -14,3 +14,5 @@ else
 {
     $app->bind('IPhotoHandler', 'LivePhotoHandler');
 }
+
+$app->bind('IColorHandler', 'ColorHandler');
