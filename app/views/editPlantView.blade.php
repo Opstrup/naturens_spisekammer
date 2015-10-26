@@ -159,17 +159,28 @@
                             <a href={{ url($data['photos'][$i]) }} class="thumbnail" style="width: 133px; height: 200px;">
                                 <img src={{ url($data['photos'][$i]) }} class="img-rounded">
                             </a>
+
                             {{ Form::label('delete', 'Slet billede:') }}
                             {{ Form::checkbox($i) }} <br>
+                            {{ $data['photos'][$i] }}
+                        </div>
+                    @else
+                        <div class="col-md-4">
+                            <a href="http://placehold.it/266x400" class="thumbnail" style="width: 133px; height: 200px;">
+                                <img src="http://placehold.it/266x400" class="img-rounded">
+                            </a>
+
+                            {{ Form::file('photo_' . $i) }}
+                            {{ $data['photos'][$i] }}
                         </div>
                     @endif
                 @endfor
-                <br>
+                {{--<br>
                 @for($i = 0; $i < 4; $i++)
                     @if($data['photos'][$i] == 'null')
                         {{ Form::file('photo_' . $i) }}
                     @endif
-                @endfor
+                @endfor--}}
             </fieldset>
         </div>
 
