@@ -45,18 +45,57 @@ class ColorHandler implements IColorHandler
         return $translatedColorArray;
     }
 
-    public function set($plantID)
+    public function set($plantID, $colorsArray)
     {
-        // TODO: Implement set() method.
+        $colors = Colors::all();
+        $colorsArray = $this->filterArray($colorsArray);
+        $cleanColors = $this->cleanModelArray($colors);
+
+        foreach($colorsArray as $color)
+        {
+            if(is_numeric(array_search($color, $cleanColors)))
+            {
+                $newColor = new PlantColor;
+                $newColor->plant_id = $plantID;
+                $newColor->color_id = array_search($color, $cleanColors) + 1;
+                $newColor->save();
+            }
+        }
     }
 
     public function delete($plantID)
     {
-        // TODO: Implement delete() method.
+        PlantColor::where('plant_id', '=', $plantID)->delete();
     }
 
-    public function edit($plantID)
+    public function edit($plantID, $colorsArray)
     {
-        // TODO: Implement edit() method.
+        $this->delete($plantID);
+        $this->set($plantID, $colorsArray);
+    }
+
+    private function filterArray($array)
+    {
+        $cleanArray = array();
+
+        foreach($array as $key => $element)
+        {
+            if($element)
+                $cleanArray[] = $key;
+        }
+
+        return $cleanArray;
+    }
+
+    private function cleanModelArray($array)
+    {
+        $cleanArray = array();
+
+        foreach($array as $element)
+        {
+            $cleanArray[] = $element->color;
+        }
+
+        return $cleanArray;
     }
 }
