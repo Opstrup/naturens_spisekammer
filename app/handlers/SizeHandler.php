@@ -21,7 +21,7 @@ class SizeHandler implements ISizeHandler
 
     public function delete($plantID)
     {
-        // TODO: Implement delete() method.
+        PlantSeason::where('plant_id', '=', $plantID)->delete();
     }
 
     public function edit($plantID, $sizeArray)
@@ -48,7 +48,7 @@ class SizeHandler implements ISizeHandler
 
         foreach($array as $element)
         {
-            $cleanArray[] = $element->color;
+            $cleanArray[] = $element->size;
         }
 
         return $cleanArray;

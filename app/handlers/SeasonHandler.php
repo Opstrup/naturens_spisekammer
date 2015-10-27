@@ -21,7 +21,7 @@ class SeasonHandler implements ISeasonHandler
 
     public function delete($plantID)
     {
-        // TODO: Implement delete() method.
+        PlantSeason::where('plant_id', '=', $plantID)->delete();
     }
 
     public function edit($plantID, $seasonArray)
@@ -48,7 +48,7 @@ class SeasonHandler implements ISeasonHandler
 
         foreach($array as $element)
         {
-            $cleanArray[] = $element->color;
+            $cleanArray[] = $element->season;
         }
 
         return $cleanArray;

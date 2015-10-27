@@ -8,25 +8,56 @@
  */
 class HabitatHandler implements IHabitatHandler
 {
+    protected $translationsArray = array('Agerland' => 'farmland', 'Vådområde' => 'wetland', 'Skov og hegn' => 'forest', 'Hede' => 'moor',
+                                         'Kyst' => 'coast');
 
     public function get($plantID)
     {
-        // TODO: Implement get() method.
+        $habitatsForPlant = PlantHabitat::where('plant_id', '=', $plantID)->get();
+        $habitatArray = array();
+        $translatedHabitatArray = array();
+
+        foreach ($habitatsForPlant as $habitat)
+        {
+            $habitatArray[] = Habitats::where('id', '=', $habitat['habitat_id'])->get()[0]['habitat'];
+        }
+
+        foreach ($habitatArray as $habitat)
+        {
+            if(array_search($habitat, $this->translationsArray))
+                $translatedHabitatArray[] = array_search($habitat, $this->translationsArray);
+        }
+
+        return $translatedHabitatArray;
     }
 
     public function set($plantID, $habitatArray)
     {
-        // TODO: Implement set() method.
+        $habitats = Habitats::all();
+        $habitatArray = $this->filterArray($habitatArray);
+        $cleanHabitats = $this->cleanModelArray($habitats);
+
+        foreach($habitatArray as $habitat)
+        {
+            if(is_numeric(array_search($habitat, $cleanHabitats)))
+            {
+                $newHabitat = new PlantHabitat;
+                $newHabitat->plant_id = $plantID;
+                $newHabitat->habitat_id = array_search($habitat, $cleanHabitats) + 1;
+                $newHabitat->save();
+            }
+        }
     }
 
     public function delete($plantID)
     {
-        // TODO: Implement delete() method.
+        PlantHabitat::where('plant_id', '=', $plantID)->delete();
     }
 
     public function edit($plantID, $habitatArray)
     {
-        // TODO: Implement edit() method.
+        $this->delete($plantID);
+        $this->set($plantID, $habitatArray);
     }
 
     private function filterArray($array)
@@ -48,7 +79,7 @@ class HabitatHandler implements IHabitatHandler
 
         foreach($array as $element)
         {
-            $cleanArray[] = $element->color;
+            $cleanArray[] = $element->habitat;
         }
 
         return $cleanArray;

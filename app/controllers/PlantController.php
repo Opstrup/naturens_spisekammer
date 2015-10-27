@@ -8,9 +8,6 @@
  */
 class PlantController extends BaseController
 {
-
-    // @todo Split everything up in models with interfaces!
-
     protected $photoHandler, $habitatHandler, $colorHandler, $sizeHandler, $seasonHandler;
 
     public function __construct(IPhotoHandler $photoHandler, IColorHandler $colorHandler, IHabitatHandler $habitatHandler,
@@ -42,12 +39,11 @@ class PlantController extends BaseController
     {
         $thePlant = Plants::find($plantId);
         $plantSeason = new PlantSeason;
-        $plantHabitat = new PlantHabitat;
         $plantSize = new PlantSize;
 
         $seasonArray = $plantSeason->findSeasonsForPlant($plantId);
-        $habitatArray = $plantHabitat->findHabitatsForPlant($plantId);
         $sizeArray = $plantSize->findSizesForPlant($plantId);
+        $habitatArray = $this->habitatHandler->get($plantId);
         $photoArray = $this->photoHandler->get($plantId);
         $colorArray = $this->colorHandler->get($plantId);
 
@@ -72,18 +68,17 @@ class PlantController extends BaseController
         $newPlantId = $this->savePlantDataToDb();;
         $plantSeason = new PlantSeason;
         $plantSize = new PlantSize;
-        $plantHabitat = new PlantHabitat;
 
-        list($seasonArray, $sizeArray, $habitatArray, $colorArray) = $this->savePlantAttributes();
+        list($seasonArray, $sizeArray, $habitatArray, $colorArray) = $this->getPlantAttributes();
 
         for ($index = 0; $index < 4; $index++)
         {
+            // @todo refactor this !
             if(Input::hasFile('photo_' . $index))
             {
                 $photo = Input::file('photo_' . $index);
                 $this->photoHandler->set($newPlantId, $index, $photo);
             }
-            // @todo refactor this !
             else
             {
                 $this->photoHandler->set($newPlantId, $index, null);
@@ -92,8 +87,8 @@ class PlantController extends BaseController
 
         $plantSeason->saveSeasonsToDb($newPlantId, $seasonArray);
         $plantSize->saveSizesToDb($newPlantId, $sizeArray);
-        $plantHabitat->saveHabitatsToDb($newPlantId, $habitatArray);
 
+        $this->habitatHandler->set($newPlantId, $habitatArray);
         $this->colorHandler->set($newPlantId, $colorArray);
         return View::make('addPlantView');
     }
@@ -176,7 +171,6 @@ class PlantController extends BaseController
 
         $plantSeason = new PlantSeason;
         $plantSize = new PlantSize;
-        $plantHabitat = new PlantHabitat;
 
         $thePlant->name = Input::get('name');
         $thePlant->name_latin = Input::get('name_latin');
@@ -198,7 +192,7 @@ class PlantController extends BaseController
 
         $thePlant->save();
 
-        list($seasonArray, $sizeArray, $habitatArray, $colorArray) = $this->savePlantAttributes();
+        list($seasonArray, $sizeArray, $habitatArray, $colorArray) = $this->getPlantAttributes();
 
         for ($index = 0; $index < 4; $index++)
         {
@@ -214,7 +208,8 @@ class PlantController extends BaseController
 
         $plantSeason->saveSeasonsToDb($plantId, $seasonArray);
         $plantSize->saveSizesToDb($plantId, $sizeArray);
-        $plantHabitat->saveHabitatsToDb($plantId, $habitatArray);
+
+        $this->habitatHandler->edit($plantId, $habitatArray);
         $this->colorHandler->edit($plantId, $colorArray);
 
         return Redirect::to('plant-detail/' . $plantId);
@@ -226,15 +221,15 @@ class PlantController extends BaseController
     public function deletePlantAttributes($plantId)
     {
         $this->colorHandler->delete($plantId);
-        PlantHabitat::where('plant_id', '=', $plantId)->delete();
-        PlantSeason::where('plant_id', '=', $plantId)->delete();
-        PlantSize::where('plant_id', '=', $plantId)->delete();
+        $this->habitatHandler->delete($plantId);
+        $this->seasonHandler->delete($plantId);
+        $this->sizeHandler->delete($plantId);
     }
 
     /**
      * @return array
      */
-    public function savePlantAttributes()
+    public function getPlantAttributes()
     {
         $seasonArray = array('spring' => Input::get('spring'), 'summer' => Input::get('summer'),
             'autumn' => Input::get('autumn'), 'winter' => Input::get('winter'));
