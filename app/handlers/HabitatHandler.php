@@ -28,4 +28,29 @@ class HabitatHandler implements IHabitatHandler
     {
         // TODO: Implement edit() method.
     }
+
+    private function filterArray($array)
+    {
+        $cleanArray = array();
+
+        foreach($array as $key => $element)
+        {
+            if($element)
+                $cleanArray[] = $key;
+        }
+
+        return $cleanArray;
+    }
+
+    private function cleanModelArray($array)
+    {
+        $cleanArray = array();
+
+        foreach($array as $element)
+        {
+            $cleanArray[] = $element->color;
+        }
+
+        return $cleanArray;
+    }
 }

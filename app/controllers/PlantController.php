@@ -11,13 +11,16 @@ class PlantController extends BaseController
 
     // @todo Split everything up in models with interfaces!
 
-    protected $photoHandler;
-    protected $colorHandler;
+    protected $photoHandler, $habitatHandler, $colorHandler, $sizeHandler, $seasonHandler;
 
-    public function __construct(IPhotoHandler $photoHandler, IColorHandler $colorHandler)
+    public function __construct(IPhotoHandler $photoHandler, IColorHandler $colorHandler, IHabitatHandler $habitatHandler,
+                                ISeasonHandler $seasonHandler, ISizeHandler $sizeHandler)
     {
         $this->photoHandler = $photoHandler;
         $this->colorHandler = $colorHandler;
+        $this->habitatHandler = $habitatHandler;
+        $this->seasonHandler = $seasonHandler;
+        $this->sizeHandler = $sizeHandler;
     }
 
     /**

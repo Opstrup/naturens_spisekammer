@@ -16,3 +16,7 @@ else
 }
 
 $app->bind('IColorHandler', 'ColorHandler');
+$app->bind('IHabitatHandler', 'HabitatHandler');
+$app->bind('ISeasonHandler', 'SeasonHandler');
+$app->bind('ISizeHandler', 'SizeHandler');
+
