@@ -38,9 +38,8 @@ class PlantController extends BaseController
     public function showPlantDetail($plantId)
     {
         $thePlant = Plants::find($plantId);
-        $plantSize = new PlantSize;
 
-        $sizeArray = $plantSize->findSizesForPlant($plantId);
+        $sizeArray = $this->sizeHandler->get($plantId);
         $seasonArray = $this->seasonHandler->get($plantId);
         $habitatArray = $this->habitatHandler->get($plantId);
         $photoArray = $this->photoHandler->get($plantId);
@@ -65,7 +64,6 @@ class PlantController extends BaseController
     public function addNewPlantToDb()
     {
         $newPlantId = $this->savePlantDataToDb();;
-        $plantSize = new PlantSize;
 
         list($seasonArray, $sizeArray, $habitatArray, $colorArray) = $this->getPlantAttributes();
 
@@ -83,8 +81,7 @@ class PlantController extends BaseController
             }
         }
 
-        $plantSize->saveSizesToDb($newPlantId, $sizeArray);
-
+        $this->sizeHandler->set($newPlantId, $sizeArray);
         $this->seasonHandler->set($newPlantId, $seasonArray);
         $this->habitatHandler->set($newPlantId, $habitatArray);
         $this->colorHandler->set($newPlantId, $colorArray);
@@ -165,7 +162,7 @@ class PlantController extends BaseController
         $plantId = Input::get('plantId');
         $thePlant = Plants::find($plantId);
 
-        $plantSize = new PlantSize;
+//        $plantSize = new PlantSize;
 
         $thePlant->name = Input::get('name');
         $thePlant->name_latin = Input::get('name_latin');
@@ -201,8 +198,9 @@ class PlantController extends BaseController
                 $this->photoHandler->edit($plantId, $index, null);
         }
 
-        $plantSize->saveSizesToDb($plantId, $sizeArray);
+//        $plantSize->saveSizesToDb($plantId, $sizeArray);
 
+        $this->sizeHandler->edit($plantId, $sizeArray);
         $this->seasonHandler->edit($plantId, $seasonArray);
         $this->habitatHandler->edit($plantId, $habitatArray);
         $this->colorHandler->edit($plantId, $colorArray);

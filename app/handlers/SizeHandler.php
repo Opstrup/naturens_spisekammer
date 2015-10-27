@@ -11,22 +11,44 @@ class SizeHandler implements ISizeHandler
 
     public function get($plantID)
     {
-        // TODO: Implement get() method.
+        $sizesForPlant = PlantSize::where('plant_id', '=', $plantID)->get();
+        $sizeArray = array();
+
+        foreach ($sizesForPlant as $size)
+        {
+            $sizeArray[] = Sizes::where('id', '=', $size['size_id'])->get()[0]['size'];
+        }
+
+        return $sizeArray;
     }
 
     public function set($plantID, $sizeArray)
     {
-        // TODO: Implement set() method.
+        $sizes = Sizes::all();
+        $sizeArray = $this->filterArray($sizeArray);
+        $cleanSizes = $this->cleanModelArray($sizes);
+
+        foreach($sizeArray as $size)
+        {
+            if(is_numeric(array_search($size, $cleanSizes)))
+            {
+                $newSize = new PlantSize();
+                $newSize->plant_id = $plantID;
+                $newSize->size_id = array_search($size, $cleanSizes) + 1;
+                $newSize->save();
+            }
+        }
     }
 
     public function delete($plantID)
     {
-        PlantSeason::where('plant_id', '=', $plantID)->delete();
+        PlantSize::where('plant_id', '=', $plantID)->delete();
     }
 
     public function edit($plantID, $sizeArray)
     {
-        // TODO: Implement edit() method.
+        $this->delete($plantID);
+        $this->set($plantID, $sizeArray);
     }
 
     private function filterArray($array)
