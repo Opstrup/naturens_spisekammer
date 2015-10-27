@@ -38,11 +38,10 @@ class PlantController extends BaseController
     public function showPlantDetail($plantId)
     {
         $thePlant = Plants::find($plantId);
-        $plantSeason = new PlantSeason;
         $plantSize = new PlantSize;
 
-        $seasonArray = $plantSeason->findSeasonsForPlant($plantId);
         $sizeArray = $plantSize->findSizesForPlant($plantId);
+        $seasonArray = $this->seasonHandler->get($plantId);
         $habitatArray = $this->habitatHandler->get($plantId);
         $photoArray = $this->photoHandler->get($plantId);
         $colorArray = $this->colorHandler->get($plantId);
@@ -66,7 +65,6 @@ class PlantController extends BaseController
     public function addNewPlantToDb()
     {
         $newPlantId = $this->savePlantDataToDb();;
-        $plantSeason = new PlantSeason;
         $plantSize = new PlantSize;
 
         list($seasonArray, $sizeArray, $habitatArray, $colorArray) = $this->getPlantAttributes();
@@ -85,9 +83,9 @@ class PlantController extends BaseController
             }
         }
 
-        $plantSeason->saveSeasonsToDb($newPlantId, $seasonArray);
         $plantSize->saveSizesToDb($newPlantId, $sizeArray);
 
+        $this->seasonHandler->set($newPlantId, $seasonArray);
         $this->habitatHandler->set($newPlantId, $habitatArray);
         $this->colorHandler->set($newPlantId, $colorArray);
         return View::make('addPlantView');
@@ -142,13 +140,11 @@ class PlantController extends BaseController
         $plantId = (Input::get('plantId'));
 
         $thePlant = Plants::find($plantId);
-        $plantSeason = new PlantSeason;
-        $plantHabitat = new PlantHabitat;
         $plantSize = new PlantSize;
 
-        $seasonArray = $plantSeason->findSeasonsForPlant($plantId);
-        $habitatArray = $plantHabitat->findHabitatsForPlant($plantId);
         $sizeArray = $plantSize->findSizesForPlant($plantId);
+        $habitatArray = $this->habitatHandler->get($plantId);
+        $seasonArray = $this->seasonHandler->get($plantId);
         $colorArray = $this->colorHandler->get($plantId);
         $photoArray = $this->photoHandler->get($plantId);
 
@@ -169,7 +165,6 @@ class PlantController extends BaseController
         $plantId = Input::get('plantId');
         $thePlant = Plants::find($plantId);
 
-        $plantSeason = new PlantSeason;
         $plantSize = new PlantSize;
 
         $thePlant->name = Input::get('name');
@@ -206,9 +201,9 @@ class PlantController extends BaseController
                 $this->photoHandler->edit($plantId, $index, null);
         }
 
-        $plantSeason->saveSeasonsToDb($plantId, $seasonArray);
         $plantSize->saveSizesToDb($plantId, $sizeArray);
 
+        $this->seasonHandler->edit($plantId, $seasonArray);
         $this->habitatHandler->edit($plantId, $habitatArray);
         $this->colorHandler->edit($plantId, $colorArray);
 

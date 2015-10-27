@@ -8,8 +8,8 @@
  */
 class HabitatHandler implements IHabitatHandler
 {
-    protected $translationsArray = array('Agerland' => 'farmland', 'Vådområde' => 'wetland', 'Skov og hegn' => 'forest', 'Hede' => 'moor',
-                                         'Kyst' => 'coast');
+    protected $translationsArray = array('Agerland' => 'farmland', 'Vådområde' => 'wetland', 'Skov og hegn' => 'forest',
+                                         'Hede' => 'moor', 'Kyst' => 'coast');
 
     public function get($plantID)
     {
