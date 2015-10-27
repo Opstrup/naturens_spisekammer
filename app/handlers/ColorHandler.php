@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: Opstrup
@@ -7,6 +6,7 @@
  * Time: 10.38
  */
 
+//    require '/models/PlantColor.php';
 /*
 |--------------------------------------------------------------------------
 | ColorHandler Notes

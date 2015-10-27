@@ -147,13 +147,12 @@ class PlantController extends BaseController
         $plantSeason = new PlantSeason;
         $plantHabitat = new PlantHabitat;
         $plantSize = new PlantSize;
-        $plantPhoto = new Photos;
 
         $seasonArray = $plantSeason->findSeasonsForPlant($plantId);
-        $colorArray = $this->colorHandler->get($plantId);
         $habitatArray = $plantHabitat->findHabitatsForPlant($plantId);
         $sizeArray = $plantSize->findSizesForPlant($plantId);
-        $photoArray = $plantPhoto->findPhotosForPlant($plantId);
+        $colorArray = $this->colorHandler->get($plantId);
+        $photoArray = $this->photoHandler->get($plantId);
 
         $data = array(
             'plant' => $thePlant,
