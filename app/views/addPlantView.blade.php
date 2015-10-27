@@ -27,11 +27,11 @@
                 {{ Form::label('history', 'Historie:') }}
                 {{ Form::textarea('history', null, ['class' => 'form-control']) }} <br>
 
-                {{ Form::label('herb', 'Krydderi:') }}
-                {{ Form::checkbox('herb') }} <br>
+                {{ Form::checkbox('herb') }}
+                {{ Form::label('herb', 'Krydderi') }} <br>
 
-                {{ Form::label('eatable', 'Spiselig:') }}
-                {{ Form::checkbox('eatable') }} <br>
+                {{ Form::checkbox('eatable') }}
+                {{ Form::label('eatable', 'Spiselig') }} <br>
                 <br>
             </div>
 
@@ -40,20 +40,20 @@
                     <legend>Sæson:</legend>
                     <ul>
                         <li>
-                            {{ Form::label('spring', 'Forår:') }}
                             {{ Form::checkbox('spring') }}
+                            {{ Form::label('spring', 'Forår') }}
                         </li>
                         <li>
-                            {{ Form::label('summer', 'Sommer:') }}
                             {{ Form::checkbox('summer') }}
+                            {{ Form::label('summer', 'Sommer') }}
                         </li>
                         <li>
-                            {{ Form::label('autumn', 'Efterår:') }}
                             {{ Form::checkbox('autumn') }}
+                            {{ Form::label('autumn', 'Efterår') }}
                         </li>
                         <li>
-                            {{ Form::label('winter', 'Vinter:') }}
                             {{ Form::checkbox('winter') }}
+                            {{ Form::label('winter', 'Vinter') }}
                         </li>
                     </ul>
                 </fieldset>
@@ -63,32 +63,32 @@
                     <legend>Højde:</legend>
                     <ul>
                         <li>
-                            {{ Form::label('10', 'Optil 10cm:') }}
                             {{ Form::checkbox('10') }}
+                            {{ Form::label('10', 'Optil 10cm') }}
                         </li>
                         <li>
-                            {{ Form::label('10-25', '10 - 25cm:') }}
                             {{ Form::checkbox('10-25') }}
+                            {{ Form::label('10-25', '10 - 25cm') }}
                         </li>
                         <li>
-                            {{ Form::label('25-40', '25 - 40cm:') }}
                             {{ Form::checkbox('25-40') }}
+                            {{ Form::label('25-40', '25 - 40cm') }}
                         </li>
                         <li>
-                            {{ Form::label('40-50', '40 - 50cm:') }}
                             {{ Form::checkbox('40-50') }}
+                            {{ Form::label('40-50', '40 - 50cm') }}
                         </li>
                         <li>
-                            {{ Form::label('50-75', '50 - 75cm:') }}
                             {{ Form::checkbox('50-75') }}
+                            {{ Form::label('50-75', '50 - 75cm') }}
                         </li>
                         <li>
-                            {{ Form::label('75-100', '75 - 100cm:') }}
                             {{ Form::checkbox('75-100') }}
+                            {{ Form::label('75-100', '75 - 100cm') }}
                         </li>
                         <li>
-                            {{ Form::label('100', 'Over 100cm:') }}
                             {{ Form::checkbox('100') }}
+                            {{ Form::label('100', 'Over 100cm') }}
                         </li>
                     </ul>
                 </fieldset>
@@ -98,24 +98,24 @@
                     <legend>Levesteder:</legend>
                     <ul>
                         <li>
-                            {{ Form::label('farmland', 'Agerland:') }}
                             {{ Form::checkbox('farmland') }}
+                            {{ Form::label('farmland', 'Agerland') }}
                         </li>
                         <li>
-                            {{ Form::label('wetland', 'Vådområde:') }}
                             {{ Form::checkbox('wetland') }}
+                            {{ Form::label('wetland', 'Vådområde') }}
                         </li>
                         <li>
-                            {{ Form::label('forest', 'Skov og hegn:') }}
                             {{ Form::checkbox('forest') }}
+                            {{ Form::label('forest', 'Skov og hegn') }}
                         </li>
                         <li>
-                            {{ Form::label('moor', 'Hede:') }}
                             {{ Form::checkbox('moor') }}
+                            {{ Form::label('moor', 'Hede') }}
                         </li>
                         <li>
-                            {{ Form::label('coast', 'Kyst:') }}
                             {{ Form::checkbox('coast') }}
+                            {{ Form::label('coast', 'Kyst') }}
                         </li>
                     </ul>
                 </fieldset>
@@ -125,24 +125,24 @@
                     <legend>Farver:</legend>
                     <ul>
                         <li>
-                            {{ Form::label('red', 'Rød:') }}
                             {{ Form::checkbox('red') }}
+                            {{ Form::label('red', 'Rød') }}
                         </li>
                         <li>
-                            {{ Form::label('yellow', 'Gul:') }}
                             {{ Form::checkbox('yellow') }}
+                            {{ Form::label('yellow', 'Gul') }}
                         </li>
                         <li>
-                            {{ Form::label('blue', 'Blå:') }}
                             {{ Form::checkbox('blue') }}
+                            {{ Form::label('blue', 'Blå') }}
                         </li>
                         <li>
-                            {{ Form::label('green', 'Grøn:') }}
                             {{ Form::checkbox('green') }}
+                            {{ Form::label('green', 'Grøn') }}
                         </li>
                         <li>
-                            {{ Form::label('brown', 'Brun:') }}
                             {{ Form::checkbox('brown') }}
+                            {{ Form::label('brown', 'Brun') }}
                         </li>
                     </ul>
                 </fieldset>
