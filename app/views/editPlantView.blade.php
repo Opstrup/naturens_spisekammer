@@ -127,23 +127,23 @@
                 <legend>Farver:</legend>
                 <ul>
                     <li>
-                        {{ Form::checkbox('red', null, in_array('red', $data['colors'])) }}
+                        {{ Form::checkbox('red', null, in_array('rød', $data['colors'])) }}
                         {{ Form::label('red', 'Rød') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('yellow', null, in_array('yellow', $data['colors'])) }}
+                        {{ Form::checkbox('yellow', null, in_array('gul', $data['colors'])) }}
                         {{ Form::label('yellow', 'Gul') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('blue', null, in_array('blue', $data['colors'])) }}
+                        {{ Form::checkbox('blue', null, in_array('blå', $data['colors'])) }}
                         {{ Form::label('blue', 'Blå') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('green', null, in_array('green', $data['colors'])) }}
+                        {{ Form::checkbox('green', null, in_array('grøn', $data['colors'])) }}
                         {{ Form::label('green', 'Grøn') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('brown', null, in_array('brown', $data['colors'])) }}
+                        {{ Form::checkbox('brown', null, in_array('brun', $data['colors'])) }}
                         {{ Form::label('brown', 'Brun') }}
                     </li>
                 </ul>
