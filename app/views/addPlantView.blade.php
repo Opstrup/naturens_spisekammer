@@ -144,6 +144,22 @@
                             {{ Form::checkbox('brown') }}
                             {{ Form::label('brown', 'Brun') }}
                         </li>
+                        <li>
+                            {{ Form::checkbox('black') }}
+                            {{ Form::label('black', 'Sort') }}
+                        </li>
+                        <li>
+                            {{ Form::checkbox('white') }}
+                            {{ Form::label('white', 'Hvid') }}
+                        </li>
+                        <li>
+                            {{ Form::checkbox('purple') }}
+                            {{ Form::label('purple', 'Lilla') }}
+                        </li>
+                        <li>
+                            {{ Form::checkbox('orange') }}
+                            {{ Form::label('orange', 'Orange') }}
+                        </li>
                     </ul>
                 </fieldset>
                 <br>

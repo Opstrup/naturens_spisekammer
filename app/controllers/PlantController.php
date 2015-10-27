@@ -229,7 +229,8 @@ class PlantController extends BaseController
             'forest' => Input::get('forest'), 'moor' => Input::get('moor'), 'coast' => Input::get('coast'));
 
         $colorArray = array('red' => Input::get('red'), 'yellow' => Input::get('yellow'), 'blue' => Input::get('blue'),
-            'green' => Input::get('green'), 'brown' => Input::get('brown'));
+            'green' => Input::get('green'), 'brown' => Input::get('brown'), 'black' => Input::get('black'),
+            'white' => Input::get('white'), 'purple' => Input::get('purple'), 'orange' => Input::get('orange'));
         return array($seasonArray, $sizeArray, $habitatArray, $colorArray);
     }
 }

@@ -23,7 +23,7 @@ class ColorHandler implements IColorHandler
 
     protected $translationsArray = array('rød' => 'red', 'gul' => 'yellow', 'blå' => 'blue',
                                          'grøn' => 'green', 'brun' => 'brown', 'hvid' => 'white',
-                                         'sort' => 'black', 'lilla' => 'purple');
+                                         'sort' => 'black', 'lilla' => 'purple', 'orange' => 'orange');
 
     public function get($plantID)
     {

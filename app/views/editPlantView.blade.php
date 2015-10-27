@@ -146,6 +146,22 @@
                         {{ Form::checkbox('brown', null, in_array('brun', $data['colors'])) }}
                         {{ Form::label('brown', 'Brun') }}
                     </li>
+                    <li>
+                        {{ Form::checkbox('black', null, in_array('sort', $data['colors'])) }}
+                        {{ Form::label('black', 'Sort') }}
+                    </li>
+                    <li>
+                        {{ Form::checkbox('white', null, in_array('hvid', $data['colors'])) }}
+                        {{ Form::label('white', 'Hvid') }}
+                    </li>
+                    <li>
+                        {{ Form::checkbox('purple', null, in_array('lilla', $data['colors'])) }}
+                        {{ Form::label('purple', 'Lilla') }}
+                    </li>
+                    <li>
+                        {{ Form::checkbox('orange', null, in_array('orange', $data['colors'])) }}
+                        {{ Form::label('orange', 'Orange') }}
+                    </li>
                 </ul>
             </fieldset>
             <br>
