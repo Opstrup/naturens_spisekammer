@@ -137,9 +137,7 @@ class PlantController extends BaseController
         $plantId = (Input::get('plantId'));
 
         $thePlant = Plants::find($plantId);
-        $plantSize = new PlantSize;
-
-        $sizeArray = $plantSize->findSizesForPlant($plantId);
+        $sizeArray = $this->sizeHandler->get($plantId);
         $habitatArray = $this->habitatHandler->get($plantId);
         $seasonArray = $this->seasonHandler->get($plantId);
         $colorArray = $this->colorHandler->get($plantId);
@@ -161,8 +159,6 @@ class PlantController extends BaseController
     {
         $plantId = Input::get('plantId');
         $thePlant = Plants::find($plantId);
-
-//        $plantSize = new PlantSize;
 
         $thePlant->name = Input::get('name');
         $thePlant->name_latin = Input::get('name_latin');
@@ -197,8 +193,6 @@ class PlantController extends BaseController
             if(Input::get($index))
                 $this->photoHandler->edit($plantId, $index, null);
         }
-
-//        $plantSize->saveSizesToDb($plantId, $sizeArray);
 
         $this->sizeHandler->edit($plantId, $sizeArray);
         $this->seasonHandler->edit($plantId, $seasonArray);
