@@ -8,15 +8,16 @@
  */
 class PlantController extends BaseController
 {
+    protected $photoHandler, $habitatHandler, $colorHandler, $sizeHandler, $seasonHandler;
 
-    // @todo Split everything up in models with interfaces!
-    // @todo Make photo handling for local filesystem and live filesystem
-
-    protected $photoHandler;
-
-    public function __construct(IPhotoHandler $photoHandler)
+    public function __construct(IPhotoHandler $photoHandler, IColorHandler $colorHandler, IHabitatHandler $habitatHandler,
+                                ISeasonHandler $seasonHandler, ISizeHandler $sizeHandler)
     {
         $this->photoHandler = $photoHandler;
+        $this->colorHandler = $colorHandler;
+        $this->habitatHandler = $habitatHandler;
+        $this->seasonHandler = $seasonHandler;
+        $this->sizeHandler = $sizeHandler;
     }
 
     /**
@@ -37,16 +38,12 @@ class PlantController extends BaseController
     public function showPlantDetail($plantId)
     {
         $thePlant = Plants::find($plantId);
-        $plantSeason = new PlantSeason;
-        $plantColor = new PlantColor;
-        $plantHabitat = new PlantHabitat;
-        $plantSize = new PlantSize;
 
-        $seasonArray = $plantSeason->findSeasonsForPlant($plantId);
-        $colorArray = $plantColor->findColorsForPlant($plantId);
-        $habitatArray = $plantHabitat->findHabitatsForPlant($plantId);
-        $sizeArray = $plantSize->findSizesForPlant($plantId);
+        $sizeArray = $this->sizeHandler->get($plantId);
+        $seasonArray = $this->seasonHandler->get($plantId);
+        $habitatArray = $this->habitatHandler->get($plantId);
         $photoArray = $this->photoHandler->get($plantId);
+        $colorArray = $this->colorHandler->get($plantId);
 
         $data = array(
             'plant' => $thePlant,
@@ -67,32 +64,27 @@ class PlantController extends BaseController
     public function addNewPlantToDb()
     {
         $newPlantId = $this->savePlantDataToDb();;
-        $plantSeason = new PlantSeason;
-        $plantSize = new PlantSize;
-        $plantHabitat = new PlantHabitat;
-        $plantColor = new PlantColor;
 
-        list($seasonArray, $sizeArray, $habitatArray, $colorArray) = $this->savePlantAttributes();
+        list($seasonArray, $sizeArray, $habitatArray, $colorArray) = $this->getPlantAttributes();
 
         for ($index = 0; $index < 4; $index++)
         {
+            // @todo refactor this !
             if(Input::hasFile('photo_' . $index))
             {
                 $photo = Input::file('photo_' . $index);
                 $this->photoHandler->set($newPlantId, $index, $photo);
             }
-            // @todo refactor this !
             else
             {
                 $this->photoHandler->set($newPlantId, $index, null);
             }
         }
 
-        $plantSeason->saveSeasonsToDb($newPlantId, $seasonArray);
-        $plantSize->saveSizesToDb($newPlantId, $sizeArray);
-        $plantHabitat->saveHabitatsToDb($newPlantId, $habitatArray);
-        $plantColor->saveColorsToDb($newPlantId, $colorArray);
-
+        $this->sizeHandler->set($newPlantId, $sizeArray);
+        $this->seasonHandler->set($newPlantId, $seasonArray);
+        $this->habitatHandler->set($newPlantId, $habitatArray);
+        $this->colorHandler->set($newPlantId, $colorArray);
         return View::make('addPlantView');
     }
 
@@ -118,48 +110,6 @@ class PlantController extends BaseController
     }
 
     /**
-     * @param $photo = uploaded photo
-     * @param $plantID = ID for the newly created plant
-     * @param $photoNumber = number for which photo is being uploaded
-     * @return bool = true if successful / false if error
-     *
-     * Moves the uploaded photo to the uploaded folder and creates a new folder for it
-     * if no folder exists.
-     */
-    public function savePhoto($photo, $plantID, $photoNumber)
-    {
-        $fileName = $photoNumber . "-plant-" . $plantID . ".jpeg";
-        $photoURL = "PlantPictures" . "/" . $plantID . "/";
-
-        $plantPhoto = new Photos;
-        $plantPhoto->plant_id = $plantID;
-        $plantPhoto->photo_url = $photoURL . $fileName;
-        $plantPhoto->save();
-
-        if($photo) {
-            $photo->move(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function editPhoto($photo, $plantID, $photoNumber)
-    {
-        $fileName = $photoNumber . "-plant-" . $plantID . ".jpeg";
-        $photoURL = "PlantPictures" . "/" . $plantID . "/";
-
-        $editPhoto = Photos::where('plant_id', '=', $plantID)
-            ->where('photo_url', '=', 'null')
-            ->first();
-
-        $editPhoto->photo_url = $photoURL . $fileName;
-        $editPhoto->save();
-
-        $photo->move(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
-    }
-
-    /**
      * Finds the given plant from the id in the database
      * and deletes all the relationships to the plant, the folder in
      * PlantPictures which contains all pictures for the plant and the plant
@@ -171,8 +121,6 @@ class PlantController extends BaseController
         $plantId = (Input::get('plantId'));
 
         $this->photoHandler->delete($plantId);
-//        File::deleteDirectory(public_path() . '/PlantPictures/' . $plantId);
-//        Photos::where('plant_id', '=', $plantId)->delete();
         $this->deletePlantAttributes($plantId);
         Plants::where('id', '=', $plantId)->delete();
 
@@ -189,17 +137,11 @@ class PlantController extends BaseController
         $plantId = (Input::get('plantId'));
 
         $thePlant = Plants::find($plantId);
-        $plantSeason = new PlantSeason;
-        $plantColor = new PlantColor;
-        $plantHabitat = new PlantHabitat;
-        $plantSize = new PlantSize;
-        $plantPhoto = new Photos;
-
-        $seasonArray = $plantSeason->findSeasonsForPlant($plantId);
-        $colorArray = $plantColor->findColorsForPlant($plantId);
-        $habitatArray = $plantHabitat->findHabitatsForPlant($plantId);
-        $sizeArray = $plantSize->findSizesForPlant($plantId);
-        $photoArray = $plantPhoto->findPhotosForPlant($plantId);
+        $sizeArray = $this->sizeHandler->get($plantId);
+        $habitatArray = $this->habitatHandler->get($plantId);
+        $seasonArray = $this->seasonHandler->get($plantId);
+        $colorArray = $this->colorHandler->get($plantId);
+        $photoArray = $this->photoHandler->get($plantId);
 
         $data = array(
             'plant' => $thePlant,
@@ -217,11 +159,6 @@ class PlantController extends BaseController
     {
         $plantId = Input::get('plantId');
         $thePlant = Plants::find($plantId);
-
-        $plantSeason = new PlantSeason;
-        $plantSize = new PlantSize;
-        $plantHabitat = new PlantHabitat;
-        $plantColor = new PlantColor;
 
         $thePlant->name = Input::get('name');
         $thePlant->name_latin = Input::get('name_latin');
@@ -243,7 +180,7 @@ class PlantController extends BaseController
 
         $thePlant->save();
 
-        list($seasonArray, $sizeArray, $habitatArray, $colorArray) = $this->savePlantAttributes();
+        list($seasonArray, $sizeArray, $habitatArray, $colorArray) = $this->getPlantAttributes();
 
         for ($index = 0; $index < 4; $index++)
         {
@@ -257,10 +194,10 @@ class PlantController extends BaseController
                 $this->photoHandler->edit($plantId, $index, null);
         }
 
-        $plantSeason->saveSeasonsToDb($plantId, $seasonArray);
-        $plantSize->saveSizesToDb($plantId, $sizeArray);
-        $plantHabitat->saveHabitatsToDb($plantId, $habitatArray);
-        $plantColor->saveColorsToDb($plantId, $colorArray);
+        $this->sizeHandler->edit($plantId, $sizeArray);
+        $this->seasonHandler->edit($plantId, $seasonArray);
+        $this->habitatHandler->edit($plantId, $habitatArray);
+        $this->colorHandler->edit($plantId, $colorArray);
 
         return Redirect::to('plant-detail/' . $plantId);
     }
@@ -270,16 +207,16 @@ class PlantController extends BaseController
      */
     public function deletePlantAttributes($plantId)
     {
-        PlantColor::where('plant_id', '=', $plantId)->delete();
-        PlantHabitat::where('plant_id', '=', $plantId)->delete();
-        PlantSeason::where('plant_id', '=', $plantId)->delete();
-        PlantSize::where('plant_id', '=', $plantId)->delete();
+        $this->colorHandler->delete($plantId);
+        $this->habitatHandler->delete($plantId);
+        $this->seasonHandler->delete($plantId);
+        $this->sizeHandler->delete($plantId);
     }
 
     /**
      * @return array
      */
-    public function savePlantAttributes()
+    public function getPlantAttributes()
     {
         $seasonArray = array('spring' => Input::get('spring'), 'summer' => Input::get('summer'),
             'autumn' => Input::get('autumn'), 'winter' => Input::get('winter'));
@@ -292,24 +229,8 @@ class PlantController extends BaseController
             'forest' => Input::get('forest'), 'moor' => Input::get('moor'), 'coast' => Input::get('coast'));
 
         $colorArray = array('red' => Input::get('red'), 'yellow' => Input::get('yellow'), 'blue' => Input::get('blue'),
-            'green' => Input::get('green'), 'brown' => Input::get('brown'));
+            'green' => Input::get('green'), 'brown' => Input::get('brown'), 'black' => Input::get('black'),
+            'white' => Input::get('white'), 'purple' => Input::get('purple'), 'orange' => Input::get('orange'));
         return array($seasonArray, $sizeArray, $habitatArray, $colorArray);
-    }
-
-    /**
-     * @param $plantID
-     * @param $photoID
-     * Deletes the given photo from a plat, deletes the photo in the public folder and
-     * the relationship in the database
-     */
-    public function deletePhoto($plantID, $photoID)
-    {
-        $fileName = $photoID . '-plant-' . $plantID . '.jpeg';
-        $deleteRow = 'PlantPictures/' . $plantID . '/' . $fileName;
-
-        File::delete(public_path() . '/PlantPictures/' . $plantID . '/' . $fileName);
-        $photosRow = Photos::where('photo_url', '=', $deleteRow)->first();
-        $photosRow->photo_url = 'null';
-        $photosRow->save();
     }
 }

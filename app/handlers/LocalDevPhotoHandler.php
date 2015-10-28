@@ -80,9 +80,7 @@ class LocalDevPhotoHandler implements IPhotoHandler
             $fileName = $photoID . "-plant-" . $plantID . ".jpeg";
             $photoURL = "PlantPictures" . "/" . $plantID . "/";
 
-            $editPhoto = Photos::where('plant_id', '=', $plantID)
-                ->where('photo_url', '=', 'null')
-                ->first();
+            $editPhoto = Photos::where('plant_id', '=', $plantID)->get()[$photoID];
 
             $editPhoto->photo_url = $photoURL . $fileName;
             $editPhoto->save();

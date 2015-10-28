@@ -40,6 +40,7 @@ Route::get('recipe-detail/{recipeId}', 'RecipeController@showRecipeDetail');
  */
 Route::get('add-new-ingredient', 'IngredientController@showAddNewIngredient');
 Route::post('add-new-ingredient', 'IngredientController@AddNewIngredientToDb');
+Route::post('delete-ingredient', 'IngredientController@deleteIngredient');
 
 
 /**
