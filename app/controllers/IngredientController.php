@@ -37,4 +37,24 @@ class IngredientController extends BaseController {
 		return View::make('addOtheringredientView')->with('data', $data);
 	}
 
+	public function deleteIngredient()
+	{
+		$ingredients = Input::get('ingredient');
+
+		if(is_array($ingredients))
+		{
+			foreach($ingredients as $ingredientID)
+			{
+				Otheringredients::where('id', '=', $ingredientID)->delete();
+			}
+		}
+
+		$otherIngredients = Otheringredients::all();
+
+		$data = array(
+			'otherIngredients' => $otherIngredients,
+		);
+
+		return View::make('addOtheringredientView')->with('data', $data);
+	}
 }
