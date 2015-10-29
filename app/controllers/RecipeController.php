@@ -23,27 +23,31 @@ class RecipeController extends BaseController
 
     public function addNewRecipeToDb()
     {
-        // @todo all otherIngredients to the recipe as well
+        // @todo add all otherIngredients to the recipe as well
         $newRecipe = new Recipes;
         $plantRecipe = new PlantRecipe;
         $recipeId = sizeof(Recipes::all())+1;
         $plants = Plants::all();
-        //$otherIngredients = Otheringredients::all();
+        $otherIngredients = Otheringredients::all();
         $plantsAddedToRecipeArray = array();
 
         $this->recipeSetup($newRecipe);
 
-        // finding which plant is checked in the list of plants in the view
         foreach ($plants as $plant)
         {
-            if (Input::get('plantId_' . $plant->id) === 'yes')
+            if(Input::get('plantId_' . $plant->id) === 'yes')
                 $plantsAddedToRecipeArray[] = $plant->id;
         }
 
         $plantRecipe->savePlantRecipeConnectionToDb($recipeId, $plantsAddedToRecipeArray);
         $newRecipe->save();
 
-        return View::make('addRecipeView')->with('plants', $plants);
+        $data = array(
+            'plants' => $plants,
+            'otherIngredients' => $otherIngredients
+        );
+
+        return View::make('addRecipeView')->with('data', $data);
     }
 
     public function showRecipeDetail($recipeId)
