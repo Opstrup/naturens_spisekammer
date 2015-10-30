@@ -20,7 +20,7 @@ class AddNewPlantPageCest
         $I->fillField('name_latin', 'Test plant latin');
         $I->fillField('description', 'Test description of a test plant');
         $I->fillField('history', 'Test history of a test plant');
-        $I->checkOption('#eatable');
+        $I->checkOption('eatable');
         $I->attachFile('input[name=photo_0]', 'test.jpg');
         $I->attachFile('input[name=photo_1]', 'test.jpg');
         $I->attachFile('input[name=photo_2]', 'test.jpg');
@@ -40,7 +40,7 @@ class AddNewPlantPageCest
         $I->fillField('name_latin', 'Test plant latin');
         $I->fillField('description', 'Test description of a test plant');
         $I->fillField('history', 'Test history of a test plant');
-        $I->checkOption('#spring');
+        $I->checkOption('spring');
         $I->attachFile('input[name=photo_0]', 'test.jpg');
         $I->attachFile('input[name=photo_1]', 'test.jpg');
         $I->attachFile('input[name=photo_2]', 'test.jpg');
@@ -58,7 +58,7 @@ class AddNewPlantPageCest
         $I->fillField('name_latin', 'Test plant latin');
         $I->fillField('description', 'Test description of a test plant');
         $I->fillField('history', 'Test history of a test plant');
-        $I->checkOption('#eatable');
+        $I->checkOption('eatable');
         $I->attachFile('input[name=photo_0]', 'test.jpg');
         $I->attachFile('input[name=photo_1]', 'test.jpg');
         $I->attachFile('input[name=photo_2]', 'test.jpg');
@@ -75,11 +75,11 @@ class AddNewPlantPageCest
         $I->fillField('name_latin', 'Test plant latin');
         $I->fillField('description', 'Test description of a test plant');
         $I->fillField('history', 'Test history of a test plant');
-        $I->checkOption('#eatable');
-        $I->checkOption('#winter');
-        $I->checkOption('#25-40');
-        $I->checkOption('#farmland');
-        $I->checkOption('#red');
+        $I->checkOption('eatable');
+        $I->checkOption('winter');
+        $I->checkOption('25-40');
+        $I->checkOption('farmland');
+        $I->checkOption('red');
         $I->attachFile('input[name=photo_0]', 'test.jpg');
         $I->attachFile('input[name=photo_1]', 'test.jpg');
         $I->attachFile('input[name=photo_2]', 'test.jpg');
