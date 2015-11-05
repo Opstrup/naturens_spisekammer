@@ -6,7 +6,6 @@
  * Time: 10.38
  */
 
-//    require '/models/PlantColor.php';
 /*
 |--------------------------------------------------------------------------
 | ColorHandler Notes

@@ -27,10 +27,10 @@
                 {{ Form::label('history', 'Historie:') }}
                 {{ Form::textarea('history', null, ['class' => 'form-control']) }} <br>
 
-                {{ Form::checkbox('herb') }}
+                {{ Form::checkbox('herb', 'herb') }}
                 {{ Form::label('herb', 'Krydderi') }} <br>
 
-                {{ Form::checkbox('eatable') }}
+                {{ Form::checkbox('eatable', 'eatable') }}
                 {{ Form::label('eatable', 'Spiselig') }} <br>
                 <br>
             </div>
@@ -40,19 +40,19 @@
                     <legend>Sæson:</legend>
                     <ul>
                         <li>
-                            {{ Form::checkbox('spring') }}
+                            {{ Form::checkbox('spring', 'spring') }}
                             {{ Form::label('spring', 'Forår') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('summer') }}
+                            {{ Form::checkbox('summer', 'summer') }}
                             {{ Form::label('summer', 'Sommer') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('autumn') }}
+                            {{ Form::checkbox('autumn', 'autumn') }}
                             {{ Form::label('autumn', 'Efterår') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('winter') }}
+                            {{ Form::checkbox('winter', 'winter') }}
                             {{ Form::label('winter', 'Vinter') }}
                         </li>
                     </ul>
@@ -63,31 +63,31 @@
                     <legend>Højde:</legend>
                     <ul>
                         <li>
-                            {{ Form::checkbox('10') }}
+                            {{ Form::checkbox('10', '10') }}
                             {{ Form::label('10', 'Optil 10cm') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('10-25') }}
+                            {{ Form::checkbox('10-25', '10-25') }}
                             {{ Form::label('10-25', '10 - 25cm') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('25-40') }}
+                            {{ Form::checkbox('25-40', '25-40') }}
                             {{ Form::label('25-40', '25 - 40cm') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('40-50') }}
+                            {{ Form::checkbox('40-50', '40-50') }}
                             {{ Form::label('40-50', '40 - 50cm') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('50-75') }}
+                            {{ Form::checkbox('50-75', '50-75') }}
                             {{ Form::label('50-75', '50 - 75cm') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('75-100') }}
+                            {{ Form::checkbox('75-100', '75-100') }}
                             {{ Form::label('75-100', '75 - 100cm') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('100') }}
+                            {{ Form::checkbox('100', '100') }}
                             {{ Form::label('100', 'Over 100cm') }}
                         </li>
                     </ul>
@@ -98,23 +98,23 @@
                     <legend>Levesteder:</legend>
                     <ul>
                         <li>
-                            {{ Form::checkbox('farmland') }}
+                            {{ Form::checkbox('farmland', 'farmland') }}
                             {{ Form::label('farmland', 'Agerland') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('wetland') }}
+                            {{ Form::checkbox('wetland', 'wetland') }}
                             {{ Form::label('wetland', 'Vådområde') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('forest') }}
+                            {{ Form::checkbox('forest', 'forest') }}
                             {{ Form::label('forest', 'Skov og hegn') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('moor') }}
+                            {{ Form::checkbox('moor', 'moor') }}
                             {{ Form::label('moor', 'Hede') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('coast') }}
+                            {{ Form::checkbox('coast', 'coast') }}
                             {{ Form::label('coast', 'Kyst') }}
                         </li>
                     </ul>
@@ -125,39 +125,39 @@
                     <legend>Farver:</legend>
                     <ul>
                         <li>
-                            {{ Form::checkbox('red') }}
+                            {{ Form::checkbox('red', 'red') }}
                             {{ Form::label('red', 'Rød') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('yellow') }}
+                            {{ Form::checkbox('yellow', 'yellow') }}
                             {{ Form::label('yellow', 'Gul') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('blue') }}
+                            {{ Form::checkbox('blue', 'blue') }}
                             {{ Form::label('blue', 'Blå') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('green') }}
+                            {{ Form::checkbox('green', 'green') }}
                             {{ Form::label('green', 'Grøn') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('brown') }}
+                            {{ Form::checkbox('brown', 'brown') }}
                             {{ Form::label('brown', 'Brun') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('black') }}
+                            {{ Form::checkbox('black', 'black') }}
                             {{ Form::label('black', 'Sort') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('white') }}
+                            {{ Form::checkbox('white', 'white') }}
                             {{ Form::label('white', 'Hvid') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('purple') }}
+                            {{ Form::checkbox('purple', 'purple') }}
                             {{ Form::label('purple', 'Lilla') }}
                         </li>
                         <li>
-                            {{ Form::checkbox('orange') }}
+                            {{ Form::checkbox('orange', 'orange') }}
                             {{ Form::label('orange', 'Orange') }}
                         </li>
                     </ul>
@@ -174,6 +174,7 @@
 
             <div class="col-md-1 col-md-offset-5">
                 {{ Form::submit('Tilføj', array('class' => 'btn btn-default', 'name' => 'addNewPlant')) }}
+                <br><br>
             </div>
         {{ Form::close() }}
     </div>

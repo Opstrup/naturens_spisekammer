@@ -30,10 +30,10 @@
             {{ Form::label('history', 'Historie:') }}
             {{ Form::textarea('history', $data['plant']->history, ['class' => 'form-control']) }} <br>
 
-            {{ Form::checkbox('herb', null , $data['plant']->herb) }}
+            {{ Form::checkbox('herb', 'herb' , $data['plant']->herb) }}
             {{ Form::label('herb', 'Krydderi') }} <br>
 
-            {{ Form::checkbox('eatable', null, $data['plant']->eatable) }}
+            {{ Form::checkbox('eatable', 'eatable', $data['plant']->eatable) }}
             {{ Form::label('eatable', 'Spiselig') }}  <br>
             <br>
         </div>
@@ -42,19 +42,19 @@
                 <legend>Sæson:</legend>
                 <ul>
                     <li>
-                        {{ Form::checkbox('spring', null, in_array('spring', $data['seasons'])) }}
+                        {{ Form::checkbox('spring', 'spring', in_array('spring', $data['seasons'])) }}
                         {{ Form::label('spring', 'Forår') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('summer', null, in_array('summer', $data['seasons'])) }}
+                        {{ Form::checkbox('summer', 'summer', in_array('summer', $data['seasons'])) }}
                         {{ Form::label('summer', 'Sommer') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('autumn', null, in_array('autumn', $data['seasons'])) }}
+                        {{ Form::checkbox('autumn', 'autumn', in_array('autumn', $data['seasons'])) }}
                         {{ Form::label('autumn', 'Efterår') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('winter', null, in_array('winter', $data['seasons'])) }}
+                        {{ Form::checkbox('winter', 'winter', in_array('winter', $data['seasons'])) }}
                         {{ Form::label('winter', 'Vinter') }}
                     </li>
                 </ul>
@@ -65,31 +65,31 @@
                 <legend>Højde:</legend>
                 <ul>
                     <li>
-                        {{ Form::checkbox('10', null, in_array('10', $data['sizes'])) }}
+                        {{ Form::checkbox('10', '10', in_array('10', $data['sizes'])) }}
                         {{ Form::label('10', 'Optil 10cm') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('10-25', null, in_array('10-25', $data['sizes'])) }}
+                        {{ Form::checkbox('10-25', '10-25', in_array('10-25', $data['sizes'])) }}
                         {{ Form::label('10-25', '10 - 25cm') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('25-40', null, in_array('25-40', $data['sizes'])) }}
+                        {{ Form::checkbox('25-40', '25-40', in_array('25-40', $data['sizes'])) }}
                         {{ Form::label('25-40', '25 - 40cm') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('40-50', null, in_array('40-50', $data['sizes'])) }}
+                        {{ Form::checkbox('40-50', '40-50', in_array('40-50', $data['sizes'])) }}
                         {{ Form::label('40-50', '40 - 50cm') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('50-75', null, in_array('50-75', $data['sizes'])) }}
+                        {{ Form::checkbox('50-75', '50-75', in_array('50-75', $data['sizes'])) }}
                         {{ Form::label('50-75', '50 - 75cm') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('75-100', null, in_array('75-100', $data['sizes'])) }}
+                        {{ Form::checkbox('75-100', '75-100', in_array('75-100', $data['sizes'])) }}
                         {{ Form::label('75-100', '75 - 100cm') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('100', null, in_array('100', $data['sizes'])) }}
+                        {{ Form::checkbox('100', '100', in_array('100', $data['sizes'])) }}
                         {{ Form::label('100', 'Over 100cm') }}
                     </li>
                 </ul>
@@ -100,23 +100,23 @@
                 <legend>Levesteder:</legend>
                 <ul>
                     <li>
-                        {{ Form::checkbox('farmland', null, in_array('farmland', $data['habitats'])) }}
+                        {{ Form::checkbox('farmland', 'farmland', in_array('farmland', $data['habitats'])) }}
                         {{ Form::label('farmland', 'Agerland') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('wetland', null, in_array('wetland', $data['habitats'])) }}
+                        {{ Form::checkbox('wetland', 'wetland', in_array('wetland', $data['habitats'])) }}
                         {{ Form::label('wetland', 'Vådområde') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('forest', null, in_array('forest', $data['habitats'])) }}
+                        {{ Form::checkbox('forest', 'forest', in_array('forest', $data['habitats'])) }}
                         {{ Form::label('forest', 'Skov og hegn') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('moor', null, in_array('moor', $data['habitats'])) }}
+                        {{ Form::checkbox('moor', 'moor', in_array('moor', $data['habitats'])) }}
                         {{ Form::label('moor', 'Hede') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('coast', null, in_array('coast', $data['habitats'])) }}
+                        {{ Form::checkbox('coast', 'coast', in_array('coast', $data['habitats'])) }}
                         {{ Form::label('coast', 'Kyst') }}
                     </li>
                 </ul>
@@ -127,39 +127,39 @@
                 <legend>Farver:</legend>
                 <ul>
                     <li>
-                        {{ Form::checkbox('red', null, in_array('rød', $data['colors'])) }}
+                        {{ Form::checkbox('red', 'red', in_array('rød', $data['colors'])) }}
                         {{ Form::label('red', 'Rød') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('yellow', null, in_array('gul', $data['colors'])) }}
+                        {{ Form::checkbox('yellow', 'yellow', in_array('gul', $data['colors'])) }}
                         {{ Form::label('yellow', 'Gul') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('blue', null, in_array('blå', $data['colors'])) }}
+                        {{ Form::checkbox('blue', 'blue', in_array('blå', $data['colors'])) }}
                         {{ Form::label('blue', 'Blå') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('green', null, in_array('grøn', $data['colors'])) }}
+                        {{ Form::checkbox('green', 'green', in_array('grøn', $data['colors'])) }}
                         {{ Form::label('green', 'Grøn') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('brown', null, in_array('brun', $data['colors'])) }}
+                        {{ Form::checkbox('brown', 'brown', in_array('brun', $data['colors'])) }}
                         {{ Form::label('brown', 'Brun') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('black', null, in_array('sort', $data['colors'])) }}
+                        {{ Form::checkbox('black', 'black', in_array('sort', $data['colors'])) }}
                         {{ Form::label('black', 'Sort') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('white', null, in_array('hvid', $data['colors'])) }}
+                        {{ Form::checkbox('white', 'white', in_array('hvid', $data['colors'])) }}
                         {{ Form::label('white', 'Hvid') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('purple', null, in_array('lilla', $data['colors'])) }}
+                        {{ Form::checkbox('purple', 'purple', in_array('lilla', $data['colors'])) }}
                         {{ Form::label('purple', 'Lilla') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('orange', null, in_array('orange', $data['colors'])) }}
+                        {{ Form::checkbox('orange', 'orange', in_array('orange', $data['colors'])) }}
                         {{ Form::label('orange', 'Orange') }}
                     </li>
                 </ul>

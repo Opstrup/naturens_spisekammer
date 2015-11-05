@@ -2,16 +2,21 @@
 
 class IngredientController extends BaseController {
 
+	protected $ingredientHandler;
+
+	public function __construct(IIngredientHandler $ingredientHandler)
+	{
+		$this->ingredientHandler = $ingredientHandler;
+	}
+
 	/**
 	 * Shows the addOtheringredientView with the list
 	 * of all other ingredients
      */
 	public function showAddNewIngredient()
 	{
-		$otherIngredients = Otheringredients::all();
-
 		$data = array(
-			'otherIngredients' => $otherIngredients,
+			'otherIngredients' => $this->ingredientHandler->get(),
 		);
 
 		return View::make('addOtheringredientView')->with('data', $data);
@@ -24,35 +29,24 @@ class IngredientController extends BaseController {
      */
 	public function AddNewIngredientToDb()
 	{
-		$ingredient = new Otheringredients;
-		$ingredient->name = Input::get('name');
-		$ingredient->save();
-
-		$otherIngredients = Otheringredients::all();
+		$this->ingredientHandler->set(Input::get('name'));
 
 		$data = array(
-			'otherIngredients' => $otherIngredients,
+			'otherIngredients' => $this->ingredientHandler->get(),
 		);
 
 		return View::make('addOtheringredientView')->with('data', $data);
 	}
 
+	/**
+	 * Deletes all the checked ingredients in the view
+	 */
 	public function deleteIngredient()
 	{
-		$ingredients = Input::get('ingredient');
-
-		if(is_array($ingredients))
-		{
-			foreach($ingredients as $ingredientID)
-			{
-				Otheringredients::where('id', '=', $ingredientID)->delete();
-			}
-		}
-
-		$otherIngredients = Otheringredients::all();
+		$this->ingredientHandler->delete(Input::get('ingredient'));
 
 		$data = array(
-			'otherIngredients' => $otherIngredients,
+			'otherIngredients' => $this->ingredientHandler->get(),
 		);
 
 		return View::make('addOtheringredientView')->with('data', $data);
