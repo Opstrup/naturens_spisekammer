@@ -172,7 +172,7 @@
                 @for($i = 0; $i < 4; $i++)
                     @if($data['photos'][$i] != 'null')
                         <div class="col-md-5">
-                            <a href={{ url($data['photos'][$i]) }} class="thumbnail" style="width: 133px; height: 200px;">
+                            <a href={{ url($data['photos'][$i]) }} class="thumbnail" style="width: 133px; height: 230px;">
                                 <img src={{ url($data['photos'][$i]) }} class="img-rounded">
                             </a>
 
@@ -181,8 +181,8 @@
                         </div>
                     @else
                         <div class="col-md-5">
-                            <a href="http://placehold.it/266x400" class="thumbnail" style="width: 133px; height: 200px;">
-                                <img src="http://placehold.it/266x400" class="img-rounded">
+                            <a href="http://placehold.it/266x470" class="thumbnail" style="width: 133px; height: 230px;">
+                                <img src="http://placehold.it/266x470" class="img-rounded">
                             </a>
 
                             {{ Form::file('photo_' . $i) }}

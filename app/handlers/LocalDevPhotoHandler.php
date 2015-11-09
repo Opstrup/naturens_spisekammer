@@ -54,6 +54,8 @@ class LocalDevPhotoHandler implements IPhotoHandler
             $plantPhoto->save();
 
             $photo->move(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
+
+            Image::make(sprintf(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" . $fileName))->crop(750, 1334)->save();
         }
     }
 
@@ -86,6 +88,7 @@ class LocalDevPhotoHandler implements IPhotoHandler
             $editPhoto->save();
 
             $photo->move(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
+            Image::make(sprintf(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" . $fileName))->crop(750, 1334)->save();
         }
     }
 }

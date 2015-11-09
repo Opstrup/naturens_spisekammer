@@ -91,13 +91,13 @@
         @foreach($data['photos'] as $photo)
             @if($photo == 'null')
                 <div class="col-md-2">
-                    <a href="http://placehold.it/266x400" class="thumbnail" style="width: 133px; height: 200px;">
-                        <img src="http://placehold.it/266x400" class="img-rounded">
+                    <a href="http://placehold.it/266x470" class="thumbnail" style="width: 133px; height: 230px;">
+                        <img src="http://placehold.it/266x470" class="img-rounded">
                     </a>
                 </div>
             @else
                 <div class="col-md-2">
-                    <a href="{{ url($photo) }}" class="thumbnail" style="width: 133px; height: 200px;">
+                    <a href="{{ url($photo) }}" class="thumbnail" style="width: 133px; height: 230px;">
                         <img src="{{ url($photo) }}" class="img-rounded">
                     </a>
                 </div>
