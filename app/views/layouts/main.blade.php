@@ -7,6 +7,7 @@
         @section('head')
 
             {{ HTML::style('bootstrap/dist/css/bootstrap.min.css') }}
+            {{ HTML::style('css/custom-css.css') }}
             <style>
 
                 a, a:visited {

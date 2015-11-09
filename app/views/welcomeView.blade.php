@@ -16,41 +16,50 @@
 
         <table class="table table-hover">
             <caption>List af planter</caption>
-            <tr>
-                <th>ID</th>
-                <th>Navn</th>
-                <th>Navn latin</th>
-                <th>Krydderi</th>
-                <th>Spiselig</th>
-                <th>Mere</th>
-            </tr>
-
-            @foreach($data['plants'] as $plant)
-                <tr id="{{ $plant->id }}">
-                    <td>{{ $plant->id }}</td>
-                    <td>{{ $plant->name }}</td>
-                    <td>{{ $plant->name_latin }}</td>
-
-                    @if($plant->herb)
-                        <td>Ja</td>
-                    @else
-                        <td>Nej</td>
-                    @endif
-
-                    @if($plant->eatable)
-                        <td>Ja</td>
-                    @else
-                        <td>Nej</td>
-                    @endif
-
-                    <td>
-                        <a href="/plant-detail/{{ $plant->id }}">Mere..</a>
-                    </td>
-
+            <thead>
+                <tr>
+                    <th width="5%">ID</th>
+                    <th width="40%">Navn</th>
+                    <th width="35%">Navn latin</th>
+                    <th width="5%">Krydderi</th>
+                    <th width="5%">Spiselig</th>
+                    <th width="15%">Mere</th>
                 </tr>
-            @endforeach
-
+            </thead>
         </table>
+
+        <div id="table-scroll">
+            <table class="table table-hover">
+
+                <tbody>
+                    @foreach($data['plants'] as $plant)
+                        <tr id="{{ $plant->id }}">
+                            <td width="5%">{{ $plant->id }}</td>
+                            <td width="30%">{{ $plant->name }}</td>
+                            <td width="30%">{{ $plant->name_latin }}</td>
+
+                            @if($plant->herb)
+                                <td width="5%">Ja</td>
+                            @else
+                                <td width="5%">Nej</td>
+                            @endif
+
+                            @if($plant->eatable)
+                                <td width="5%">Ja</td>
+                            @else
+                                <td width="5%">Nej</td>
+                            @endif
+
+                            <td width="15%">
+                                <a href="/plant-detail/{{ $plant->id }}">Mere..</a>
+                            </td>
+
+                        </tr>
+                    @endforeach
+                </tbody>
+
+            </table>
+        </div>
     </div>
 
     <div class="col-md-1"></div>
@@ -60,25 +69,32 @@
 
         <table class="table table-hover">
             <caption>Liste af opskrifter</caption>
+            <thead>
             <tr>
                 <th>ID</th>
                 <th>Navn</th>
                 <th>Type</th>
                 <th>Mere</th>
             </tr>
-
-            @foreach($data['recipes'] as $recipe)
-            <tr>
-                <td>{{ $recipe->id }}</td>
-                <td>{{ $recipe->name }}</td>
-                <td>{{ $recipe->type }}</td>
-                <td>
-                    <a href="/recipe-detail/{{ $recipe->id }}">Mere..</a>
-                </td>
-            </tr>
-            @endforeach
-
+            </thead>
         </table>
+
+        <div id="table-scroll">
+            <table class="table table-hover">
+                <tbody>
+                    @foreach($data['recipes'] as $recipe)
+                    <tr>
+                        <td>{{ $recipe->id }}</td>
+                        <td>{{ $recipe->name }}</td>
+                        <td>{{ $recipe->type }}</td>
+                        <td>
+                            <a href="/recipe-detail/{{ $recipe->id }}">Mere..</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
 @stop
