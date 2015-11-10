@@ -44,15 +44,15 @@
             <h1>Spis-Danmark</h1><br>
         </div>
 
-        <hr>
+        <div class="col-md-12"><hr></div>
         <div class="nav">
-                <a href="/">Forside</a>
-                <a href="/add-new-recipe">Tilføj ny opskrift</a>
-                <a href="/add-new-plant">Tilføj ny plante</a>
-                <a href="/add-new-ingredient">Tilføj ny ingridients</a>
+                <a href="/">Forside</a> |
+                <a href="/add-new-recipe">Tilføj ny opskrift</a> |
+                <a href="/add-new-plant">Tilføj ny plante</a> |
+                <a href="/add-new-ingredient">Tilføj ny ingridients</a> |
                 <a href="/about">Om</a>
         </div>
-        <hr>
+        <div class="col-md-12"><hr></div>
 
         @yield('body')
 

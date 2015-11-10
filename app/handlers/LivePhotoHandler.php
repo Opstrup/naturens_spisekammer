@@ -53,6 +53,8 @@ class LivePhotoHandler implements IPhotoHandler
             $plantPhoto->save();
 
             $photo->move(public_path() . "/../../public_html/naturens-spisekammer-app" . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
+
+            Image::make(sprintf(public_path() . "/../../public_html/naturens-spisekammer-app" . "/" . "PlantPictures" . "/" . $plantID . "/" . $fileName))->crop(750, 1334)->save();
         }
     }
 
@@ -87,6 +89,8 @@ class LivePhotoHandler implements IPhotoHandler
             $editPhoto->save();
 
             $photo->move(public_path() . "/../../public_html/naturens-spisekammer-app" . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
+
+            Image::make(sprintf(public_path() . "/../../public_html/naturens-spisekammer-app" . "/" . "PlantPictures" . "/" . $plantID . "/" . $fileName))->crop(750, 1334)->save();
         }
     }
 }

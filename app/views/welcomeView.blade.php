@@ -6,7 +6,7 @@
 
 @section('body')
 
-    <div class="col-md-12 col-md-offset-1">
+    <div class="col-md-6">
         <h1>Velkommen til Spis-Danmark - Backend</h1>
     </div>
 
@@ -14,50 +14,46 @@
     <div id="plantTable" class="col-md-5">
         <p>Antal planter i systemet: <?php echo sizeof($data['plants']) ?></p>
 
-        <table class="table table-hover">
+        <table class="table table-hover" style="margin-bottom: -1px">
             <caption>List af planter</caption>
             <thead>
                 <tr>
-                    <th width="5%">ID</th>
-                    <th width="40%">Navn</th>
-                    <th width="35%">Navn latin</th>
-                    <th width="5%">Krydderi</th>
-                    <th width="5%">Spiselig</th>
-                    <th width="15%">Mere</th>
+                    <th width="200px">Navn</th>
+                    <th width="150px">Navn latin</th>
+                    <th width="80px">Krydderi</th>
+                    <th width="80px">Spiselig</th>
+                    <th width="10px">Mere</th>
                 </tr>
             </thead>
         </table>
 
-        <div id="table-scroll">
+        <div style="overflow: auto; height: 350px;">
             <table class="table table-hover">
-
                 <tbody>
                     @foreach($data['plants'] as $plant)
                         <tr id="{{ $plant->id }}">
-                            <td width="5%">{{ $plant->id }}</td>
-                            <td width="30%">{{ $plant->name }}</td>
-                            <td width="30%">{{ $plant->name_latin }}</td>
+                            <td width="200px">{{ $plant->name }}</td>
+                            <td width="150px">{{ $plant->name_latin }}</td>
 
                             @if($plant->herb)
-                                <td width="5%">Ja</td>
+                                <td width="80px">Ja</td>
                             @else
-                                <td width="5%">Nej</td>
+                                <td width="80px">Nej</td>
                             @endif
 
                             @if($plant->eatable)
-                                <td width="5%">Ja</td>
+                                <td width="80px">Ja</td>
                             @else
-                                <td width="5%">Nej</td>
+                                <td width="80px">Nej</td>
                             @endif
 
-                            <td width="15%">
+                            <td width="10px">
                                 <a href="/plant-detail/{{ $plant->id }}">Mere..</a>
                             </td>
 
                         </tr>
                     @endforeach
                 </tbody>
-
             </table>
         </div>
     </div>
@@ -67,27 +63,25 @@
     <div id="recipeTable" class="col-md-5">
         <p>Antal opskrifter i systemet: <?php echo sizeof($data['recipes']) ?></p>
 
-        <table class="table table-hover">
+        <table class="table table-hover" style="margin-bottom: -1px">
             <caption>Liste af opskrifter</caption>
             <thead>
             <tr>
-                <th>ID</th>
-                <th>Navn</th>
-                <th>Type</th>
-                <th>Mere</th>
+                <th width="280px">Navn</th>
+                <th width="210px">Type</th>
+                <th width="20px">Mere</th>
             </tr>
             </thead>
         </table>
 
-        <div id="table-scroll">
+        <div style="overflow: auto; height: 350px;">
             <table class="table table-hover">
                 <tbody>
                     @foreach($data['recipes'] as $recipe)
                     <tr>
-                        <td>{{ $recipe->id }}</td>
-                        <td>{{ $recipe->name }}</td>
-                        <td>{{ $recipe->type }}</td>
-                        <td>
+                        <td width="280px">{{ $recipe->name }}</td>
+                        <td width="210px">{{ $recipe->type }}</td>
+                        <td width="20px">
                             <a href="/recipe-detail/{{ $recipe->id }}">Mere..</a>
                         </td>
                     </tr>
