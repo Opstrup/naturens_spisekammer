@@ -6,13 +6,13 @@
 
 @section('body')
 
-    <h2>Tilføj ny opskrift til databasen</h2>
-
     <div class="form-group">
 
         {{ Form::open(array('url' => 'add-new-recipe')) }}
 
         <div class="col-md-6">
+
+            <h2>Tilføj ny opskrift til databasen</h2>
 
             {{ Form::label('name', 'Navn:') }}
             {{ Form::text('name', null, ['class' => 'form-control']) }} <br>
@@ -23,55 +23,69 @@
             {{ Form::label('guide', 'Vejledning:') }}
             {{ Form::textarea('guide', null, ['class' => 'form-control']) }} <br>
 
+            <h4>Type af opskrift:</h4>
+            {{ Form::select('type', array('the' => 'The', 'soup' => 'Suppe')) }} <br>
+
         </div>
 
-        <div class="col-md-5">
-            <h4>Type af opskrift:</h4>
-            {{ Form::select('type', array('the' => 'The', 'soup' => 'Suppe')) }} <br><br>
+        <div class="col-md-5" style="margin-top: 85px">
 
-            <div id="plantPickerTable">
-                <table class="table table-hover">
-                    {{ Form::label(null, 'Planter:') }}
+            <strong>Planter:</strong>
+
+            <table class="table table-hover" style="margin-bottom: -1px">
+                <thead>
                     <tr>
-                        <th>ID</th>
+                        <th width="10px">ID</th>
                         <th>Navn</th>
-                        <th>Tilføj</th>
+                        <th width="30px">Tilføj</th>
                     </tr>
-
-                    @foreach($data['plants'] as $plant)
-                        <tr>
-                            <td width="10%">{{ $plant->id }}</td>
-                            <td>{{ $plant->name }}</td>
-                            <td width="10%">{{ Form::checkbox('plantId_' . $plant->id, 'yes') }}</td>
-                        </tr>
-                    @endforeach
+                </thead>
+            </table>
+            <div style="overflow: auto; height: 250px;">
+                <table class="table table-hover">
+                    <tbody>
+                        @foreach($data['plants'] as $plant)
+                            <tr>
+                                <td width="10px">{{ $plant->id }}</td>
+                                <td>{{ $plant->name }}</td>
+                                <td width="30px">{{ Form::checkbox('plantId_' . $plant->id, 'yes') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
 
                 </table>
             </div>
             <br>
-            <div id="otherIngredientPickerTable">
-                <table class="table table-hover">
-                    {{ Form::label(null, 'Indgrientser:') }}
+
+            <strong>Indgrientser:</strong>
+            <table class="table table-hover" style="margin-bottom: -1px">
+                <thead>
                     <tr>
-                        <th>ID</th>
+                        <th width="20px">ID</th>
                         <th>Navn</th>
-                        <th>Mængde</th>
-                        <th>Måleenhed</th>
-                        <th>Tilføj</th>
+                        <th width="120px">Mængde</th>
+                        <th width="30px">Måleenhed</th>
+                        <th width="30px">Tilføj</th>
                     </tr>
+                </thead>
+            </table>
 
-                    @foreach($data['otherIngredients'] as $otherIngredient)
-                        <tr>
-                            <td width="5%">{{ $otherIngredient->id }}</td>
-                            <td>{{ $otherIngredient->name }}</td>
-                            <td width="25%">{{ Form::text('amount', null, ['class' => 'form-control']) }}</td>
-                            <td width="10%">{{ Form::select('measure', array('kg' => 'kg', 'teaspoon' => 'theske', 'ml' => 'ml', 'spoon' => 'spiseske', 'l' => 'l')) }}</td>
-                            <td width="5%">{{ Form::checkbox('otherIngredientId_' . $otherIngredient->id, 'yes') }}</td>
-                        </tr>
-                    @endforeach
-
+            <div style="overflow: auto; height: 250px;">
+                <table class="table table-hover">
+                    <tbody>
+                        @foreach($data['otherIngredients'] as $otherIngredient)
+                            <tr>
+                                <td width="20px">{{ $otherIngredient->id }}</td>
+                                <td width="">{{ $otherIngredient->name }}</td>
+                                <td width="120px">{{ Form::text('amount', null, ['class' => 'form-control']) }}</td>
+                                <td width="30px">{{ Form::select('measure', array('kg' => 'kg', 'teaspoon' => 'theske', 'ml' => 'ml', 'spoon' => 'spiseske', 'l' => 'l')) }}</td>
+                                <td width="30px">{{ Form::checkbox('otherIngredientId_' . $otherIngredient->id, 'yes') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
+
         </div>
 
         <div class="col-md-2 col-md-offset-5">

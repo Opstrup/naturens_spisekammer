@@ -7,6 +7,8 @@
         @section('head')
 
             {{ HTML::style('bootstrap/dist/css/bootstrap.min.css') }}
+            {{ HTML::style('cropper/dist/cropper.css') }}
+            {{ HTML::style('css/crop-style.css') }}
             <style>
 
                 a, a:visited {
@@ -39,24 +41,26 @@
 
     <body>
 
-        <div class="headerText">
+        <div class="headerText col-md-12">
             <h1>Spis-Danmark</h1><br>
         </div>
 
-        <hr>
+        <div class="col-md-12"><hr></div>
         <div class="nav">
-                <a href="/">Forside</a>
-                <a href="/add-new-recipe">Tilføj ny opskrift</a>
-                <a href="/add-new-plant">Tilføj ny plante</a>
-                <a href="/add-new-ingredient">Tilføj ny ingridients</a>
+                <a href="/">Forside</a> |
+                <a href="/add-new-recipe">Tilføj ny opskrift</a> |
+                <a href="/add-new-plant">Tilføj ny plante</a> |
+                <a href="/add-new-ingredient">Tilføj ny ingridients</a> |
                 <a href="/about">Om</a>
         </div>
-        <hr>
+        <div class="col-md-12"><hr></div>
 
         @yield('body')
 
         {{ HTML::script('jquery/dist/jquery.js') }}
+        {{ HTML::script('cropper/dist/cropper.js') }}
         {{ HTML::script('bootstrap/dist/js/bootstrap.min.js') }}
-
+        {{ HTML::script('js/img-select.js') }}
+        {{ HTML::script('js/img-crop.js') }}
     </body>
 </html>

@@ -6,7 +6,7 @@
 
 @section('body')
 
-    <h2>Tilføj ny plante til databasen</h2>
+
 
     <div class="form-group">
 
@@ -14,6 +14,7 @@
         {{ Form::open(array('url' => 'add-new-plant', 'method' => 'post', 'files' => true)) }}
 
             <div class="col-md-6">
+                <h2>Tilføj ny plante til databasen</h2>
 
                 {{ Form::label('name', 'Navn:') }}
                 {{ Form::text('name', null, ['class' => 'form-control']) }} <br>
@@ -32,10 +33,7 @@
 
                 {{ Form::checkbox('eatable', 'eatable') }}
                 {{ Form::label('eatable', 'Spiselig') }} <br>
-                <br>
-            </div>
 
-            <div class="col-md-5">
                 <fieldset>
                     <legend>Sæson:</legend>
                     <ul>
@@ -58,6 +56,9 @@
                     </ul>
                 </fieldset>
                 <br>
+            </div>
+
+            <div class="col-md-5" style="margin-top: 85px">
 
                 <fieldset>
                     <legend>Højde:</legend>
@@ -172,10 +173,11 @@
                 </fieldset>
             </div>
 
-            <div class="col-md-1 col-md-offset-5">
+            <div class="col-md-2 col-md-offset-5">
                 {{ Form::submit('Tilføj', array('class' => 'btn btn-default', 'name' => 'addNewPlant')) }}
                 <br><br>
             </div>
+
         {{ Form::close() }}
     </div>
 @stop

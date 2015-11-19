@@ -18,30 +18,40 @@
 
             </div>
 
-        {{ Form::submit('Tilføj', array('class' => 'btn btn-default', 'name' => 'addIngredient')) }}
+            {{ Form::submit('Tilføj', array('class' => 'btn btn-default', 'name' => 'addIngredient')) }}
 
         {{ Form::close() }}
+
 
         {{ Form::open(array('url' => 'delete-ingredient')) }}
 
             {{ Form::submit('Slet', array('class' => 'btn btn-default', 'name' => 'deleteIngredient')) }}
 
             <br><br>
-            <table class="table table-hover">
-                <tr>
-                    <th>ID</th>
-                    <th>Navn</th>
-                    <th>Batch</th>
-                </tr>
 
-                @foreach($data['otherIngredients'] as $ingredient)
-                    <tr>
-                        <td width="5%">{{ $ingredient->id }}</td>
-                        <td>{{ $ingredient->name }}</td>
-                        <td width="5%">{{ Form::checkbox('ingredient[]', $ingredient->id)}}</td>
-                    </tr>
-                @endforeach
+        <table class="table table-hover" style="margin-bottom: -1px">
+            <thead>
+                <tr>
+                    <th width="10px">ID</th>
+                    <th width="600px">Navn</th>
+                    <th width="10px">Batch</th>
+                </tr>
+            </thead>
+        </table>
+
+        <div style="overflow: auto; height: 350px;">
+            <table class="table table-hover">
+                <tbody>
+                    @foreach($data['otherIngredients'] as $ingredient)
+                        <tr>
+                            <td width="10px">{{ $ingredient->id }}</td>
+                            <td width="600px">{{ $ingredient->name }}</td>
+                            <td width="10px">{{ Form::checkbox('ingredient[]', $ingredient->id)}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
             </table>
+        </div>
 
         {{ Form::close() }}
     </div>
