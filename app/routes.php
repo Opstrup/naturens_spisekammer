@@ -27,6 +27,7 @@ Route::post('show-edit-plant', 'PlantController@showEditPlant');
 Route::post('edit-plant', 'PlantController@editPlant');
 Route::get('plant-detail/{plantId}', 'PlantController@showPlantDetail');
 Route::post('plant-detail/{plantId}', 'PlantController@showPlantDetail');
+Route::post('crop-photos', 'PlantController@cropPhotos');
 
 /**
  * Recipe routs

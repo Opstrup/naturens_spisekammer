@@ -93,4 +93,9 @@ class LivePhotoHandler implements IPhotoHandler
             Image::make(sprintf(public_path() . "/../../public_html/naturens-spisekammer-app" . "/" . "PlantPictures" . "/" . $plantID . "/" . $fileName))->crop(750, 1334)->save();
         }
     }
+
+    public function crop($plantID, $cropArray)
+    {
+
+    }
 }

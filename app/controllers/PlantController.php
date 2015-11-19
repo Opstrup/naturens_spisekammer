@@ -85,6 +85,29 @@ class PlantController extends BaseController
         $this->seasonHandler->set($newPlantId, $seasonArray);
         $this->habitatHandler->set($newPlantId, $habitatArray);
         $this->colorHandler->set($newPlantId, $colorArray);
+
+        $photoArray = $this->photoHandler->get($newPlantId);
+
+        $data = array(
+            'photos' => $photoArray,
+            'plantID' => $newPlantId
+        );
+
+        return View::make('cropView')->with('data', $data);
+    }
+
+    public function cropPhotos()
+    {
+        $plantID = Input::get('plantID');
+
+        $cropArray = array (
+            "photo-0" => array ( "x" => Input::get('photo_0x'), "y" => Input::get('photo_0y') ),
+            "photo-1" => array ( "x" => Input::get('photo_1x'), "y" => Input::get('photo_1y') ),
+            "photo-2" => array ( "x" => Input::get('photo_2x'), "y" => Input::get('photo_2y') ),
+            "photo-3" => array ( "x" => Input::get('photo_3x'), "y" => Input::get('photo_3y') ), );
+
+        $this->photoHandler->crop($plantID, $cropArray);
+
         return View::make('addPlantView');
     }
 

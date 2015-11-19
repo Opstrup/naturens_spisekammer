@@ -13,4 +13,5 @@ interface IPhotoHandler
     public function set($plantID, $photoID, $photo);
     public function delete($plantID);
     public function edit($plantID, $photoID, $photo);
+    public function crop($plantID, $cropArray);
 }

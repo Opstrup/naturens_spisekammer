@@ -54,8 +54,6 @@ class LocalDevPhotoHandler implements IPhotoHandler
             $plantPhoto->save();
 
             $photo->move(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
-
-            Image::make(sprintf(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" . $fileName))->crop(750, 1334)->save();
         }
     }
 
@@ -88,7 +86,25 @@ class LocalDevPhotoHandler implements IPhotoHandler
             $editPhoto->save();
 
             $photo->move(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" , $fileName);
-            Image::make(sprintf(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" . $fileName))->crop(750, 1334)->save();
         }
     }
+
+    public function crop($plantID, $cropArray)
+    {
+        $width = 750;
+        $height = 1334;
+
+        ini_set("memory_limit", "-1");
+
+        for($photoID = 0; $photoID < 4; $photoID++)
+        {
+            $xCoordinate = intval($cropArray['photo-' . $photoID]['x']);
+            $yCoordinate = intval($cropArray['photo-' . $photoID]['y']);
+            $fileName = $photoID . '-plant-' . $plantID . '.jpeg';
+
+            Image::make(public_path() . "/" . "PlantPictures" . "/" . $plantID . "/" . $fileName)->crop($width, $height, $xCoordinate, $yCoordinate)->save();
+        }
+
+    }
+
 }
