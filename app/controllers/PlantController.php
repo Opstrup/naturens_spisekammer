@@ -108,7 +108,8 @@ class PlantController extends BaseController
 
         $this->photoHandler->crop($plantID, $cropArray);
 
-        return View::make('addPlantView');
+//        return View::make('addPlantView');
+        return Redirect::to('plant-detail/' . $plantID);
     }
 
     /**
@@ -175,6 +176,9 @@ class PlantController extends BaseController
             'photos' => $photoArray,
         );
 
+//        dd($habitatArray);
+//        dd($seasonArray);
+
         return View::make('editPlantView')->with('data', $data);
     }
 
@@ -222,7 +226,12 @@ class PlantController extends BaseController
         $this->habitatHandler->edit($plantId, $habitatArray);
         $this->colorHandler->edit($plantId, $colorArray);
 
-        return Redirect::to('plant-detail/' . $plantId);
+        $data = array(
+            'photos' => $this->photoHandler->get($plantId),
+            'plantID' => $plantId
+        );
+
+        return View::make('cropView')->with('data', $data);
     }
 
     /**

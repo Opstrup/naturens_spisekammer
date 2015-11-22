@@ -42,19 +42,19 @@
                 <legend>Sæson:</legend>
                 <ul>
                     <li>
-                        {{ Form::checkbox('spring', 'spring', in_array('spring', $data['seasons'])) }}
+                        {{ Form::checkbox('spring', 'spring', in_array('Forår', $data['seasons'])) }}
                         {{ Form::label('spring', 'Forår') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('summer', 'summer', in_array('summer', $data['seasons'])) }}
+                        {{ Form::checkbox('summer', 'summer', in_array('Sommer', $data['seasons'])) }}
                         {{ Form::label('summer', 'Sommer') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('autumn', 'autumn', in_array('autumn', $data['seasons'])) }}
+                        {{ Form::checkbox('autumn', 'autumn', in_array('Efterår', $data['seasons'])) }}
                         {{ Form::label('autumn', 'Efterår') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('winter', 'winter', in_array('winter', $data['seasons'])) }}
+                        {{ Form::checkbox('winter', 'winter', in_array('Vinter', $data['seasons'])) }}
                         {{ Form::label('winter', 'Vinter') }}
                     </li>
                 </ul>
@@ -100,23 +100,23 @@
                 <legend>Levesteder:</legend>
                 <ul>
                     <li>
-                        {{ Form::checkbox('farmland', 'farmland', in_array('farmland', $data['habitats'])) }}
+                        {{ Form::checkbox('farmland', 'farmland', in_array('Agerland', $data['habitats'])) }}
                         {{ Form::label('farmland', 'Agerland') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('wetland', 'wetland', in_array('wetland', $data['habitats'])) }}
+                        {{ Form::checkbox('wetland', 'wetland', in_array('Vådområde', $data['habitats'])) }}
                         {{ Form::label('wetland', 'Vådområde') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('forest', 'forest', in_array('forest', $data['habitats'])) }}
+                        {{ Form::checkbox('forest', 'forest', in_array('Skov og hegn', $data['habitats'])) }}
                         {{ Form::label('forest', 'Skov og hegn') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('moor', 'moor', in_array('moor', $data['habitats'])) }}
+                        {{ Form::checkbox('moor', 'moor', in_array('Hede', $data['habitats'])) }}
                         {{ Form::label('moor', 'Hede') }}
                     </li>
                     <li>
-                        {{ Form::checkbox('coast', 'coast', in_array('coast', $data['habitats'])) }}
+                        {{ Form::checkbox('coast', 'coast', in_array('Kyst', $data['habitats'])) }}
                         {{ Form::label('coast', 'Kyst') }}
                     </li>
                 </ul>

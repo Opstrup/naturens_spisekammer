@@ -15,18 +15,23 @@
             @endif
         @endforeach
 
-        {{ Form::open(array('url' => 'crop-photos', 'method' => 'post')) }}
-            {{ Form::hidden('plantID', $data['plantID']) }}
-            {{ Form::hidden('photo_0x', null, array('id' => 'photo_0x')) }}
-            {{ Form::hidden('photo_0y', null, array('id' => 'photo_0y')) }}
-            {{ Form::hidden('photo_1x', null, array('id' => 'photo_1x')) }}
-            {{ Form::hidden('photo_1y', null, array('id' => 'photo_1y')) }}
-            {{ Form::hidden('photo_2x', null, array('id' => 'photo_2x')) }}
-            {{ Form::hidden('photo_2y', null, array('id' => 'photo_2y')) }}
-            {{ Form::hidden('photo_3x', null, array('id' => 'photo_3x')) }}
-            {{ Form::hidden('photo_3y', null, array('id' => 'photo_3y')) }}
-            {{ Form::submit('Gem', array('class' => 'btn btn-default', 'name' => 'save')) }}
-        {{ Form::close() }}
+        <div style="float: left; margin-left: 10px">
+            {{ Form::open(array('url' => 'crop-photos', 'method' => 'post')) }}
+                {{ Form::hidden('plantID', $data['plantID']) }}
+                {{ Form::hidden('photo_0x', null, array('id' => 'photo_0x')) }}
+                {{ Form::hidden('photo_0y', null, array('id' => 'photo_0y')) }}
+                {{ Form::hidden('photo_1x', null, array('id' => 'photo_1x')) }}
+                {{ Form::hidden('photo_1y', null, array('id' => 'photo_1y')) }}
+                {{ Form::hidden('photo_2x', null, array('id' => 'photo_2x')) }}
+                {{ Form::hidden('photo_2y', null, array('id' => 'photo_2y')) }}
+                {{ Form::hidden('photo_3x', null, array('id' => 'photo_3x')) }}
+                {{ Form::hidden('photo_3y', null, array('id' => 'photo_3y')) }}
+                {{ Form::submit('Gem', array('class' => 'btn btn-default', 'name' => 'save')) }}
+            {{ Form::close() }}
+        </div>
+
+        <a class="btn btn-default" href="/plant-detail/{{ $data['plantID'] }}" role="button" style="float: left; margin-left: 70px">Spring over</a>
+
     </div>
 
     <div id="croppingArea">
