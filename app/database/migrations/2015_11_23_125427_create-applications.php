@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlants extends Migration {
+class CreateApplications extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,10 @@ class CreatePlants extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('plants', function($newTable)
+		Schema::create('applications', function($newTable)
 		{
 			$newTable->increments('id');
-			$newTable->string('name');
-			$newTable->string('name_latin');
-			$newTable->longText('description');
-			$newTable->longText('history');
+			$newTable->string('application');
 		});
 	}
 
@@ -29,7 +26,7 @@ class CreatePlants extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('plants');
+		Schema::drop('applications');
 	}
 
 }
