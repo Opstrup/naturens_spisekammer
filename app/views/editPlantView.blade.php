@@ -30,12 +30,57 @@
             {{ Form::label('history', 'Historie:') }}
             {{ Form::textarea('history', $data['plant']->history, ['class' => 'form-control']) }} <br>
 
-            {{ Form::checkbox('herb', 'herb' , $data['plant']->herb) }}
-            {{ Form::label('herb', 'Krydderi') }} <br>
-
-            {{ Form::checkbox('eatable', 'eatable', $data['plant']->eatable) }}
-            {{ Form::label('eatable', 'Spiselig') }}  <br>
             <br>
+
+            <fieldset>
+                <legend>Anvendelse:</legend>
+                <ul>
+                    <li>
+                        {{ Form::checkbox('herb', 'herb', in_array('Krydderi', $data['applications'])) }}
+                        {{ Form::label('herb', 'Krydderi') }}
+                    </li>
+                    <li>
+                        {{ Form::checkbox('thee', 'thee', in_array('The', $data['applications'])) }}
+                        {{ Form::label('thee', 'The') }}
+                    </li>
+                    <li>
+                        {{ Form::checkbox('schnapps', 'schnapps', in_array('Snaps', $data['applications'])) }}
+                        {{ Form::label('schnapps', 'Snaps') }}
+                    </li>
+                    <li>
+                        {{ Form::checkbox('pickled', 'pickled', in_array('Sylte', $data['applications'])) }}
+                        {{ Form::label('pickled', 'Sylte') }}
+                    </li>
+                    <li>
+                        {{ Form::checkbox('firefood', 'firefood', in_array('Bålmad', $data['applications'])) }}
+                        {{ Form::label('firefood', 'Bålmad') }}
+                    </li>
+                    <li>
+                        {{ Form::checkbox('pot', 'pot', in_array('Gryderet', $data['applications'])) }}
+                        {{ Form::label('pot', 'Gryderet') }}
+                    </li>
+                    <li>
+                        {{ Form::checkbox('juice', 'juice', in_array('Saft', $data['applications'])) }}
+                        {{ Form::label('juice', 'Saft') }}
+                    </li>
+                    <li>
+                        {{ Form::checkbox('soup', 'soup', in_array('Suppe', $data['applications'])) }}
+                        {{ Form::label('soup', 'Suppe') }}
+                    </li>
+                    <li>
+                        {{ Form::checkbox('salad', 'salad', in_array('Salat', $data['applications'])) }}
+                        {{ Form::label('salad', 'Salat') }}
+                    </li>
+                    <li>
+                        {{ Form::checkbox('dessert', 'dessert', in_array('Dessert', $data['applications'])) }}
+                        {{ Form::label('dessert', 'Dessert') }}
+                    </li>
+                    <li>
+                        {{ Form::checkbox('snack', 'snack', in_array('Snack', $data['applications'])) }}
+                        {{ Form::label('snack', 'Snack') }}
+                    </li>
+                </ul>
+            </fieldset>
         </div>
         <div class="col-md-5" style="margin-top: 80px;">
             <fieldset>

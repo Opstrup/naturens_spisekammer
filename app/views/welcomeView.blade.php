@@ -20,8 +20,6 @@
                 <tr>
                     <th width="200px">Navn</th>
                     <th width="150px">Navn latin</th>
-                    <th width="80px">Krydderi</th>
-                    <th width="80px">Spiselig</th>
                     <th width="10px">Mere</th>
                 </tr>
             </thead>
@@ -34,18 +32,6 @@
                         <tr id="{{ $plant->id }}">
                             <td width="200px">{{ $plant->name }}</td>
                             <td width="150px">{{ $plant->name_latin }}</td>
-
-                            @if($plant->herb)
-                                <td width="80px">Ja</td>
-                            @else
-                                <td width="80px">Nej</td>
-                            @endif
-
-                            @if($plant->eatable)
-                                <td width="80px">Ja</td>
-                            @else
-                                <td width="80px">Nej</td>
-                            @endif
 
                             <td width="10px">
                                 <a href="/plant-detail/{{ $plant->id }}">Mere..</a>

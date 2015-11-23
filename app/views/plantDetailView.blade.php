@@ -32,19 +32,15 @@
             <p> {{ $data['plant']->history }}</p>
         </div>
 
-        <strong>Krydderi:</strong>
-        @if($data['plant']->herb)
-            <p>Ja</p>
-        @else
-            <p>Nej</p>
-        @endif
-
-        <strong>Spiselig:</strong>
-        @if($data['plant']->eatable)
-            <p>Ja</p>
-        @else
-            <p>Nej</p>
-        @endif
+        <fieldset>
+            <legend>Anvendelse:</legend>
+            <ul>
+                @foreach($data['applications'] as $application)
+                    <li>{{ $application }}</li>
+                @endforeach
+            </ul>
+        </fieldset>
+        <br>
 
         <fieldset>
             <legend>Sæson:</legend>
@@ -66,6 +62,9 @@
         </fieldset>
         <br>
 
+    </div>
+
+    <div style="margin-top: 95px">
         <fieldset>
             <legend>Højder:</legend>
             <ul>
@@ -85,9 +84,6 @@
             </ul>
         </fieldset>
 
-    </div>
-
-    <div style="margin-top: 110px">
         @foreach($data['photos'] as $photo)
             @if($photo == 'null')
                 <div class="col-md-2">

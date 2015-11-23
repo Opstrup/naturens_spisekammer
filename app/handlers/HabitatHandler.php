@@ -60,7 +60,7 @@ class HabitatHandler implements IHabitatHandler
         $this->set($plantID, $habitatArray);
     }
 
-    private function filterArray($array)
+    protected function filterArray($array)
     {
         $cleanArray = array();
 
@@ -73,7 +73,7 @@ class HabitatHandler implements IHabitatHandler
         return $cleanArray;
     }
 
-    private function cleanModelArray($array)
+    protected function cleanModelArray($array)
     {
         $cleanArray = array();
 

@@ -8,16 +8,17 @@
  */
 class PlantController extends BaseController
 {
-    protected $photoHandler, $habitatHandler, $colorHandler, $sizeHandler, $seasonHandler;
+    protected $photoHandler, $habitatHandler, $colorHandler, $sizeHandler, $seasonHandler, $applicationHandler;
 
     public function __construct(IPhotoHandler $photoHandler, IColorHandler $colorHandler, IHabitatHandler $habitatHandler,
-                                ISeasonHandler $seasonHandler, ISizeHandler $sizeHandler)
+                                ISeasonHandler $seasonHandler, ISizeHandler $sizeHandler, IApplicationHandler $applicationHandler)
     {
         $this->photoHandler = $photoHandler;
         $this->colorHandler = $colorHandler;
         $this->habitatHandler = $habitatHandler;
         $this->seasonHandler = $seasonHandler;
         $this->sizeHandler = $sizeHandler;
+        $this->applicationHandler = $applicationHandler;
     }
 
     /**
@@ -44,6 +45,7 @@ class PlantController extends BaseController
         $habitatArray = $this->habitatHandler->get($plantId);
         $photoArray = $this->photoHandler->get($plantId);
         $colorArray = $this->colorHandler->get($plantId);
+        $applicationArray = $this->applicationHandler->get($plantId);
 
         $data = array(
             'plant' => $thePlant,
@@ -52,6 +54,7 @@ class PlantController extends BaseController
             'habitats' => $habitatArray,
             'sizes' => $sizeArray,
             'photos' => $photoArray,
+            'applications' => $applicationArray,
         );
 
         return View::make('plantDetailView')->with('data', $data);
@@ -65,7 +68,7 @@ class PlantController extends BaseController
     {
         $newPlantId = $this->savePlantDataToDb();;
 
-        list($seasonArray, $sizeArray, $habitatArray, $colorArray) = $this->getPlantAttributes();
+        list($seasonArray, $sizeArray, $habitatArray, $colorArray, $applicationArray) = $this->getPlantAttributes();
 
         for ($index = 0; $index < 4; $index++)
         {
@@ -85,6 +88,7 @@ class PlantController extends BaseController
         $this->seasonHandler->set($newPlantId, $seasonArray);
         $this->habitatHandler->set($newPlantId, $habitatArray);
         $this->colorHandler->set($newPlantId, $colorArray);
+        $this->applicationHandler->set($newPlantId, $applicationArray);
 
         $photoArray = $this->photoHandler->get($newPlantId);
 
@@ -123,12 +127,9 @@ class PlantController extends BaseController
         $name_latin = Input::get('name_latin');
         $description = Input::get('description');
         $history = Input::get('history');
-        $herb = Input::get('herb');
-        $eatable = Input::get('eatable');
 
         $plantID = DB::table('plants')->insertGetId(
-            array('name' => $name, 'name_latin' => $name_latin, 'description' => $description, 'history' => $history,
-                  'herb' => $herb, 'eatable' => $eatable)
+            array('name' => $name, 'name_latin' => $name_latin, 'description' => $description, 'history' => $history)
         );
         return $plantID;
     }
@@ -166,6 +167,7 @@ class PlantController extends BaseController
         $seasonArray = $this->seasonHandler->get($plantId);
         $colorArray = $this->colorHandler->get($plantId);
         $photoArray = $this->photoHandler->get($plantId);
+        $applicationArray = $this->applicationHandler->get($plantId);
 
         $data = array(
             'plant' => $thePlant,
@@ -174,10 +176,8 @@ class PlantController extends BaseController
             'habitats' => $habitatArray,
             'sizes' => $sizeArray,
             'photos' => $photoArray,
+            'applications' => $applicationArray,
         );
-
-//        dd($habitatArray);
-//        dd($seasonArray);
 
         return View::make('editPlantView')->with('data', $data);
     }
@@ -191,17 +191,6 @@ class PlantController extends BaseController
         $thePlant->name_latin = Input::get('name_latin');
         $thePlant->description = Input::get('description');
         $thePlant->history = Input::get('history');
-
-        // @TODO please refactor this ugly code!
-        if(Input::get('herb'))
-            $thePlant->herb = 1;
-        else
-            $thePlant->herb = Input::get('herb');
-
-        if(Input::get('eatable'))
-            $thePlant->eatable = 1;
-        else
-            $thePlant->eatable = Input::get('eatable');
 
         $this->deletePlantAttributes($plantId);
 
@@ -248,7 +237,7 @@ class PlantController extends BaseController
     /**
      * @return array
      */
-    public function getPlantAttributes()
+    protected function getPlantAttributes()
     {
         $seasonArray = array('spring' => Input::get('spring'), 'summer' => Input::get('summer'),
             'autumn' => Input::get('autumn'), 'winter' => Input::get('winter'));
@@ -263,6 +252,11 @@ class PlantController extends BaseController
         $colorArray = array('red' => Input::get('red'), 'yellow' => Input::get('yellow'), 'blue' => Input::get('blue'),
             'green' => Input::get('green'), 'brown' => Input::get('brown'), 'black' => Input::get('black'),
             'white' => Input::get('white'), 'purple' => Input::get('purple'), 'orange' => Input::get('orange'));
-        return array($seasonArray, $sizeArray, $habitatArray, $colorArray);
+
+        $applicationArray = array('herb' => Input::get('herb'), 'thee' => Input::get('thee'), 'schnapps' => Input::get('schnapps'),
+            'pickled' => Input::get('pickled'), 'firefood' => Input::get('firefood'), 'pot' => Input::get('pot'), 'juice' => Input::get('juice'),
+            'soup' => Input::get('soup'), 'salad' => Input::get('salad'), 'dessert' => Input::get('dessert'), 'snack' => Input::get('snack'));
+
+        return array($seasonArray, $sizeArray, $habitatArray, $colorArray, $applicationArray);
     }
 }

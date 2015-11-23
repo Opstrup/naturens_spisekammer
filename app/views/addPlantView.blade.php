@@ -28,11 +28,56 @@
                 {{ Form::label('history', 'Historie:') }}
                 {{ Form::textarea('history', null, ['class' => 'form-control']) }} <br>
 
-                {{ Form::checkbox('herb', 'herb') }}
-                {{ Form::label('herb', 'Krydderi') }} <br>
-
-                {{ Form::checkbox('eatable', 'eatable') }}
-                {{ Form::label('eatable', 'Spiselig') }} <br>
+                <fieldset>
+                    <legend>Anvendelse:</legend>
+                    <ul>
+                        <li>
+                            {{ Form::checkbox('herb', 'herb') }}
+                            {{ Form::label('herb', 'Krydderi') }}
+                        </li>
+                        <li>
+                            {{ Form::checkbox('thee', 'thee') }}
+                            {{ Form::label('thee', 'The') }}
+                        </li>
+                        <li>
+                            {{ Form::checkbox('schnapps', 'schnapps') }}
+                            {{ Form::label('schnapps', 'Snaps') }}
+                        </li>
+                        <li>
+                            {{ Form::checkbox('pickled', 'pickled') }}
+                            {{ Form::label('pickled', 'Sylte') }}
+                        </li>
+                        <li>
+                            {{ Form::checkbox('firefood', 'firefood') }}
+                            {{ Form::label('firefood', 'Bålmad') }}
+                        </li>
+                        <li>
+                            {{ Form::checkbox('pot', 'pot') }}
+                            {{ Form::label('pot', 'Gryderet') }}
+                        </li>
+                        <li>
+                            {{ Form::checkbox('juice', 'juice') }}
+                            {{ Form::label('juice', 'Saft') }}
+                        </li>
+                        <li>
+                            {{ Form::checkbox('soup', 'soup') }}
+                            {{ Form::label('soup', 'Suppe') }}
+                        </li>
+                        <li>
+                            {{ Form::checkbox('salad', 'salad') }}
+                            {{ Form::label('salad', 'Salat') }}
+                        </li>
+                        <li>
+                            {{ Form::checkbox('dessert', 'dessert') }}
+                            {{ Form::label('dessert', 'Dessert') }}
+                        </li>
+                        <li>
+                            {{ Form::checkbox('snack', 'snack') }}
+                            {{ Form::label('snack', 'Snack') }}
+                        </li>
+                    </ul>
+                </fieldset>
+                <br>
 
                 <fieldset>
                     <legend>Sæson:</legend>
