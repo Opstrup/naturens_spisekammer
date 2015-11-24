@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('meta-tag')
+    <meta http-equiv="expires" content="Mon, 26 Jul 1997 05:00:00 GMT"/>
+@stop
+
 @section('title')
     Beskær billeder
 @stop
@@ -43,11 +47,9 @@
     </div>
 
     <div id="buttons">
-        {{--<button style="display: inline-block;" id="unhook">Destroy!</button>
-        <button style="display: inline-block;" id="instantiate">Instantiate!</button>--}}
         <button style="display: inline-block;" id="crop">Beskær</button>
-        <button style="display: inline-block;" id="zoomIn">+</button>
-        <button style="display: inline-block;" id="zoomOut">-</button>
+        {{--<button style="display: inline-block;" id="zoomIn">+</button>
+        <button style="display: inline-block;" id="zoomOut">-</button>--}}
     </div>
 
     <div id="cropped-pictures">
