@@ -4,6 +4,8 @@
         <meta charset="UTF-8">
         <title>@yield('title')</title>
 
+        @yield('meta-tag')
+
         @section('head')
 
             {{ HTML::style('bootstrap/dist/css/bootstrap.min.css') }}
