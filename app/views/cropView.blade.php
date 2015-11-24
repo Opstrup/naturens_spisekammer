@@ -1,9 +1,5 @@
 @extends('layouts.main')
 
-@section('meta-tag')
-    <meta http-equiv="expires" content="Mon, 26 Jul 1997 05:00:00 GMT"/>
-@stop
-
 @section('title')
     Beskær billeder
 @stop

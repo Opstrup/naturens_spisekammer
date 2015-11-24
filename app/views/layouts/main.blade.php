@@ -2,9 +2,18 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>@yield('title')</title>
+        <?php
 
-        @yield('meta-tag')
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+
+        header('Cache-Control: no-store, no-cache, must-revalidate');
+
+        header('Cache-Control: post-check=0, pre-check=0', FALSE);
+
+        header('Pragma: no-cache');
+
+        ?>
+        <title>@yield('title')</title>
 
         @section('head')
 
