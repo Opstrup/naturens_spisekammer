@@ -112,26 +112,7 @@ class PlantController extends BaseController
 
         $this->photoHandler->crop($plantID, $cropArray);
 
-//        return View::make('addPlantView');
         return Redirect::to('plant-detail/' . $plantID);
-    }
-
-    /**
-     * Gets all the plant information for a plant and
-     * saves it to the database.
-     * Returns the newly created plants id for further use
-     */
-    public function savePlantDataToDb()
-    {
-        $name = Input::get('name');
-        $name_latin = Input::get('name_latin');
-        $description = Input::get('description');
-        $history = Input::get('history');
-
-        $plantID = DB::table('plants')->insertGetId(
-            array('name' => $name, 'name_latin' => $name_latin, 'description' => $description, 'history' => $history)
-        );
-        return $plantID;
     }
 
     /**
@@ -226,7 +207,7 @@ class PlantController extends BaseController
     /**
      * @param $plantId
      */
-    public function deletePlantAttributes($plantId)
+    protected function deletePlantAttributes($plantId)
     {
         $this->colorHandler->delete($plantId);
         $this->habitatHandler->delete($plantId);
@@ -258,5 +239,23 @@ class PlantController extends BaseController
             'soup' => Input::get('soup'), 'salad' => Input::get('salad'), 'dessert' => Input::get('dessert'), 'snack' => Input::get('snack'));
 
         return array($seasonArray, $sizeArray, $habitatArray, $colorArray, $applicationArray);
+    }
+
+    /**
+     * Gets all the plant information for a plant and
+     * saves it to the database.
+     * Returns the newly created plants id for further use
+     */
+    protected function savePlantDataToDb()
+    {
+        $name = Input::get('name');
+        $name_latin = Input::get('name_latin');
+        $description = Input::get('description');
+        $history = Input::get('history');
+
+        $plantID = DB::table('plants')->insertGetId(
+            array('name' => $name, 'name_latin' => $name_latin, 'description' => $description, 'history' => $history)
+        );
+        return $plantID;
     }
 }

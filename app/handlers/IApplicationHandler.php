@@ -9,7 +9,7 @@
 Interface IApplicationHandler
 {
     public function get($plantID);
-    public function set($plantID, $applicationsArray);
+    public function set($plantID, $applicationArray);
     public function delete($plantID);
-    public function edit($plantID, $applicationsArray);
+    public function edit($plantID, $applicationArray);
 }

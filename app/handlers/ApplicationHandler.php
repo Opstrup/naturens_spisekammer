@@ -32,13 +32,13 @@ class ApplicationHandler implements IApplicationHandler
         return $translatedApplicationArray;
     }
 
-    public function set($plantID, $applicationsArray)
+    public function set($plantID, $applicationArray)
     {
         $applications = Applications::all();
-        $applicationsArray = $this->filterArray($applicationsArray);
+        $applicationArray = $this->filterArray($applicationArray);
         $cleanApplications = $this->cleanModelArray($applications);
 
-        foreach($applicationsArray as $application)
+        foreach($applicationArray as $application)
         {
             if(is_numeric(array_search($application, $cleanApplications)))
             {
@@ -55,10 +55,10 @@ class ApplicationHandler implements IApplicationHandler
         PlantApplication::where('plant_id', '=', $plantID)->delete();
     }
 
-    public function edit($plantID, $applicationsArray)
+    public function edit($plantID, $applicationArray)
     {
         $this->delete($plantID);
-        $this->set($plantID, $applicationsArray);
+        $this->set($plantID, $applicationArray);
     }
 
     protected function filterArray($array)

@@ -4,13 +4,24 @@
         <meta charset="UTF-8">
         <?php
 
-        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+        //set headers to NOT cache a page
+        /*header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1
+        header("Pragma: no-cache"); //HTTP 1.0
+        header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past*/
+
+        /*header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 
         header('Cache-Control: no-store, no-cache, must-revalidate');
 
         header('Cache-Control: post-check=0, pre-check=0', FALSE);
 
-        header('Pragma: no-cache');
+        header('Pragma: no-cache');*/
+
+        /*header("Pragma-directive: no-cache");
+        header("Cache-directive: no-cache");
+        header("Cache-control: no-cache");
+        header("Pragma: no-cache");
+        header("Expires: 0");*/
 
         ?>
         <title>@yield('title')</title>

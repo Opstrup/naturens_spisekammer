@@ -9,7 +9,7 @@
 Interface IColorHandler
 {
     public function get($plantID);
-    public function set($plantID, $colorsArray);
+    public function set($plantID, $colorArray);
     public function delete($plantID);
-    public function edit($plantID, $colorsArray);
+    public function edit($plantID, $colorArray);
 }
