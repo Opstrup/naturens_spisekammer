@@ -39,7 +39,7 @@ INSERT INTO `applications` (`id`, `application`) VALUES
   (5, 'firefood'),
   (6, 'pot'),
   (7, 'juice'),
-  (8, 'supe'),
+  (8, 'soup'),
   (9, 'salad'),
   (10, 'dessert'),
   (11, 'snack');
