@@ -22,6 +22,28 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+CREATE TABLE IF NOT EXISTS `applications` (
+  `id` int(10) unsigned NOT NULL,
+  `application` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
+
+--
+-- Data dump for tabellen `applications`
+--
+
+INSERT INTO `applications` (`id`, `application`) VALUES
+  (1, 'herb'),
+  (2, 'thee'),
+  (3, 'schnapps'),
+  (4, 'pickled'),
+  (5, 'firefood'),
+  (6, 'pot'),
+  (7, 'juice'),
+  (8, 'supe'),
+  (9, 'salad'),
+  (10, 'dessert'),
+  (11, 'snack');
+
 --
 -- Struktur-dump for tabellen `colors`
 --
@@ -269,6 +291,16 @@ INSERT INTO `plants` (`id`, `name`, `name_latin`, `description`, `history`, `her
 (22, 'Ny farve til planter', '', '', '', NULL, NULL);
 
 -- --------------------------------------------------------
+
+--
+-- Struktur-dump for tabellen `plant_applications`
+--
+
+CREATE TABLE IF NOT EXISTS `plant_applications` (
+  `id` int(10) unsigned NOT NULL,
+  `plant_id` int(11) NOT NULL,
+  `application_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
 -- Struktur-dump for tabellen `plant_colors`
