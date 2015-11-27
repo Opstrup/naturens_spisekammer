@@ -19,4 +19,3 @@ modules:
             user: 'root'
             password: ''
             dump: tests/_data/dump.sql
-            cleanup: true
