@@ -10,7 +10,6 @@
 
     <div class="form-group">
 
-
         {{ Form::open(array('url' => 'add-new-plant', 'method' => 'post', 'files' => true)) }}
 
             <div class="col-md-6">

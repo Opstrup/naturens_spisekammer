@@ -44,13 +44,13 @@ class ColorHandler implements IColorHandler
         return $translatedColorArray;
     }
 
-    public function set($plantID, $colorsArray)
+    public function set($plantID, $colorArray)
     {
         $colors = Colors::all();
-        $colorsArray = $this->filterArray($colorsArray);
+        $colorArray = $this->filterArray($colorArray);
         $cleanColors = $this->cleanModelArray($colors);
 
-        foreach($colorsArray as $color)
+        foreach($colorArray as $color)
         {
             if(is_numeric(array_search($color, $cleanColors)))
             {
@@ -67,10 +67,10 @@ class ColorHandler implements IColorHandler
         PlantColor::where('plant_id', '=', $plantID)->delete();
     }
 
-    public function edit($plantID, $colorsArray)
+    public function edit($plantID, $colorArray)
     {
         $this->delete($plantID);
-        $this->set($plantID, $colorsArray);
+        $this->set($plantID, $colorArray);
     }
 
     private function filterArray($array)

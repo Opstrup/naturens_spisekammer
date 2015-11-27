@@ -6,7 +6,6 @@
 
 @section('body')
 
-
     <div class="form-group">
 
         <div class="col-md-6">
