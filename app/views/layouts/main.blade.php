@@ -29,7 +29,7 @@
         @section('head')
 
             {{ HTML::style('bootstrap/dist/css/bootstrap.min.css') }}
-            {{ HTML::style('cropper/dist/cropper.css') }}
+            {{ HTML::style('cropper/dist/cropper.min.css') }}
             {{ HTML::style('css/crop-style.css') }}
             <style>
 
@@ -79,8 +79,8 @@
 
         @yield('body')
 
-        {{ HTML::script('jquery/dist/jquery.js') }}
-        {{ HTML::script('cropper/dist/cropper.js') }}
+        {{ HTML::script('jquery/dist/jquery.min.js') }}
+        {{ HTML::script('cropper/dist/cropper.min.js') }}
         {{ HTML::script('bootstrap/dist/js/bootstrap.min.js') }}
         {{ HTML::script('js/img-select.js') }}
         {{ HTML::script('js/img-crop.js') }}
