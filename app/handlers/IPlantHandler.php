@@ -8,5 +8,8 @@
  */
 interface IPlantHandler
 {
-
+    public function get($plantID);
+    public function set($plantID, $seasonArray);
+    public function delete($plantID);
+    public function edit($plantID, $seasonArray);
 }
