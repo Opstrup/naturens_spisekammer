@@ -21,4 +21,4 @@ $app->bind('ISeasonHandler', 'SeasonHandler');
 $app->bind('ISizeHandler', 'SizeHandler');
 $app->bind('IIngredientHandler', 'IngredientHandler');
 $app->bind('IApplicationHandler', 'ApplicationHandler');
-
+$app->bind('IPlantHandler', 'PlantHandler');

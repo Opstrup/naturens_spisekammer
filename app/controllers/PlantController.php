@@ -9,9 +9,10 @@
 class PlantController extends BaseController
 {
     protected $photoHandler, $habitatHandler, $colorHandler, $sizeHandler, $seasonHandler, $applicationHandler;
+    protected $plantHandler;
 
     public function __construct(IPhotoHandler $photoHandler, IColorHandler $colorHandler, IHabitatHandler $habitatHandler,
-                                ISeasonHandler $seasonHandler, ISizeHandler $sizeHandler, IApplicationHandler $applicationHandler)
+                                ISeasonHandler $seasonHandler, ISizeHandler $sizeHandler, IApplicationHandler $applicationHandler, IPlantHandler $plantHandler)
     {
         $this->photoHandler = $photoHandler;
         $this->colorHandler = $colorHandler;
@@ -19,6 +20,7 @@ class PlantController extends BaseController
         $this->seasonHandler = $seasonHandler;
         $this->sizeHandler = $sizeHandler;
         $this->applicationHandler = $applicationHandler;
+        $this->plantHandler = $plantHandler;
     }
 
     /**
@@ -38,24 +40,7 @@ class PlantController extends BaseController
      */
     public function showPlantDetail($plantId)
     {
-        $thePlant = Plants::find($plantId);
-
-        $sizeArray = $this->sizeHandler->get($plantId);
-        $seasonArray = $this->seasonHandler->get($plantId);
-        $habitatArray = $this->habitatHandler->get($plantId);
-        $photoArray = $this->photoHandler->get($plantId);
-        $colorArray = $this->colorHandler->get($plantId);
-        $applicationArray = $this->applicationHandler->get($plantId);
-
-        $data = array(
-            'plant' => $thePlant,
-            'seasons' => $seasonArray,
-            'colors' => $colorArray,
-            'habitats' => $habitatArray,
-            'sizes' => $sizeArray,
-            'photos' => $photoArray,
-            'applications' => $applicationArray,
-        );
+        $data = $this->plantHandler->get($plantId);
 
         return View::make('plantDetailView')->with('data', $data);
     }
@@ -66,13 +51,12 @@ class PlantController extends BaseController
      */
     public function addNewPlantToDb()
     {
-        $newPlantId = $this->savePlantDataToDb();;
+        $attributeArray = $this->getPlantAttributes();
+        $attributeArray['photo'] = $this->getPhotosForNewPlant();
+        $newPlantId = $this->plantHandler->set($attributeArray);
 
-        list($seasonArray, $sizeArray, $habitatArray, $colorArray, $applicationArray) = $this->getPlantAttributes();
-
-        for ($index = 0; $index < 4; $index++)
+/*      for ($index = 0; $index < 4; $index++)
         {
-            // @todo refactor this !
             if(Input::hasFile('photo_' . $index))
             {
                 $photo = Input::file('photo_' . $index);
@@ -82,13 +66,7 @@ class PlantController extends BaseController
             {
                 $this->photoHandler->set($newPlantId, $index, null);
             }
-        }
-
-        $this->sizeHandler->set($newPlantId, $sizeArray);
-        $this->seasonHandler->set($newPlantId, $seasonArray);
-        $this->habitatHandler->set($newPlantId, $habitatArray);
-        $this->colorHandler->set($newPlantId, $colorArray);
-        $this->applicationHandler->set($newPlantId, $applicationArray);
+        }*/
 
         $photoArray = $this->photoHandler->get($newPlantId);
 
@@ -100,6 +78,10 @@ class PlantController extends BaseController
         return View::make('cropView')->with('data', $data);
     }
 
+    /**
+     * Gets the x and y coordinates for cropping for each photo
+     * the cropping is 750px in width and 1334px in height.
+     */
     public function cropPhotos()
     {
         $plantID = Input::get('plantID');
@@ -125,10 +107,7 @@ class PlantController extends BaseController
     public function deletePlant()
     {
         $plantId = (Input::get('plantId'));
-
-        $this->photoHandler->delete($plantId);
-        $this->deletePlantAttributes($plantId);
-        Plants::where('id', '=', $plantId)->delete();
+        $this->plantHandler->delete($plantId);
 
         return View::make('addPlantView');
     }
@@ -165,61 +144,41 @@ class PlantController extends BaseController
 
     public function editPlant()
     {
-        $plantId = Input::get('plantId');
-        $thePlant = Plants::find($plantId);
+        // New code
+        $plantID = Input::get('plantId');
+        $attributesArray = $this->getPlantAttributes();
+//        $attributesArray['photo'] = $this->getPhotosForEdit();
+        $this->plantHandler->edit($plantID, $attributesArray);
 
-        $thePlant->name = Input::get('name');
-        $thePlant->name_latin = Input::get('name_latin');
-        $thePlant->description = Input::get('description');
-        $thePlant->history = Input::get('history');
-
-        $this->deletePlantAttributes($plantId);
-
-        $thePlant->save();
-
-        list($seasonArray, $sizeArray, $habitatArray, $colorArray) = $this->getPlantAttributes();
-
+        // Refactor this out!
         for ($index = 0; $index < 4; $index++)
         {
             if(Input::hasFile('photo_' . $index))
             {
                 $photo = Input::file('photo_' . $index);
-                $this->photoHandler->edit($plantId, $index, $photo);
+                $this->photoHandler->edit($plantID, $index, $photo);
             }
 
             if(Input::get($index))
-                $this->photoHandler->edit($plantId, $index, null);
+                $this->photoHandler->edit($plantID, $index, null);
         }
 
-        $this->sizeHandler->edit($plantId, $sizeArray);
-        $this->seasonHandler->edit($plantId, $seasonArray);
-        $this->habitatHandler->edit($plantId, $habitatArray);
-        $this->colorHandler->edit($plantId, $colorArray);
-
         $data = array(
-            'photos' => $this->photoHandler->get($plantId),
-            'plantID' => $plantId
+            'photos' => $this->photoHandler->get($plantID),
+            'plantID' => $plantID
         );
 
         return View::make('cropView')->with('data', $data);
     }
 
     /**
-     * @param $plantId
-     */
-    protected function deletePlantAttributes($plantId)
-    {
-        $this->colorHandler->delete($plantId);
-        $this->habitatHandler->delete($plantId);
-        $this->seasonHandler->delete($plantId);
-        $this->sizeHandler->delete($plantId);
-    }
-
-    /**
-     * @return array
+     * @return array with all the attributes for the plant
      */
     protected function getPlantAttributes()
     {
+        $plantArray = array('name' => Input::get('name'), 'latin' => Input::get('name_latin'),
+            'description' => Input::get('description'), 'history' => Input::get('history'));
+
         $seasonArray = array('spring' => Input::get('spring'), 'summer' => Input::get('summer'),
             'autumn' => Input::get('autumn'), 'winter' => Input::get('winter'));
 
@@ -238,24 +197,55 @@ class PlantController extends BaseController
             'pickled' => Input::get('pickled'), 'firefood' => Input::get('firefood'), 'pot' => Input::get('pot'), 'juice' => Input::get('juice'),
             'soup' => Input::get('soup'), 'salad' => Input::get('salad'), 'dessert' => Input::get('dessert'), 'snack' => Input::get('snack'));
 
-        return array($seasonArray, $sizeArray, $habitatArray, $colorArray, $applicationArray);
+        /*$photoArray = array();
+
+        for ($index = 0; $index < 4; $index++)
+        {
+            if(Input::hasFile('photo_' . $index))
+            {
+                $photoArray[] = Input::file('photo_' . $index);
+            }
+            elseif(Input::get($index))
+            {
+                $photoArray[] = null;
+            }
+            elseif(!Input::hasFile('photo_' . $index))
+            {
+                $photoArray[] = null;
+            }
+        }*/
+
+        return array('plant' => $plantArray, 'season' => $seasonArray, 'size' => $sizeArray,
+            'habitat' => $habitatArray, 'color' => $colorArray, 'application' => $applicationArray/*, 'photo' => $photoArray*/);
     }
 
-    /**
-     * Gets all the plant information for a plant and
-     * saves it to the database.
-     * Returns the newly created plants id for further use
-     */
-    protected function savePlantDataToDb()
+    protected function getPhotosForEdit()
     {
-        $name = Input::get('name');
-        $name_latin = Input::get('name_latin');
-        $description = Input::get('description');
-        $history = Input::get('history');
+        $photoArray = array();
 
-        $plantID = DB::table('plants')->insertGetId(
-            array('name' => $name, 'name_latin' => $name_latin, 'description' => $description, 'history' => $history)
-        );
-        return $plantID;
+        for ($index = 0; $index < 4; $index++) {
+            if (Input::hasFile('photo_' . $index)) {
+                $photoArray[] = Input::file('photo_' . $index);
+            }
+            elseif(Input::get($index))
+            {
+                $photoArray[] = null;
+            }
+        }
+
+        return $photoArray;
+    }
+
+    protected function getPhotosForNewPlant()
+    {
+        $photoArray = array(null, null, null, null);
+
+        for ($index = 0; $index < 4; $index++) {
+            if (Input::hasFile('photo_' . $index)) {
+                $photoArray[$index] = Input::file('photo_' . $index);
+            }
+        }
+
+        return $photoArray;
     }
 }
