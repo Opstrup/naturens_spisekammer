@@ -54,20 +54,6 @@ class PlantController extends BaseController
         $attributeArray = $this->getPlantAttributes();
         $attributeArray['photo'] = $this->getPhotosForNewPlant();
         $newPlantId = $this->plantHandler->set($attributeArray);
-
-/*      for ($index = 0; $index < 4; $index++)
-        {
-            if(Input::hasFile('photo_' . $index))
-            {
-                $photo = Input::file('photo_' . $index);
-                $this->photoHandler->set($newPlantId, $index, $photo);
-            }
-            else
-            {
-                $this->photoHandler->set($newPlantId, $index, null);
-            }
-        }*/
-
         $photoArray = $this->photoHandler->get($newPlantId);
 
         $data = array(
@@ -144,10 +130,8 @@ class PlantController extends BaseController
 
     public function editPlant()
     {
-        // New code
         $plantID = Input::get('plantId');
         $attributesArray = $this->getPlantAttributes();
-//        $attributesArray['photo'] = $this->getPhotosForEdit();
         $this->plantHandler->edit($plantID, $attributesArray);
 
         // Refactor this out!
@@ -196,24 +180,6 @@ class PlantController extends BaseController
         $applicationArray = array('herb' => Input::get('herb'), 'thee' => Input::get('thee'), 'schnapps' => Input::get('schnapps'),
             'pickled' => Input::get('pickled'), 'firefood' => Input::get('firefood'), 'pot' => Input::get('pot'), 'juice' => Input::get('juice'),
             'soup' => Input::get('soup'), 'salad' => Input::get('salad'), 'dessert' => Input::get('dessert'), 'snack' => Input::get('snack'));
-
-        /*$photoArray = array();
-
-        for ($index = 0; $index < 4; $index++)
-        {
-            if(Input::hasFile('photo_' . $index))
-            {
-                $photoArray[] = Input::file('photo_' . $index);
-            }
-            elseif(Input::get($index))
-            {
-                $photoArray[] = null;
-            }
-            elseif(!Input::hasFile('photo_' . $index))
-            {
-                $photoArray[] = null;
-            }
-        }*/
 
         return array('plant' => $plantArray, 'season' => $seasonArray, 'size' => $sizeArray,
             'habitat' => $habitatArray, 'color' => $colorArray, 'application' => $applicationArray/*, 'photo' => $photoArray*/);

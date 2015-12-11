@@ -31,6 +31,7 @@
             {{ HTML::style('bootstrap/dist/css/bootstrap.min.css') }}
             {{ HTML::style('cropper/dist/cropper.css') }}
             {{ HTML::style('css/crop-style.css') }}
+            {{ HTML::style('css/dragAndDrop.css') }}
             <style>
 
                 a, a:visited {
@@ -79,10 +80,12 @@
 
         @yield('body')
 
+        {{ HTML::script('dropzone/dist/dropzone.js') }}
         {{ HTML::script('jquery/dist/jquery.js') }}
         {{ HTML::script('cropper/dist/cropper.js') }}
         {{ HTML::script('bootstrap/dist/js/bootstrap.min.js') }}
         {{ HTML::script('js/img-select.js') }}
         {{ HTML::script('js/img-crop.js') }}
+        {{ HTML::script('js/dragAndDrop.js') }}
     </body>
 </html>
