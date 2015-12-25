@@ -95,7 +95,7 @@ class PlantController extends BaseController
         $plantId = (Input::get('plantId'));
         $this->plantHandler->delete($plantId);
 
-        return View::make('addPlantView');
+//        return View::make('addPlantView');
     }
 
     /**
