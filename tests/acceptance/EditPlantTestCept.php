@@ -303,7 +303,7 @@ $I->uncheckOption('salad');
 $I->uncheckOption('dessert');
 $I->uncheckOption('snack');
 
-//$I->checkOption('spring');
+$I->uncheckOption('spring');
 //$I->uncheckOption('summer');
 //$I->uncheckOption('autumn');
 //$I->uncheckOption('winter');

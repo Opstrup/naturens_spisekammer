@@ -11,10 +11,12 @@
             <h1>{{ $data['plant']->name }} <small>{{ $data['plant']->name_latin }}</small></h1>
         </div>
 
-        {{ Form::open(array('url' => 'delete-plant', 'method' => 'post')) }}
+        {{--{{ Form::open(array('url' => 'delete-plant', 'method' => 'post')) }}
             {{ Form::hidden('plantId', $data['plant']->id) }}
             {{ Form::button('<i class="glyphicon glyphicon-trash"></i>', array('type' => 'submit', 'name' => 'delete plant', 'style' => 'float: right', 'title' => 'slet plante'))  }}
-        {{ Form::close() }}
+        {{ Form::close() }}--}}
+
+        {{ Form::button('<i class="glyphicon glyphicon-trash"></i>', array('type' => 'submit', 'id' => 'deletePlant', 'style' => 'float: right', 'title' => 'slet plante'))  }}
 
         {{ Form::open(array('url' => 'show-edit-plant', 'method' => 'post')) }}
             {{ Form::hidden('plantId', $data['plant']->id) }}

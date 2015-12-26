@@ -211,6 +211,8 @@
 
                 <fieldset>
                     <legend>Billeder:</legend>
+                    {{--<div class="dropzone" id="dropzone">Slip billeder her for upload.</div>--}}
+
                     @for($i = 0; $i < 4; $i++)
                         {{ Form::file('photo_' . $i) }}
                     @endfor

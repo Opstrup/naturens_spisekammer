@@ -2,28 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <?php
-
-        //set headers to NOT cache a page
-        /*header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1
-        header("Pragma: no-cache"); //HTTP 1.0
-        header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past*/
-
-        /*header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-
-        header('Cache-Control: no-store, no-cache, must-revalidate');
-
-        header('Cache-Control: post-check=0, pre-check=0', FALSE);
-
-        header('Pragma: no-cache');*/
-
-        /*header("Pragma-directive: no-cache");
-        header("Cache-directive: no-cache");
-        header("Cache-control: no-cache");
-        header("Pragma: no-cache");
-        header("Expires: 0");*/
-
-        ?>
+        <meta name="csrf-token" content="{{ Session::token() }}">
         <title>@yield('title')</title>
 
         @section('head')
@@ -31,6 +10,7 @@
             {{ HTML::style('bootstrap/dist/css/bootstrap.min.css') }}
             {{ HTML::style('cropper/dist/cropper.min.css') }}
             {{ HTML::style('css/crop-style.css') }}
+            {{ HTML::style('css/dragAndDrop.css') }}
             <style>
 
                 a, a:visited {
@@ -78,11 +58,16 @@
         <div class="col-md-12"><hr></div>
 
         @yield('body')
-
+        
         {{ HTML::script('jquery/dist/jquery.min.js') }}
         {{ HTML::script('cropper/dist/cropper.min.js') }}
+        {{ HTML::script('dropzone/dist/dropzone.js') }}
+        {{ HTML::script('jquery/dist/jquery.js') }}
+        {{ HTML::script('cropper/dist/cropper.js') }}
         {{ HTML::script('bootstrap/dist/js/bootstrap.min.js') }}
         {{ HTML::script('js/img-select.js') }}
         {{ HTML::script('js/img-crop.js') }}
+        {{ HTML::script('js/dragAndDrop.js') }}
+        {{ HTML::script('js/plantDetailView.js') }}
     </body>
 </html>

@@ -11,10 +11,12 @@
         <div class="col-md-6">
 
             <div class="page-header">
-                <h1>Rediger <small>{{ $data['plant']->name }}</small></h1>
+                <h1>Rediger
+                    <small>{{ $data['plant']->name }}</small>
+                </h1>
             </div>
 
-        {{ Form::open(array('url' => 'edit-plant', 'method' => 'post', 'files' => true)) }}
+            {{ Form::open(array('url' => 'edit-plant', 'method' => 'post', 'files' => true, 'id' => 'edit-plant')) }}
 
 
             {{ Form::label('name', 'Navn:') }}
@@ -81,6 +83,7 @@
                 </ul>
             </fieldset>
         </div>
+
         <div class="col-md-5" style="margin-top: 80px;">
             <fieldset>
                 <legend>Sæson:</legend>
@@ -216,7 +219,8 @@
                 @for($i = 0; $i < 4; $i++)
                     @if($data['photos'][$i] != 'null')
                         <div class="col-md-5">
-                            <a href={{ url($data['photos'][$i]) }} class="thumbnail" style="width: 133px; height: 230px;">
+                            <a href={{ url($data['photos'][$i]) }} class="thumbnail"
+                               style="width: 133px; height: 230px;">
                                 <img src={{ url($data['photos'][$i]) }} class="img-rounded">
                             </a>
 
@@ -225,7 +229,8 @@
                         </div>
                     @else
                         <div class="col-md-5">
-                            <a href="http://placehold.it/266x470" class="thumbnail" style="width: 133px; height: 230px;">
+                            <a href="http://placehold.it/266x470" class="thumbnail"
+                               style="width: 133px; height: 230px;">
                                 <img src="http://placehold.it/266x470" class="img-rounded">
                             </a>
 
@@ -236,7 +241,7 @@
             </fieldset>
         </div>
 
-            {{ Form::hidden('plantId', $data['plant']->id) }}
+        {{ Form::hidden('plantId', $data['plant']->id) }}
 
         <div class="col-md-1 col-md-offset-5">
             {{ Form::submit('Gem', array('class' => 'btn btn-default', 'name' => 'save')) }}
