@@ -58,7 +58,7 @@
         <div class="col-md-12"><hr></div>
 
         @yield('body')
-        
+
         {{ HTML::script('jquery/dist/jquery.min.js') }}
         {{ HTML::script('cropper/dist/cropper.min.js') }}
         {{ HTML::script('dropzone/dist/dropzone.js') }}
